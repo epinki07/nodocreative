@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Decoración navideña y para el hogar impresa en 3D en Mérida: pinos, esferas, copos, nacimiento, jarrones y más. Pide por WhatsApp.">
+<meta name="theme-color" content="#2F4A80">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Catálogo Nodo Creative">
+<meta property="og:description" content="Decoración navideña y para el hogar impresa en 3D en Mérida: pinos, esferas, copos, nacimiento, jarrones y más. Pide por WhatsApp.">
+<meta property="og:url" content="https://epinki07.github.io/nodocreative/">
+<meta property="og:image" content="https://epinki07.github.io/nodocreative/img/compartir.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/icono.png">
+<link rel="apple-touch-icon" href="img/icono.png">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Catálogo Nodo Creative</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@600;800;900&family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: phone-first. Compact brand header, sticky category bar, one card per product with a size stage that
+   scales the piece next to a cm ruler, quantity stepper that totals the order, bundles as a swipe row. */
+:root{
+  --bg:#F5F0E4; --dot:#DCD3C0; --card:#FFFDF8; --ink:#2F4A80; --ink-soft:#56709F;
+  --accent:#6E9BD6; --gold:#C9A86A; --stage:#ECE4D3; --stage2:#F6F0E3; --line:#E3DACA; --chip:#FFFFFF; --bar:rgba(245,240,228,.92);
+  --display:"Gabarito","Figtree",ui-rounded,system-ui,sans-serif;
+  --body:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#17223A; --dot:#24345A; --card:#1E2C49; --ink:#EAF0FB; --ink-soft:#A9BBDC;
+  --accent:#8DB4EA; --gold:#D9BC84; --stage:#263759; --stage2:#2C3F66; --line:#2C3E63; --chip:#22325A; --bar:rgba(23,34,58,.92); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17223A; --dot:#24345A; --card:#1E2C49; --ink:#EAF0FB; --ink-soft:#A9BBDC;
+  --accent:#8DB4EA; --gold:#D9BC84; --stage:#263759; --stage2:#2C3F66; --line:#2C3E63; --chip:#22325A; --bar:rgba(23,34,58,.92); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);background-image:radial-gradient(var(--dot) 1.3px,transparent 1.4px);background-size:22px 22px;
+  color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bar)}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto}
+button{font-family:inherit}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* header */
+header{padding-block:28px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.mark{font-family:var(--display);font-weight:800;line-height:.86;color:var(--accent);font-size:24px;letter-spacing:-.02em}
+.mark small{display:block;font-family:var(--body);font-weight:800;color:var(--gold);font-size:10px;letter-spacing:.3em;margin-top:5px}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(36px,10vw,68px);line-height:.95;letter-spacing:-.025em;margin:4px 0 0;text-wrap:balance}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{margin:0;max-width:40ch;color:var(--ink-soft);font-size:16px;text-wrap:balance}
+
+/* sticky category bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bar);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-block:10px}
+.bar .wrap::-webkit-scrollbar{display:none}
+.bar button{flex:0 0 auto;font:700 15px var(--body);color:var(--ink);background:var(--chip);border:1.5px solid var(--line);border-radius:999px;padding:9px 18px;min-height:42px;cursor:pointer}
+.bar button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+main{padding-block:18px 8px}
+#paquetes,#pedir{scroll-margin-top:72px}
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:700px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}}
+@media (min-width:1040px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* product card */
+.card{background:var(--card);border-radius:24px;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;overflow:hidden;min-width:0;scroll-margin-top:80px}
+.stage{position:relative;aspect-ratio:1/1;max-width:100%;background:radial-gradient(120% 90% at 50% 30%,var(--stage2),var(--stage));overflow:hidden}
+.stage .pic{position:absolute;inset:6% 8% 4% 14%;display:flex;align-items:flex-end;justify-content:center}
+.stage img{width:100%;height:100%;object-fit:contain;object-position:center bottom;transform-origin:50% 100%;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .25s}
+.tag{position:absolute;top:12px;left:12px;font:800 11px var(--body);letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--gold);border-radius:999px;padding:5px 11px;z-index:2}
+.ruler{position:absolute;left:5%;bottom:4%;width:28px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;transition:height .45s cubic-bezier(.2,.8,.2,1);z-index:1}
+.ruler::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:var(--ink-soft);opacity:.55}
+.ruler::after{content:"";position:absolute;left:50%;top:0;width:14px;height:2px;transform:translateX(-50%);background:var(--ink-soft);opacity:.55;box-shadow:0 calc(var(--rh,100px) - 2px) 0 var(--ink-soft)}
+.ruler span{position:relative;margin-top:-26px;font:800 13px var(--body);color:var(--ink);background:var(--card);border-radius:999px;padding:2px 8px;white-space:nowrap;box-shadow:0 1px 0 var(--line)}
+.body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card h2{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.05;margin:0;letter-spacing:-.01em}
+.card p.desc{margin:0;color:var(--ink-soft);font-size:15px}
+.sizes{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;scroll-snap-type:x proximity}
+.sizes::-webkit-scrollbar{display:none}
+.sizes button{flex:0 0 auto;scroll-snap-align:start;font:700 14px var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:14px;padding:8px 14px;min-height:44px;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
+.sizes button small{font-weight:600;font-size:12px;color:var(--ink-soft)}
+.sizes button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:#fff}
+.sizes button[aria-pressed="true"] small{color:#fff;opacity:.9}
+.specs{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.dims{display:flex;flex-direction:column;gap:2px;min-width:0}
+.dims span{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.dims b{font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+.price{font-family:var(--display);font-weight:900;font-size:32px;line-height:1;white-space:nowrap;font-variant-numeric:tabular-nums}
+.price small{font-family:var(--body);font-size:13px;font-weight:700;color:var(--ink-soft);margin-left:3px}
+
+/* quantity + order */
+.order{background:var(--stage);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.qrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.step{display:flex;align-items:center;background:var(--card);border-radius:999px;border:1.5px solid var(--line)}
+.step button{width:44px;height:44px;border:0;background:transparent;color:var(--ink);font:800 22px var(--body);cursor:pointer;border-radius:999px}
+.step output{min-width:40px;text-align:center;font:800 18px var(--body);font-variant-numeric:tabular-nums}
+.total{text-align:right;font-variant-numeric:tabular-nums}
+.total b{display:block;font-family:var(--display);font-weight:900;font-size:24px;line-height:1}
+.total small{color:var(--ink-soft);font-size:13px;font-weight:600}
+.deal{font-size:13px;font-weight:700;color:var(--gold)}
+.tiers{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tiers::-webkit-scrollbar{display:none}
+.tiers button{flex:0 0 auto;border:1.5px dashed var(--line);background:transparent;color:var(--ink);border-radius:12px;padding:6px 10px;font:600 13px var(--body);cursor:pointer;font-variant-numeric:tabular-nums;min-height:40px}
+.tiers button b{font-weight:800}
+.tiers button.on{border-style:solid;border-color:var(--accent)}
+.cta{display:grid;grid-template-columns:1fr auto;gap:8px}
+.wa{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;background:#1F9E55;color:#fff;font:800 15px var(--body);padding:12px 16px;min-height:48px;text-decoration:none}
+.wa::before,.social a::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+.copy{border:1.5px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font:800 15px var(--body);padding:12px 16px;min-height:48px;cursor:pointer}
+.wa,.social .w{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z'/%3E%3C/svg%3E")}
+.social .i{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 3.8c2.7 0 3 0 4 .1 2.7.1 4 1.4 4.1 4.1.1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.7-1.4 4-4.1 4.1-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.7-.1-4-1.4-4.1-4.1-.1-1-.1-1.3-.1-4s0-3 .1-4C3.9 5.3 5.3 4 8 3.9c1-.1 1.3-.1 4-.1zM12 2c-2.7 0-3.1 0-4.1.1C4.3 2.2 2.2 4.3 2.1 7.9 2 8.9 2 9.3 2 12s0 3.1.1 4.1c.1 3.6 2.2 5.7 5.8 5.8 1 .1 1.4.1 4.1.1s3.1 0 4.1-.1c3.6-.1 5.7-2.2 5.8-5.8.1-1 .1-1.4.1-4.1s0-3.1-.1-4.1c-.1-3.6-2.2-5.7-5.8-5.8C15.1 2 14.7 2 12 2z'/%3E%3C/svg%3E")}
+.social .f{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z'/%3E%3C/svg%3E")}
+.social{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.social a{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 18px;min-height:48px;font:800 15px var(--body);text-decoration:none;color:#fff}
+.social .w{background:#1F9E55}.social .i{background:#C13584}.social .f{background:#1877F2}
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:25;display:flex;justify-content:center;gap:10px;padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:var(--bar);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.dock a{flex:1 1 0;max-width:180px;justify-content:center;padding:10px 12px;min-height:46px;font-size:14px}
+body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+.toast{bottom:calc(86px + env(safe-area-inset-bottom,0px))!important}
+
+/* bundles */
+.sec-head{display:flex;flex-direction:column;gap:4px;padding-block:28px 12px}
+.sec-head h2{font-family:var(--display);font-weight:900;font-size:clamp(30px,8vw,46px);margin:0;line-height:1}
+.sec-head p{margin:0;color:var(--ink-soft)}
+.brow{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,82%);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
+.brow::-webkit-scrollbar{display:none}
+@media (min-width:700px){.brow{grid-auto-flow:row;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));overflow:visible;margin-inline:0;padding-inline:0}}
+.bcard{scroll-snap-align:start;background:var(--card);border-radius:22px;box-shadow:0 4px 0 var(--line);display:grid;grid-template-columns:92px minmax(0,1fr);gap:12px;padding:12px;align-items:center}
+.bcard img{width:92px;height:92px;object-fit:contain;background:var(--stage);border-radius:16px}
+.bcard h3{font-family:var(--display);font-weight:800;font-size:19px;margin:0;line-height:1.1}
+.bcard p{margin:2px 0 6px;color:var(--ink-soft);font-size:14px}
+.bcard .row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.bcard .now{font-family:var(--display);font-weight:900;font-size:24px}
+.bcard .was{color:var(--ink-soft);text-decoration:line-through;font-size:14px}
+.bcard .save{background:var(--gold);color:#fff;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:800}
+
+/* how to order */
+.how{margin-block:28px 0;background:var(--card);border-radius:24px;box-shadow:0 4px 0 var(--line);padding:22px 18px;display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:760px){.how{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);padding:30px 36px;align-items:center}}
+.how h3{font-family:var(--display);font-weight:900;font-size:clamp(28px,7vw,40px);line-height:1;margin:0}
+.how h3 em{font-style:normal;color:var(--accent)}
+.how .big{font-family:var(--display);font-weight:900;color:var(--accent);font-size:52px;line-height:1;margin-top:10px}
+.how .big + p{margin:4px 0 0;color:var(--ink-soft)}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;align-items:center}
+.steps li::before{counter-increment:s;content:counter(s);width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;font:800 17px var(--display);display:grid;place-items:center;box-shadow:0 3px 0 var(--ink)}
+.fine{text-align:center;color:var(--ink-soft);font-size:13px;margin:0;padding-block:20px 40px;text-wrap:balance}
+
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);background:var(--ink);color:var(--bg);font:700 15px var(--body);padding:12px 18px;border-radius:999px;z-index:40;transition:transform .3s,opacity .3s,visibility .3s;max-width:calc(100% - 32px);text-align:center;opacity:0;visibility:hidden}
+.toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+
+<header class="gut">
+  <div class="mark">nodo<br>creative<small>STUDIO</small></div>
+  <h1>Catálogo <em>Navidad</em><br>y hogar</h1>
+  <p class="lede">Piezas impresas en 3D bajo pedido, capa por capa. Elige tamaño y cantidad, y mándanos tu pedido.</p>
+</header>
+
+<nav class="bar" aria-label="Categorías"><div class="wrap gut">
+  <button type="button" id="f-todo" data-f="todo" aria-pressed="true">Todo</button>
+  <button type="button" id="f-navidad" data-f="navidad" aria-pressed="false">Navidad</button>
+  <button type="button" id="f-hogar" data-f="hogar" aria-pressed="false">Hogar</button>
+  <button type="button" id="f-paquetes" data-f="paquetes" aria-pressed="false">Paquetes</button>
+  <button type="button" id="f-pedir" data-f="pedir" aria-pressed="false">Cómo pedir</button>
+</div></nav>
+
+<main class="wrap gut">
+  <div class="grid" id="grid"></div>
+
+  <section id="paquetes" aria-labelledby="pk-title">
+    <div class="sec-head"><h2 id="pk-title">Paquetes</h2><p>Combinaciones listas para regalar, con precio especial.</p></div>
+    <div class="brow" id="bgrid"></div>
+  </section>
+
+  <section class="how" id="pedir" aria-labelledby="how-title">
+    <div>
+      <h3 id="how-title">¿Cómo <em>pedir</em>?</h3>
+      <div class="big">50%</div>
+      <p>de anticipo para arrancar tu impresión. El otro 50% lo pagas al recibir tu pedido.</p>
+    </div>
+    <ol class="steps">
+      <li>Elige pieza, tamaño y cantidad, y toca «Pedir por WhatsApp».</li>
+      <li>Se abre WhatsApp con tu pedido escrito: solo dinos el color y envíalo.</li>
+      <li>Te confirmamos y transfieres el 50% de anticipo.</li>
+      <li>Tu pieza entra a la impresora y te avisamos cuando esté lista.</li>
+    </ol>
+  </section>
+
+  <section class="contact" aria-labelledby="ct-title">
+    <div class="sec-head" style="text-align:center;align-items:center"><h2 id="ct-title">Escríbenos</h2><p>Te respondemos por el medio que prefieras.</p></div>
+    <div class="social">
+      <a class="w" id="c-wa" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="i" id="c-ig" target="_blank" rel="noopener">Instagram</a>
+      <a class="f" id="c-fb" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </section>
+
+  <p class="fine">Imágenes generadas del modelo 3D real de cada pieza; los colores son ilustrativos y puedes pedir el que quieras. Medidas en centímetros: ancho × fondo × alto con la pieza en su posición de uso (en copos, ancho × alto × grosor; en clips, ancho × largo × alto). Precios en pesos mexicanos.</p>
+</main>
+
+<nav class="dock social" aria-label="Contacto">
+  <a class="w" id="d-wa" target="_blank" rel="noopener">WhatsApp</a>
+  <a class="i" id="d-ig" target="_blank" rel="noopener">Instagram</a>
+  <a class="f" id="d-fb" target="_blank" rel="noopener">Facebook</a>
+</nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="precios.js"></script>
+<script>
+const PR=window.PRECIOS;
+const CONTACTO={whatsapp:'529992565297',instagram:'https://www.instagram.com/nodocreatiive/',facebook:''};
+const waLink=t=>'https://wa.me/'+CONTACTO.whatsapp+'?text='+encodeURIComponent(t);
+// h: medida que se usa para comparar tamaños dentro del mismo producto (cm)
+const P=[
+ {id:'pino',cat:'navidad',tag:'Navidad',name:'Pino navideño',desc:'Pino escalonado de pliegues profundos. Se ve increíble en repisas y mesas de centro.',
+  sizes:[{l:'10 cm',img:'img/pino.webp',d:'7.95 × 7.95 × 10.0',h:10,id:'pino10'},{l:'13 cm',img:'img/pino.webp',d:'10.3 × 10.3 × 13.0',h:13,id:'pino13'},{l:'16 cm',img:'img/pino.webp',d:'12.7 × 12.7 × 16.0',h:16,id:'pino16'}]},
+ {id:'copo',cat:'navidad',tag:'Navidad',name:'Copo de nieve',desc:'Copo para colgar en el árbol, con aro integrado.',
+  sizes:[{l:'Chico',img:'img/copo.webp',d:'4.2 × 5.0 × 0.4',dl:'Ancho × alto × grosor (cm)',h:5,id:'copo_ch'},{l:'Mediano',img:'img/copo.webp',d:'8.3 × 10.0 × 0.8',dl:'Ancho × alto × grosor (cm)',h:10,id:'copo_md'},{l:'Grande',img:'img/copo.webp',d:'12.5 × 15.0 × 1.2',dl:'Ancho × alto × grosor (cm)',h:15,id:'copo_gr'}]},
+ {id:'esferas',cat:'navidad',tag:'Navidad',name:'Esferas navideñas',desc:'Ocho diseños para tu árbol: en espiral, con gajos rectos o con relieve cruzado. Todas con aro para colgar.',
+  sizes:[{l:'Twist 1',img:'img/esfera-twist-1.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_t1'},{l:'Twist 2',img:'img/esfera-twist-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t2'},{l:'Twist 3',img:'img/esfera-twist.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t3'},
+   {l:'Recta 1',img:'img/esfera-straight-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r1'},{l:'Recta 2',img:'img/esfera-straight-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r2'},
+   {l:'Cruzada 1',img:'img/esfera-crossed-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c1'},{l:'Cruzada 2',img:'img/esfera-crossed-2.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_c2'},{l:'Cruzada 3',img:'img/esfera-crossed-3.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c3'}]},
+ {id:'acanalado',cat:'navidad',tag:'Navidad',name:'Árbol acanalado',desc:'Cono de niveles con acabado acanalado, minimalista y elegante.',
+  sizes:[{l:'Chico',img:'img/acanalado-chico.webp',d:'4.8 × 4.8 × 8.5',h:8.5,id:'acan_ch'},{l:'Grande',img:'img/acanalado-grande.webp',d:'7.0 × 7.0 × 12.5',h:12.5,id:'acan_gr'}]},
+ {id:'nacimiento',cat:'navidad',tag:'Navidad',name:'Nacimiento de 9 piezas',desc:'María, José, el Niño en el pesebre, los tres Reyes Magos, el pastor con su borrego, el ángel y el burrito.',
+  sizes:[{l:'Juego completo',img:'img/nacimiento.webp',d:'Figura más alta: 8.0 cm',dl:'Medidas',id:'nacimiento'}]},
+ {id:'reno',cat:'navidad',tag:'Navidad',name:'Reno navideño',desc:'Reno estilizado con cuerpo acanalado y cornamenta. Ideal para repisas y centros de mesa.',
+  sizes:[{l:'Única',img:'img/reno.webp',d:'4.7 × 4.6 × 13.5',id:'reno'}]},
+ {id:'origami',cat:'navidad',tag:'Navidad',name:'Árbol de origami',desc:'Pino de pliegues geométricos y caladitos que dejan pasar la luz.',
+  sizes:[{l:'Única',img:'img/origami.webp',d:'9.2 × 9.2 × 12.0',id:'origami'}]},
+ {id:'cascanueces',cat:'navidad',tag:'Navidad',name:'Cascanueces',desc:'Soldadito cascanueces de 4 piezas: cuerpo, piernas y dos brazos. Te lo entregamos armado.',
+  sizes:[{l:'Liso',img:'img/cascanueces-liso.webp',d:'Cuerpo: 4.3 × 4.4 × 12.2',id:'casc_liso'},{l:'Acanalado',img:'img/cascanueces-acanalado.webp',d:'Cuerpo: 4.3 × 4.5 × 12.2',id:'casc_acan'}]},
+ {id:'jarron',cat:'hogar',tag:'Hogar',name:'Jarrón bulbo',desc:'Jarrón decorativo de cuerpo redondo y textura de gajos finos.',
+  sizes:[{l:'Chico',img:'img/jarron-chico.webp',d:'12.2 × 12.2 × 12.0',h:12,id:'jar_ch'},{l:'Mediano',img:'img/jarron-mediano.webp',d:'15.2 × 15.2 × 15.0',h:15,id:'jar_md'},{l:'Grande',img:'img/jarron-grande.webp',d:'18.3 × 18.3 × 18.0',h:18,id:'jar_gr'}]},
+ {id:'organizador',cat:'hogar',tag:'Hogar',name:'Organizador de cables',desc:'Clip ovalado para enrollar y sujetar cables de cargadores y audífonos.',
+  sizes:[{l:'Chico',img:'img/org-chico.webp',d:'3.7 × 1.5 × 1.4',h:3.7,hl:'largo',id:'org_ch'},{l:'Mediano',img:'img/org-mediano.webp',d:'3.7 × 1.9 × 1.4',h:3.7,hl:'largo',id:'org_md'},{l:'XL',img:'img/org-xl.webp',d:'4.3 × 2.3 × 1.4',h:4.3,hl:'largo',id:'org_xl'}]},
+ {id:'clips',cat:'hogar',tag:'Hogar',name:'Clips para bolsas',desc:'Clips para cerrar bolsas de café, botanas y cereal. Por juego de 6 o sueltos.',
+  sizes:[{l:'Juego de 6',img:'img/clips.webp',d:'1.4 × 3.5 × 1.0 cada clip',dl:'Ancho × largo × alto (cm)',id:'clips',u:'juego'},{l:'Suelto',img:'img/clips.webp',d:'1.4 × 3.5 × 1.0',dl:'Ancho × largo × alto (cm)',id:'clip1'}]},
+ {id:'torre',cat:'hogar',tag:'Hogar',name:'Torre para papel XL',desc:'Torre grande para papel con acabado acanalado.',
+  sizes:[{l:'XL',img:'img/torre.webp',d:'16.0 × 19.3 × 16.0',dl:'Medidas totales (cm)',id:'torre'}]},
+];
+const fmt=n=>'$'+n.toLocaleString('es-MX');
+// Precio para n piezas: usa el escalón más alto que alcance (precio por pieza de ese escalón × n).
+function priceFor(id,n){
+  if(n<=1) return {total:PR.list[id]*n,each:PR.list[id],tier:null};
+  let best=null;for(const [t,p] of PR.tiers[id]){if(n>=t)best=[t,p];}
+  if(!best) return {total:PR.list[id]*n,each:PR.list[id],tier:null};
+  const each=best[1]/best[0];const total=n===best[0]?best[1]:Math.ceil(each*n/5)*5;
+  return {total,each:total/n,tier:best[0]};
+}
+const toast=document.getElementById('toast');let tt;
+function say(t){toast.textContent=t;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2200);}
+
+function card(pr){
+  const el=document.createElement('article');el.className='card';el.dataset.cat=pr.cat;el.id='p-'+pr.id;
+  const maxH=Math.max(...pr.sizes.map(s=>s.h||0));
+  const scaled=pr.sizes.length>1&&pr.sizes.some(s=>s.h&&s.h!==maxH);
+  el.innerHTML=`<div class="stage"><span class="tag">${pr.tag}</span>${scaled?'<div class="ruler" aria-hidden="true"><span></span></div>':''}<div class="pic"><img alt="${pr.name}" loading="lazy" decoding="async"></div></div>
+   <div class="body"><h2>${pr.name}</h2><p class="desc">${pr.desc}</p>
+   ${pr.sizes.length>1?`<div class="sizes" role="group" aria-label="Tamaño o modelo">${pr.sizes.map((s,i)=>`<button type="button" id="${pr.id}-s${i}" data-i="${i}" aria-pressed="${i===0}">${s.l}${s.h&&scaled&&!/cm/.test(s.l)?`<small>${s.h} cm</small>`:''}</button>`).join('')}</div>`:''}
+   <div class="specs"><div class="dims"><span class="dl"></span><b></b></div><div class="pr"></div></div>
+   <div class="order">
+     <div class="qrow"><div class="step" role="group" aria-label="Cantidad"><button type="button" id="${pr.id}-menos" aria-label="Quitar una">−</button><output id="${pr.id}-q">1</output><button type="button" id="${pr.id}-mas" aria-label="Agregar una">+</button></div>
+       <div class="total"><b></b><small></small></div></div>
+     <div class="deal"></div>
+     <div class="tiers" role="group" aria-label="Precio por cantidad"></div>
+     <div class="cta"><a class="wa" id="${pr.id}-wa" target="_blank" rel="noopener">Pedir por WhatsApp</a><button type="button" class="copy" id="${pr.id}-copy" aria-label="Copiar pedido">Copiar</button></div>
+   </div></div>`;
+  const img=el.querySelector('img'),dims=el.querySelector('.dims b'),dl=el.querySelector('.dl'),prc=el.querySelector('.pr'),ruler=el.querySelector('.ruler'),stage=el.querySelector('.stage');
+  const qo=el.querySelector('output'),tot=el.querySelector('.total b'),each=el.querySelector('.total small'),deal=el.querySelector('.deal'),tiers=el.querySelector('.tiers');
+  let cur=0,qty=1;
+  const unit=(s,n)=>s.u==='juego'?(n===1?'juego':'juegos'):(n===1?'pieza':'piezas');
+  function update(){
+    const s=pr.sizes[cur],r=priceFor(s.id,qty);
+    qo.textContent=qty;tot.textContent=fmt(r.total);
+    each.textContent=qty>1?`${fmt(Math.round(r.each))} c/u`:`por ${unit(s,1)}`;
+    const disc=PR.tiers[s.id].filter(([t,p])=>p/t<PR.list[s.id]-0.01);const next=disc.find(([t])=>t>qty);
+    deal.textContent=r.tier&&r.each<PR.list[s.id]-0.01?`Precio de ${r.tier}+ ${unit(s,2)} aplicado`:(next?`Desde ${next[0]} ${unit(s,2)}: ${fmt(Math.round(next[1]/next[0]))} c/u`:'');
+    tiers.hidden=!disc.length;tiers.innerHTML=disc.map(([t,p])=>`<button type="button" data-t="${t}" class="${r.tier===t?'on':''}">${t} ${unit(s,t)} · <b>${fmt(p)}</b></button>`).join('');
+    tiers.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{qty=+b.dataset.t;update();}));
+    el.querySelector('.wa').href=waLink(orderText());
+  }
+  function show(i){
+    cur=i;const s=pr.sizes[i];
+    if(img.getAttribute('src')!==s.img){img.style.opacity=0;img.onload=()=>img.style.opacity=1;img.src=s.img;}
+    img.alt=`${pr.name} ${s.l}`;dims.textContent=s.d;dl.textContent=s.dl||'Ancho × fondo × alto (cm)';prc.innerHTML=`<span class="price">${fmt(PR.list[s.id])}<small>MXN</small></span>`;
+    if(scaled){const k=Math.max(.36,(s.h||maxH)/maxH);img.style.transform=`scale(${k})`;
+      const box=stage.clientHeight*0.90*k,H=box*0.88;ruler.style.height=H+'px';ruler.style.bottom=(stage.clientHeight*0.04+box*0.06)+'px';ruler.style.setProperty('--rh',H+'px');ruler.querySelector('span').textContent=`${s.h} cm${s.hl?' '+s.hl:''}`;}
+    el.querySelectorAll('.sizes button').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.i===i)));
+    update();
+  }
+  el.querySelectorAll('.sizes button').forEach(b=>b.addEventListener('click',()=>show(+b.dataset.i)));
+  el.querySelector(`#${pr.id}-menos`).addEventListener('click',()=>{if(qty>1){qty--;update();}});
+  el.querySelector(`#${pr.id}-mas`).addEventListener('click',()=>{qty=Math.min(qty+1,200);update();});
+  function orderText(){const s=pr.sizes[cur],r=priceFor(s.id,qty);const name=pr.sizes.length>1?`${pr.name} (${s.l})`:pr.name;
+    return `Hola Nodo Creative, me interesa: ${qty} ${unit(s,qty)} de ${name}, total ${fmt(r.total)}. ¿Qué colores tienen?`;}
+  el.querySelector('.copy').addEventListener('click',async()=>{
+    const t=orderText();
+    try{await navigator.clipboard.writeText(t);say('Pedido copiado. Pégalo en tu mensaje.');}
+    catch(e){say(t);}
+  });
+  new ResizeObserver(()=>{if(scaled)show(cur);}).observe(stage);
+  show(0);return el;
+}
+const hola='Hola Nodo Creative, vi su catálogo y quiero hacer un pedido.';
+['c-wa','d-wa'].forEach(i=>document.getElementById(i).href=waLink(hola));
+['c-ig','d-ig'].forEach(i=>document.getElementById(i).href=CONTACTO.instagram);
+['c-fb','d-fb'].forEach(i=>{const a=document.getElementById(i);if(CONTACTO.facebook)a.href=CONTACTO.facebook;else a.hidden=true;});
+const grid=document.getElementById('grid');P.forEach(p=>grid.appendChild(card(p)));
+const bg=document.getElementById('bgrid');
+PR.bundles.forEach(b=>{const el=document.createElement('article');el.className='bcard';
+  el.innerHTML=`<img src="${b.img}" alt="${b.name}" loading="lazy" decoding="async"><div><h3>${b.name}</h3><p>${b.desc}</p><div class="row"><span class="now">${fmt(b.price)}</span><span class="was">${fmt(b.single)}</span><span class="save">Ahorras ${fmt(b.save)}</span></div></div>`;bg.appendChild(el);});
+const btns=[...document.querySelectorAll('.bar button')];
+btns.forEach(b=>b.addEventListener('click',()=>{
+  const f=b.dataset.f;btns.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+  if(f==='paquetes'||f==='pedir'){grid.querySelectorAll('.card').forEach(c=>c.hidden=false);document.getElementById(f).scrollIntoView({block:'start'});return;}
+  grid.querySelectorAll('.card').forEach(c=>c.hidden=!(f==='todo'||c.dataset.cat===f));
+  window.scrollTo({top:document.querySelector('.bar').offsetTop,behavior:'smooth'});
+}));
+</script>
+
+</body>
+</html>
