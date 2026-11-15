@@ -292,7 +292,7 @@ function card(pr){
   }
   function show(i){
     cur=i;const s=pr.sizes[i];
-    if(img.getAttribute('src')!==s.img){img.style.opacity=0;img.onload=()=>img.style.opacity=1;img.src=s.img;}
+    const old=img.getAttribute('src');if(!old){img.src=s.img;}else if(old!==s.img){img.style.opacity=0;img.onload=()=>img.style.opacity=1;img.src=s.img;}
     img.alt=`${pr.name} ${s.l}`;dims.textContent=s.d;dl.textContent=s.dl||'Ancho × fondo × alto (cm)';prc.innerHTML=`<span class="price">${fmt(PR.list[s.id])}<small>MXN</small></span>`;
     if(scaled){const k=Math.max(.36,(s.h||maxH)/maxH);img.style.transform=`scale(${k})`;
       const box=stage.clientHeight*0.90*k,H=box*0.88;ruler.style.height=H+'px';ruler.style.bottom=(stage.clientHeight*0.04+box*0.06)+'px';ruler.style.setProperty('--rh',H+'px');ruler.querySelector('span').textContent=`${s.h} cm${s.hl?' '+s.hl:''}`;}
@@ -310,7 +310,8 @@ function card(pr){
     catch(e){say(t);}
   });
   new ResizeObserver(()=>{if(scaled)show(cur);}).observe(stage);
-  show(0);return el;
+  if(ruler)ruler.style.transition='none';img.style.transition='none';img.loading='eager';
+  show(0);requestAnimationFrame(()=>requestAnimationFrame(()=>{if(ruler)ruler.style.transition='';img.style.transition='';}));return el;
 }
 const hola='Hola Nodo Creative, vi su catálogo y quiero hacer un pedido.';
 ['c-wa','d-wa'].forEach(i=>document.getElementById(i).href=waLink(hola));
