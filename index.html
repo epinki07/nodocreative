@@ -63,7 +63,23 @@ h1 em{font-style:normal;color:var(--accent)}
 .bar button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 
 main{padding-block:18px 8px}
-#paquetes,#pedir{scroll-margin-top:72px}
+#paquetes,#pedir,#medida{scroll-margin-top:72px}
+.slogan{margin:2px 0 0;font-family:var(--display);font-weight:800;font-size:clamp(20px,5.4vw,28px);line-height:1.15;color:var(--ink);text-wrap:balance}
+.slogan em{font-style:normal;color:var(--gold)}
+.custom{margin-top:28px;border-radius:26px;background:#2F4A80;color:#F5F0E4;padding:26px 20px;position:relative;overflow:hidden;box-shadow:0 5px 0 #6E9BD6}
+.custom::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(245,240,228,.16) 1.3px,transparent 1.4px);background-size:20px 20px;opacity:.6;pointer-events:none}
+.cu-text{position:relative;display:flex;flex-direction:column;gap:12px;max-width:760px}
+.cu-kicker{align-self:flex-start;font:800 11px var(--body);letter-spacing:.16em;text-transform:uppercase;background:var(--gold);color:#fff;border-radius:999px;padding:5px 12px}
+.custom h2{font-family:var(--display);font-weight:900;font-size:clamp(30px,8.5vw,48px);line-height:1;margin:0;text-wrap:balance}
+.custom h2 em{font-style:normal;color:#9CC3EE}
+.custom p{margin:0;font-size:16px;opacity:.92}
+.cu-ideas{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.cu-ideas li{font:700 14px var(--body);border:1.5px solid rgba(245,240,228,.4);border-radius:999px;padding:7px 13px}
+.cu-cta{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;margin-top:6px;background:#1F9E55;color:#fff;font:800 16px var(--body);text-decoration:none;border-radius:999px;padding:14px 22px;min-height:50px}
+.cu-cta::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z'/%3E%3C/svg%3E")}
+.cu-cta:focus-visible{outline:3px solid #F5F0E4;outline-offset:3px}
+.cu-note{font-size:14px!important;opacity:.8!important}
+@media (min-width:760px){.custom{padding:38px 40px}}
 .grid{display:grid;grid-template-columns:1fr;gap:18px}
 @media (min-width:700px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}}
 @media (min-width:1040px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -173,7 +189,8 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
 <header class="gut">
   <div class="mark">nodo<br>creative<small>STUDIO</small></div>
   <h1>Catálogo <em>Navidad</em><br>y hogar</h1>
-  <p class="lede">Piezas impresas en 3D bajo pedido, capa por capa. Elige tamaño y cantidad, y mándanos tu pedido.</p>
+  <p class="slogan">Tú lo imaginas, <em>nosotros lo imprimimos.</em></p>
+  <p class="lede">Piezas impresas en 3D bajo pedido, capa por capa. Elige del catálogo o pídenos algo hecho a tu medida.</p>
 </header>
 
 <nav class="bar" aria-label="Categorías"><div class="wrap gut">
@@ -181,11 +198,27 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
   <button type="button" id="f-navidad" data-f="navidad" aria-pressed="false">Navidad</button>
   <button type="button" id="f-hogar" data-f="hogar" aria-pressed="false">Hogar</button>
   <button type="button" id="f-paquetes" data-f="paquetes" aria-pressed="false">Paquetes</button>
+  <button type="button" id="f-medida" data-f="medida" aria-pressed="false">A tu medida</button>
   <button type="button" id="f-pedir" data-f="pedir" aria-pressed="false">Cómo pedir</button>
 </div></nav>
 
 <main class="wrap gut">
   <div class="grid" id="grid"></div>
+
+  <section class="custom" id="medida" aria-labelledby="cu-title">
+    <div class="cu-text">
+      <span class="cu-kicker">Hecho a tu medida</span>
+      <h2 id="cu-title">¿No está en el catálogo? <em>Lo hacemos.</em></h2>
+      <p>Esto es solo una muestra. Diseñamos e imprimimos piezas personalizadas para lo que necesites: con tu nombre, tu logo, tus colores y en el tamaño que quieras.</p>
+      <ul class="cu-ideas" aria-label="Ideas de piezas personalizadas">
+        <li>Llaveros con nombre</li><li>Recuerdos de boda</li><li>XV años y bautizos</li><li>Centros de mesa</li>
+        <li>Letreros y nombres</li><li>Regalos para empresas</li><li>Toppers de pastel</li><li>Figuras y trofeos</li>
+        <li>Piezas para eventos</li><li>Organizadores a medida</li><li>Repuestos y piezas útiles</li><li>Lo que se te ocurra</li>
+      </ul>
+      <a class="cu-cta" id="cu-wa" target="_blank" rel="noopener">Cotizar mi idea por WhatsApp</a>
+      <p class="cu-note">Cuéntanos qué necesitas, para cuándo y cuántas piezas. Si tienes una foto o un dibujo, mándalo también.</p>
+    </div>
+  </section>
 
   <section id="paquetes" aria-labelledby="pk-title">
     <div class="sec-head"><h2 id="pk-title">Paquetes</h2><p>Combinaciones listas para regalar, con precio especial.</p></div>
@@ -333,6 +366,7 @@ function card(pr){
 }
 const hola='Hola Nodo Creative, vi su catálogo y quiero hacer un pedido.';
 ['d-wa'].forEach(i=>document.getElementById(i).href=waLink(hola));
+document.getElementById('cu-wa').href=waLink('Hola Nodo Creative, quiero cotizar una pieza personalizada. Necesito: ');
 ['d-ig'].forEach(i=>document.getElementById(i).href=CONTACTO.instagram);
 ['d-tt'].forEach(i=>document.getElementById(i).href=CONTACTO.tiktok);
 ['d-fb'].forEach(i=>{const a=document.getElementById(i);if(CONTACTO.facebook)a.href=CONTACTO.facebook;else a.hidden=true;});
@@ -343,7 +377,7 @@ PR.bundles.forEach(b=>{const el=document.createElement('article');el.className='
 const btns=[...document.querySelectorAll('.bar button')];
 btns.forEach(b=>b.addEventListener('click',()=>{
   const f=b.dataset.f;btns.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
-  if(f==='paquetes'||f==='pedir'){grid.querySelectorAll('.card').forEach(c=>c.hidden=false);document.getElementById(f).scrollIntoView({block:'start'});return;}
+  if(f==='paquetes'||f==='pedir'||f==='medida'){grid.querySelectorAll('.card').forEach(c=>c.hidden=false);document.getElementById(f).scrollIntoView({block:'start'});return;}
   grid.querySelectorAll('.card').forEach(c=>c.hidden=!(f==='todo'||c.dataset.cat===f));
   window.scrollTo({top:document.querySelector('.bar').offsetTop,behavior:'smooth'});
 }));
