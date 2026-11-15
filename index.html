@@ -26,16 +26,16 @@
    scales the piece next to a cm ruler, quantity stepper that totals the order, bundles as a swipe row. */
 :root{
   --bg:#F5F0E4; --dot:#DCD3C0; --card:#FFFDF8; --ink:#2F4A80; --ink-soft:#56709F;
-  --accent:#6E9BD6; --gold:#C9A86A; --stage:#ECE4D3; --stage2:#F6F0E3; --line:#E3DACA; --chip:#FFFFFF; --bar:rgba(245,240,228,.92);
+  --accent:#6E9BD6; --gold:#C9A86A; --stage:#ECE4D3; --stage2:#F6F0E3; --soft:#ECE4D3; --line:#E3DACA; --chip:#FFFFFF; --bar:rgba(245,240,228,.92);
   --display:"Gabarito","Figtree",ui-rounded,system-ui,sans-serif;
   --body:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#17223A; --dot:#24345A; --card:#1E2C49; --ink:#EAF0FB; --ink-soft:#A9BBDC;
-  --accent:#8DB4EA; --gold:#D9BC84; --stage:#263759; --stage2:#2C3F66; --line:#2C3E63; --chip:#22325A; --bar:rgba(23,34,58,.92); color-scheme:dark}}
+  --accent:#8DB4EA; --gold:#D9BC84; --stage:#DED6C6; --stage2:#F2ECE1; --soft:#263759; --line:#2C3E63; --chip:#22325A; --bar:rgba(23,34,58,.92); color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#17223A; --dot:#24345A; --card:#1E2C49; --ink:#EAF0FB; --ink-soft:#A9BBDC;
-  --accent:#8DB4EA; --gold:#D9BC84; --stage:#263759; --stage2:#2C3F66; --line:#2C3E63; --chip:#22325A; --bar:rgba(23,34,58,.92); color-scheme:dark}
+  --accent:#8DB4EA; --gold:#D9BC84; --stage:#DED6C6; --stage2:#F2ECE1; --soft:#263759; --line:#2C3E63; --chip:#22325A; --bar:rgba(23,34,58,.92); color-scheme:dark}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -78,8 +78,8 @@ main{padding-block:18px 8px}
 .views button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 .tag{position:absolute;top:12px;left:12px;font:800 11px var(--body);letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--gold);border-radius:999px;padding:5px 11px;z-index:2}
 .ruler{position:absolute;left:5%;bottom:4%;width:28px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;transition:height .45s cubic-bezier(.2,.8,.2,1);z-index:1}
-.ruler::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:var(--ink-soft);opacity:.55}
-.ruler::after{content:"";position:absolute;left:50%;top:0;width:14px;height:2px;transform:translateX(-50%);background:var(--ink-soft);opacity:.55;box-shadow:0 calc(var(--rh,100px) - 2px) 0 var(--ink-soft)}
+.ruler::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:#56709F;opacity:.8}
+.ruler::after{content:"";position:absolute;left:50%;top:0;width:14px;height:2px;transform:translateX(-50%);background:#56709F;opacity:.8;box-shadow:0 calc(var(--rh,100px) - 2px) 0 #56709F}
 .ruler span{position:relative;margin-top:-26px;font:800 13px var(--body);color:var(--ink);background:var(--card);border-radius:999px;padding:2px 8px;white-space:nowrap;box-shadow:0 1px 0 var(--line)}
 .body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:12px;flex:1}
 .card h2{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.05;margin:0;letter-spacing:-.01em}
@@ -98,7 +98,7 @@ main{padding-block:18px 8px}
 .price small{font-family:var(--body);font-size:13px;font-weight:700;color:var(--ink-soft);margin-left:3px}
 
 /* quantity + order */
-.order{background:var(--stage);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.order{background:var(--soft);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:10px}
 .qrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .step{display:flex;align-items:center;background:var(--card);border-radius:999px;border:1.5px solid var(--line)}
 .step button{width:44px;height:44px;border:0;background:transparent;color:var(--ink);font:800 22px var(--body);cursor:pointer;border-radius:999px}
@@ -258,7 +258,7 @@ const P=[
   sizes:[{l:'Único',img:'img/te.webp',d:'8.1 × 15.3 × 8.5',dl:'Medidas totales (cm)',id:'te'}]},
  {id:'esponja',cat:'hogar',tag:'Nuevo',name:'Dispensador de esponjas',desc:'Se fija a la pared y guarda tus esponjas de repuesto; incluye tapa. Sacas una por abajo cuando la necesitas.',uso:'img/uso-esponja.webp',
   sizes:[{l:'Único',img:'img/esponja.webp',d:'8.0 × 10.3 × 21.0',id:'esponja'}]},
- {id:'rollo',cat:'hogar',tag:'Nuevo',name:'Porta rollo de cocina',desc:'Organizador de pared para rollos de cocina.',
+ {id:'rollo',cat:'hogar',tag:'Nuevo',name:'Porta rollo de cocina',desc:'Organizador de pared con tres aros de 4.5 cm para tener a la mano el aluminio, el plástico autoadherible y el papel encerado.',uso:'img/uso-rollo.webp',
   sizes:[{l:'Único',img:'img/rollo.webp',d:'16.2 × 5.7 × 1.8',dl:'Medidas totales (cm)',id:'rollo'}]},
  {id:'torre',cat:'hogar',tag:'Hogar',name:'Torre para papel XL',desc:'Torre grande para papel con acabado acanalado.',
   sizes:[{l:'XL',img:'img/torre.webp',d:'16.0 × 19.3 × 16.0',dl:'Medidas totales (cm)',id:'torre'}]},
