@@ -119,6 +119,11 @@ main{padding-block:18px 8px}
 .social{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .social a{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 18px;min-height:48px;font:800 15px var(--body);text-decoration:none;color:#fff}
 .social .w{background:#1F9E55}.social .i{background:#C13584}.social .f{background:#1877F2}
+.social .t{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9a6.3 6.3 0 1 0 5.3 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.5 4.5 0 0 1-4.4-4.7z'/%3E%3C/svg%3E")}
+.social .t{background:#111;box-shadow:inset 0 0 0 1.5px #3a3a3a}
+.dock a span{min-width:0;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:520px){.dock a:not(.w){flex:0 0 48px;padding:0}.dock a:not(.w) span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.dock a.w{flex:1 1 auto;max-width:none}}
+
 .dock{position:fixed;left:0;right:0;bottom:0;z-index:25;display:flex;justify-content:center;gap:10px;padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:var(--bar);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
 .dock{flex-wrap:nowrap!important;gap:8px}
 .dock a{flex:1 1 0;min-width:0;max-width:180px;justify-content:center;gap:6px;padding:10px 6px;min-height:46px;font-size:13.5px;white-space:nowrap}
@@ -204,6 +209,7 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
       <a class="w" id="c-wa" target="_blank" rel="noopener">WhatsApp</a>
       <a class="i" id="c-ig" target="_blank" rel="noopener">Instagram</a>
       <a class="f" id="c-fb" target="_blank" rel="noopener">Facebook</a>
+      <a class="t" id="c-tt" target="_blank" rel="noopener">TikTok</a>
     </div>
   </section>
 
@@ -211,16 +217,17 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
 </main>
 
 <nav class="dock social" aria-label="Contacto">
-  <a class="w" id="d-wa" target="_blank" rel="noopener">WhatsApp</a>
-  <a class="i" id="d-ig" target="_blank" rel="noopener">Instagram</a>
-  <a class="f" id="d-fb" target="_blank" rel="noopener">Facebook</a>
+  <a class="w" id="d-wa" target="_blank" rel="noopener"><span>WhatsApp</span></a>
+  <a class="i" id="d-ig" target="_blank" rel="noopener" aria-label="Instagram"><span>Instagram</span></a>
+  <a class="f" id="d-fb" target="_blank" rel="noopener" aria-label="Facebook"><span>Facebook</span></a>
+  <a class="t" id="d-tt" target="_blank" rel="noopener" aria-label="TikTok"><span>TikTok</span></a>
 </nav>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="precios.js"></script>
 <script>
 const PR=window.PRECIOS;
-const CONTACTO={whatsapp:'529992565297',instagram:'https://www.instagram.com/nodocreatiive/',facebook:'https://www.facebook.com/profile.php?id=61595724611242'};
+const CONTACTO={whatsapp:'529992565297',instagram:'https://www.instagram.com/nodocreatiive/',facebook:'https://www.facebook.com/profile.php?id=61595724611242',tiktok:'https://www.tiktok.com/@nodocreatiive'};
 const waLink=t=>'https://wa.me/'+CONTACTO.whatsapp+'?text='+encodeURIComponent(t);
 // h: medida que se usa para comparar tamaños dentro del mismo producto (cm)
 const P=[
@@ -318,6 +325,7 @@ function card(pr){
 const hola='Hola Nodo Creative, vi su catálogo y quiero hacer un pedido.';
 ['c-wa','d-wa'].forEach(i=>document.getElementById(i).href=waLink(hola));
 ['c-ig','d-ig'].forEach(i=>document.getElementById(i).href=CONTACTO.instagram);
+['c-tt','d-tt'].forEach(i=>document.getElementById(i).href=CONTACTO.tiktok);
 ['c-fb','d-fb'].forEach(i=>{const a=document.getElementById(i);if(CONTACTO.facebook)a.href=CONTACTO.facebook;else a.hidden=true;});
 const grid=document.getElementById('grid');P.forEach(p=>grid.appendChild(card(p)));
 const bg=document.getElementById('bgrid');
