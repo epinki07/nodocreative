@@ -203,16 +203,6 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
     </ol>
   </section>
 
-  <section class="contact" aria-labelledby="ct-title">
-    <div class="sec-head" style="text-align:center;align-items:center"><h2 id="ct-title">Escríbenos</h2><p>Te respondemos por el medio que prefieras.</p></div>
-    <div class="social">
-      <a class="w" id="c-wa" target="_blank" rel="noopener">WhatsApp</a>
-      <a class="i" id="c-ig" target="_blank" rel="noopener">Instagram</a>
-      <a class="f" id="c-fb" target="_blank" rel="noopener">Facebook</a>
-      <a class="t" id="c-tt" target="_blank" rel="noopener">TikTok</a>
-    </div>
-  </section>
-
   <p class="fine">Imágenes generadas del modelo 3D real de cada pieza; los colores son ilustrativos y puedes pedir el que quieras. Medidas en centímetros: ancho × fondo × alto con la pieza en su posición de uso (en copos, ancho × alto × grosor; en clips, ancho × largo × alto). Precios en pesos mexicanos.</p>
 </main>
 
@@ -323,10 +313,10 @@ function card(pr){
   show(0);requestAnimationFrame(()=>requestAnimationFrame(()=>{if(ruler)ruler.style.transition='';img.style.transition='';}));return el;
 }
 const hola='Hola Nodo Creative, vi su catálogo y quiero hacer un pedido.';
-['c-wa','d-wa'].forEach(i=>document.getElementById(i).href=waLink(hola));
-['c-ig','d-ig'].forEach(i=>document.getElementById(i).href=CONTACTO.instagram);
-['c-tt','d-tt'].forEach(i=>document.getElementById(i).href=CONTACTO.tiktok);
-['c-fb','d-fb'].forEach(i=>{const a=document.getElementById(i);if(CONTACTO.facebook)a.href=CONTACTO.facebook;else a.hidden=true;});
+['d-wa'].forEach(i=>document.getElementById(i).href=waLink(hola));
+['d-ig'].forEach(i=>document.getElementById(i).href=CONTACTO.instagram);
+['d-tt'].forEach(i=>document.getElementById(i).href=CONTACTO.tiktok);
+['d-fb'].forEach(i=>{const a=document.getElementById(i);if(CONTACTO.facebook)a.href=CONTACTO.facebook;else a.hidden=true;});
 const grid=document.getElementById('grid');P.forEach(p=>grid.appendChild(card(p)));
 const bg=document.getElementById('bgrid');
 PR.bundles.forEach(b=>{const el=document.createElement('article');el.className='bcard';
