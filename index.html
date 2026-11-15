@@ -198,6 +198,7 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
   <button type="button" id="f-todo" data-f="todo" aria-pressed="true">Todo</button>
   <button type="button" id="f-navidad" data-f="navidad" aria-pressed="false">Navidad</button>
   <button type="button" id="f-hogar" data-f="hogar" aria-pressed="false">Hogar</button>
+  <button type="button" id="f-llaveros" data-f="llaveros" aria-pressed="false">Llaveros</button>
   <button type="button" id="f-paquetes" data-f="paquetes" aria-pressed="false">Paquetes</button>
   <button type="button" id="f-medida" data-f="medida" aria-pressed="false">A tu medida</button>
   <button type="button" id="f-pedir" data-f="pedir" aria-pressed="false">Cómo pedir</button>
@@ -261,7 +262,7 @@ const P=[
  {id:'pino',cat:'navidad',tag:'Navidad',name:'Pino navideño',desc:'Pino escalonado de pliegues profundos. Se ve increíble en repisas y mesas de centro.',
   sizes:[{l:'10 cm',img:'img/pino.webp',d:'7.95 × 7.95 × 10.0',h:10,id:'pino10'},{l:'13 cm',img:'img/pino.webp',d:'10.3 × 10.3 × 13.0',h:13,id:'pino13'},{l:'16 cm',img:'img/pino.webp',d:'12.7 × 12.7 × 16.0',h:16,id:'pino16'}]},
  {id:'copo',cat:'navidad',tag:'Navidad',name:'Copo de nieve',desc:'Copo para colgar en el árbol, con aro integrado.',
-  sizes:[{l:'Chico',img:'img/copo.webp',d:'4.2 × 5.0 × 0.4',dl:'Ancho × alto × grosor (cm)',h:5,id:'copo_ch'},{l:'Mediano',img:'img/copo.webp',d:'8.3 × 10.0 × 0.8',dl:'Ancho × alto × grosor (cm)',h:10,id:'copo_md'},{l:'Grande',img:'img/copo.webp',d:'12.5 × 15.0 × 1.2',dl:'Ancho × alto × grosor (cm)',h:15,id:'copo_gr'}]},
+  sizes:[{l:'Mediano',img:'img/copo.webp',d:'8.3 × 10.0 × 0.8',dl:'Ancho × alto × grosor (cm)',h:10,id:'copo_md'},{l:'Grande',img:'img/copo.webp',d:'12.5 × 15.0 × 1.2',dl:'Ancho × alto × grosor (cm)',h:15,id:'copo_gr'}]},
  {id:'esferas',cat:'navidad',tag:'Navidad',name:'Esferas navideñas',desc:'Ocho diseños para tu árbol: en espiral, con gajos rectos o con relieve cruzado. Todas con aro para colgar.',
   sizes:[{l:'Twist 1',img:'img/esfera-twist-1.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_t1'},{l:'Twist 2',img:'img/esfera-twist-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t2'},{l:'Twist 3',img:'img/esfera-twist.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t3'},
    {l:'Recta 1',img:'img/esfera-straight-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r1'},{l:'Recta 2',img:'img/esfera-straight-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r2'},
@@ -294,10 +295,12 @@ const P=[
   sizes:[{l:'Único',img:'img/esponja.webp',d:'8.0 × 10.3 × 21.0',id:'esponja'}]},
  {id:'rollo',cat:'hogar',tag:'Nuevo',name:'Porta rollo de cocina',desc:'Organizador de pared con tres aros de 4.5 cm para tener a la mano el aluminio, el plástico autoadherible y el papel encerado.',uso:'img/uso-rollo.webp',
   sizes:[{l:'Único',img:'img/rollo.webp',d:'16.2 × 5.7 × 1.8',dl:'Medidas totales (cm)',id:'rollo'}]},
- {id:'hueso',cat:'hogar',tag:'Personalizable',name:'Placa de hueso personalizada',desc:'Placa en forma de hueso con argolla para el collar y el nombre de tu mascota en relieve, en los colores que elijas. Al pedir, dinos el tamaño y el nombre.',
-  sizes:[{l:'Chica',img:'img/hueso.webp',d:'4.0 × 2.4 × 0.4',dl:'Largo × alto × grosor (cm)',h:4,hl:'largo',id:'hueso_ch'},{l:'Mediana',img:'img/hueso.webp',d:'6.0 × 3.5 × 0.4',dl:'Largo × alto × grosor (cm)',h:6,hl:'largo',id:'hueso_md'},{l:'Grande',img:'img/hueso.webp',d:'8.0 × 4.7 × 0.4',dl:'Largo × alto × grosor (cm)',h:8,hl:'largo',id:'hueso_gr'}]},
  {id:'torre',cat:'hogar',tag:'Hogar',name:'Torre para papel XL',desc:'Torre grande para papel con acabado acanalado.',
   sizes:[{l:'XL',img:'img/torre.webp',d:'16.0 × 19.3 × 16.0',dl:'Medidas totales (cm)',id:'torre'}]},
+ {id:'hueso',cat:'llaveros',tag:'Personalizable',name:'Placa de hueso personalizada',desc:'Placa en forma de hueso con argolla para el collar o tu llavero, y el nombre de tu mascota en relieve, en los colores que elijas. Al pedir, dinos el tamaño y el nombre.',
+  sizes:[{l:'Chica',img:'img/hueso.webp',d:'4.0 × 2.4 × 0.4',dl:'Largo × alto × grosor (cm)',h:4,hl:'largo',id:'hueso_ch'},{l:'Mediana',img:'img/hueso.webp',d:'6.0 × 3.5 × 0.4',dl:'Largo × alto × grosor (cm)',h:6,hl:'largo',id:'hueso_md'},{l:'Grande',img:'img/hueso.webp',d:'8.0 × 4.7 × 0.4',dl:'Largo × alto × grosor (cm)',h:8,hl:'largo',id:'hueso_gr'}]},
+ {id:'llavero_copo',cat:'llaveros',tag:'Llavero',name:'Llavero copo de nieve',desc:'Copo de nieve chico con aro integrado para tu llavero o mochila. También sirve como adorno para el árbol.',
+  sizes:[{l:'Único',img:'img/copo.webp',d:'4.2 × 5.0 × 0.4',dl:'Ancho × alto × grosor (cm)',id:'copo_ch'}]},
 ];
 const fmt=n=>'$'+n.toLocaleString('es-MX');
 // Precio para n piezas: usa el escalón más alto que alcance (precio por pieza de ese escalón × n).
