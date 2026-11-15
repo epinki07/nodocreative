@@ -88,15 +88,16 @@ main{padding-block:18px 8px}
 .card{background:var(--card);border-radius:24px;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;overflow:hidden;min-width:0;scroll-margin-top:80px}
 .stage{position:relative;aspect-ratio:1/1;max-width:100%;background:radial-gradient(120% 90% at 50% 30%,var(--stage2),var(--stage));overflow:hidden}
 .stage .pic{position:absolute;inset:6% 8% 4% 14%;display:flex;align-items:flex-end;justify-content:center}
+.stage.noruler .pic{inset:6% 8% 4% 8%}
 .stage img{width:100%;height:100%;object-fit:contain;object-position:center bottom;transform-origin:50% 100%;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .25s}
-.views{position:absolute;right:10px;bottom:10px;z-index:2;display:flex;background:var(--card);border-radius:999px;padding:3px;box-shadow:0 2px 0 var(--line)}
+.views{position:absolute;right:10px;top:10px;z-index:2;display:flex;background:var(--card);border-radius:999px;padding:3px;box-shadow:0 2px 0 var(--line)}
 .views button{border:0;background:transparent;color:var(--ink);font:800 13px var(--body);padding:8px 12px;min-height:38px;border-radius:999px;cursor:pointer}
 .views button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 .tag{position:absolute;top:12px;left:12px;font:800 11px var(--body);letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--gold);border-radius:999px;padding:5px 11px;z-index:2}
 .ruler{position:absolute;left:5%;bottom:4%;width:28px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;transition:height .45s cubic-bezier(.2,.8,.2,1);z-index:1}
 .ruler::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:#56709F;opacity:.8}
 .ruler::after{content:"";position:absolute;left:50%;top:0;width:14px;height:2px;transform:translateX(-50%);background:#56709F;opacity:.8;box-shadow:0 calc(var(--rh,100px) - 2px) 0 #56709F}
-.ruler span{position:relative;margin-top:-26px;font:800 13px var(--body);color:var(--ink);background:var(--card);border-radius:999px;padding:2px 8px;white-space:nowrap;box-shadow:0 1px 0 var(--line)}
+.ruler span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font:800 13px var(--body);color:var(--ink);background:var(--card);border-radius:999px;padding:2px 8px;white-space:nowrap;box-shadow:0 1px 0 var(--line)}
 .body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:12px;flex:1}
 .card h2{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.05;margin:0;letter-spacing:-.01em}
 .card p.desc{margin:0;color:var(--ink-soft);font-size:15px}
@@ -312,7 +313,8 @@ function card(pr){
   const el=document.createElement('article');el.className='card';el.dataset.cat=pr.cat;el.id='p-'+pr.id;
   const maxH=Math.max(...pr.sizes.map(s=>s.h||0));
   const scaled=pr.sizes.length>1&&pr.sizes.some(s=>s.h&&s.h!==maxH);
-  el.innerHTML=`<div class="stage"><span class="tag">${pr.tag}</span>${scaled?'<div class="ruler" aria-hidden="true"><span></span></div>':''}<div class="pic"><img alt="${pr.name}" loading="lazy" decoding="async"></div>${pr.uso?'<div class="views" role="group" aria-label="Vista"><button type="button" data-v="0" aria-pressed="true">Pieza</button><button type="button" data-v="1" aria-pressed="false">En uso</button></div>':''}</div>
+  const ruled=scaled&&!pr.sizes.some(s=>s.hl); // la regla es vertical: solo para piezas que se miden de alto
+  el.innerHTML=`<div class="stage${ruled?'':' noruler'}"><span class="tag">${pr.tag}</span>${ruled?'<div class="ruler" aria-hidden="true"><span></span></div>':''}<div class="pic"><img alt="${pr.name}" loading="lazy" decoding="async"></div>${pr.uso?'<div class="views" role="group" aria-label="Vista"><button type="button" data-v="0" aria-pressed="true">Pieza</button><button type="button" data-v="1" aria-pressed="false">En uso</button></div>':''}</div>
    <div class="body"><h2>${pr.name}</h2><p class="desc">${pr.desc}</p>
    ${pr.sizes.length>1?`<div class="sizes" role="group" aria-label="Tamaño o modelo">${pr.sizes.map((s,i)=>`<button type="button" id="${pr.id}-s${i}" data-i="${i}" aria-pressed="${i===0}">${s.l}${s.h&&scaled&&!/cm/.test(s.l)?`<small>${s.h} cm</small>`:''}</button>`).join('')}</div>`:''}
    <div class="specs"><div class="dims"><span class="dl"></span><b></b></div><div class="pr"></div></div>
@@ -343,8 +345,8 @@ function card(pr){
     setImg(s.img);
     img.alt=`${pr.name} ${s.l}`;dims.textContent=s.d;dl.textContent=s.dl||'Ancho × fondo × alto (cm)';prc.innerHTML=`<span class="price">${fmt(PR.list[s.id])}<small>MXN</small></span>`;
     if(view===1){setImg(pr.uso);img.alt=`${pr.name} en uso`;img.style.transform='none';if(ruler)ruler.hidden=true;}
-    else if(scaled){if(ruler)ruler.hidden=false;const k=Math.max(.36,(s.h||maxH)/maxH);img.style.transform=`scale(${k})`;
-      const box=stage.clientHeight*0.90*k,H=box*0.88;ruler.style.height=H+'px';ruler.style.bottom=(stage.clientHeight*0.04+box*0.06)+'px';ruler.style.setProperty('--rh',H+'px');ruler.querySelector('span').textContent=`${s.h} cm${s.hl?' '+s.hl:''}`;}
+    else if(scaled){if(ruler)ruler.hidden=false;const k=Math.max(.5,(s.h||maxH)/maxH);img.style.transform=`scale(${k})`;
+      if(ruler){const pic=el.querySelector('.pic'),side=Math.min(pic.clientWidth,pic.clientHeight)*k,H=side*0.88;ruler.style.height=H+'px';ruler.style.bottom=(stage.clientHeight*0.04+side*0.06)+'px';ruler.style.setProperty('--rh',H+'px');ruler.querySelector('span').textContent=`${s.h} cm`;}}
     el.querySelectorAll('.sizes button').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.i===i)));
     update();
   }
