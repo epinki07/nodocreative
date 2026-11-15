@@ -73,6 +73,9 @@ main{padding-block:18px 8px}
 .stage{position:relative;aspect-ratio:1/1;max-width:100%;background:radial-gradient(120% 90% at 50% 30%,var(--stage2),var(--stage));overflow:hidden}
 .stage .pic{position:absolute;inset:6% 8% 4% 14%;display:flex;align-items:flex-end;justify-content:center}
 .stage img{width:100%;height:100%;object-fit:contain;object-position:center bottom;transform-origin:50% 100%;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .25s}
+.views{position:absolute;right:10px;bottom:10px;z-index:2;display:flex;background:var(--card);border-radius:999px;padding:3px;box-shadow:0 2px 0 var(--line)}
+.views button{border:0;background:transparent;color:var(--ink);font:800 13px var(--body);padding:8px 12px;min-height:38px;border-radius:999px;cursor:pointer}
+.views button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 .tag{position:absolute;top:12px;left:12px;font:800 11px var(--body);letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--gold);border-radius:999px;padding:5px 11px;z-index:2}
 .ruler{position:absolute;left:5%;bottom:4%;width:28px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;transition:height .45s cubic-bezier(.2,.8,.2,1);z-index:1}
 .ruler::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:var(--ink-soft);opacity:.55}
@@ -233,18 +236,30 @@ const P=[
   sizes:[{l:'Chico',img:'img/acanalado-chico.webp',d:'4.8 × 4.8 × 8.5',h:8.5,id:'acan_ch'},{l:'Grande',img:'img/acanalado-grande.webp',d:'7.0 × 7.0 × 12.5',h:12.5,id:'acan_gr'}]},
  {id:'nacimiento',cat:'navidad',tag:'Navidad',name:'Nacimiento de 9 piezas',desc:'María, José, el Niño en el pesebre, los tres Reyes Magos, el pastor con su borrego, el ángel y el burrito.',
   sizes:[{l:'Juego completo',img:'img/nacimiento.webp',d:'Figura más alta: 8.0 cm',dl:'Medidas',id:'nacimiento'}]},
+ {id:'japandi',cat:'navidad',tag:'Nuevo',name:'Esfera Japandi',desc:'Esfera de estilo japonés con gajos finos. Se arma en 3 piezas (cuerpo, tapa y colgador); te la entregamos armada.',
+  sizes:[{l:'Chico',img:'img/japandi.webp',d:'7.3 × 7.3 × 8.7',dl:'Ancho × fondo × alto con colgador (cm)',h:8.7,id:'jap_ch'},{l:'Mediano',img:'img/japandi.webp',d:'9.3 × 9.3 × 11.2',dl:'Ancho × fondo × alto con colgador (cm)',h:11.2,id:'jap_md'},{l:'Grande',img:'img/japandi.webp',d:'11.4 × 11.4 × 13.7',dl:'Ancho × fondo × alto con colgador (cm)',h:13.7,id:'jap_gr'}]},
+ {id:'estrella',cat:'navidad',tag:'Nuevo',name:'Estrella colgante',desc:'Estrella de contorno con argolla para colgar en el árbol, la puerta o la ventana.',
+  sizes:[{l:'Chica',img:'img/estrella.webp',d:'11.7 × 12.5 × 0.3',dl:'Ancho × alto × grosor (cm)',h:12.5,id:'est_ch'},{l:'Mediana',img:'img/estrella.webp',d:'15.0 × 16.0 × 0.4',dl:'Ancho × alto × grosor (cm)',h:16,id:'est_md'},{l:'Grande',img:'img/estrella.webp',d:'18.8 × 20.0 × 0.5',dl:'Ancho × alto × grosor (cm)',h:20,id:'est_gr'}]},
  {id:'reno',cat:'navidad',tag:'Navidad',name:'Reno navideño',desc:'Reno estilizado con cuerpo acanalado y cornamenta. Ideal para repisas y centros de mesa.',
   sizes:[{l:'Única',img:'img/reno.webp',d:'4.7 × 4.6 × 13.5',id:'reno'}]},
  {id:'origami',cat:'navidad',tag:'Navidad',name:'Árbol de origami',desc:'Pino de pliegues geométricos y caladitos que dejan pasar la luz.',
   sizes:[{l:'Única',img:'img/origami.webp',d:'9.2 × 9.2 × 12.0',id:'origami'}]},
  {id:'cascanueces',cat:'navidad',tag:'Navidad',name:'Cascanueces',desc:'Soldadito cascanueces de 4 piezas: cuerpo, piernas y dos brazos. Te lo entregamos armado.',
   sizes:[{l:'Liso',img:'img/cascanueces-liso.webp',d:'Cuerpo: 4.3 × 4.4 × 12.2',id:'casc_liso'},{l:'Acanalado',img:'img/cascanueces-acanalado.webp',d:'Cuerpo: 4.3 × 4.5 × 12.2',id:'casc_acan'}]},
- {id:'jarron',cat:'hogar',tag:'Hogar',name:'Jarrón bulbo',desc:'Jarrón decorativo de cuerpo redondo y textura de gajos finos.',
+ {id:'jarron',cat:'hogar',tag:'Hogar',name:'Jarrón bulbo',desc:'Jarrón decorativo de cuerpo redondo y textura de gajos finos. Ideal para flores secas.',uso:'img/uso-jarron.webp',
   sizes:[{l:'Chico',img:'img/jarron-chico.webp',d:'12.2 × 12.2 × 12.0',h:12,id:'jar_ch'},{l:'Mediano',img:'img/jarron-mediano.webp',d:'15.2 × 15.2 × 15.0',h:15,id:'jar_md'},{l:'Grande',img:'img/jarron-grande.webp',d:'18.3 × 18.3 × 18.0',h:18,id:'jar_gr'}]},
  {id:'organizador',cat:'hogar',tag:'Hogar',name:'Organizador de cables',desc:'Clip ovalado para enrollar y sujetar cables de cargadores y audífonos.',
   sizes:[{l:'Chico',img:'img/org-chico.webp',d:'3.7 × 1.5 × 1.4',h:3.7,hl:'largo',id:'org_ch'},{l:'Mediano',img:'img/org-mediano.webp',d:'3.7 × 1.9 × 1.4',h:3.7,hl:'largo',id:'org_md'},{l:'XL',img:'img/org-xl.webp',d:'4.3 × 2.3 × 1.4',h:4.3,hl:'largo',id:'org_xl'}]},
  {id:'clips',cat:'hogar',tag:'Hogar',name:'Clips para bolsas',desc:'Clips para cerrar bolsas de café, botanas y cereal. Por juego de 6 o sueltos.',
   sizes:[{l:'Juego de 6',img:'img/clips.webp',d:'1.4 × 3.5 × 1.0 cada clip',dl:'Ancho × largo × alto (cm)',id:'clips',u:'juego'},{l:'Suelto',img:'img/clips.webp',d:'1.4 × 3.5 × 1.0',dl:'Ancho × largo × alto (cm)',id:'clip1'}]},
+ {id:'clipg',cat:'hogar',tag:'Nuevo',name:'Clip grande para bolsas',desc:'Clip de presión para cerrar bolsas de café, cereal o botanas y que no se humedezcan.',uso:'img/uso-clip.webp',
+  sizes:[{l:'Chico',img:'img/clipg-ch.webp',d:'7.8 × 2.6 × 1.8',dl:'Largo × ancho × alto (cm)',h:7.8,hl:'largo',id:'clipg_ch'},{l:'Mediano',img:'img/clipg-md.webp',d:'9.9 × 2.8 × 1.8',dl:'Largo × ancho × alto (cm)',h:9.9,hl:'largo',id:'clipg_md'},{l:'Grande',img:'img/clipg-gr.webp',d:'12.9 × 3.3 × 1.8',dl:'Largo × ancho × alto (cm)',h:12.9,hl:'largo',id:'clipg_gr'}]},
+ {id:'te',cat:'hogar',tag:'Nuevo',name:'Porta bolsitas de té',desc:'Organizador para tener tus bolsitas de té o café en orden y a la mano.',uso:'img/uso-te.webp',
+  sizes:[{l:'Único',img:'img/te.webp',d:'8.1 × 15.3 × 8.5',dl:'Medidas totales (cm)',id:'te'}]},
+ {id:'esponja',cat:'hogar',tag:'Nuevo',name:'Dispensador de esponjas',desc:'Se fija a la pared y guarda tus esponjas de repuesto; incluye tapa. Sacas una por abajo cuando la necesitas.',uso:'img/uso-esponja.webp',
+  sizes:[{l:'Único',img:'img/esponja.webp',d:'8.0 × 10.3 × 21.0',id:'esponja'}]},
+ {id:'rollo',cat:'hogar',tag:'Nuevo',name:'Porta rollo de cocina',desc:'Organizador de pared para rollos de cocina.',
+  sizes:[{l:'Único',img:'img/rollo.webp',d:'16.2 × 5.7 × 1.8',dl:'Medidas totales (cm)',id:'rollo'}]},
  {id:'torre',cat:'hogar',tag:'Hogar',name:'Torre para papel XL',desc:'Torre grande para papel con acabado acanalado.',
   sizes:[{l:'XL',img:'img/torre.webp',d:'16.0 × 19.3 × 16.0',dl:'Medidas totales (cm)',id:'torre'}]},
 ];
@@ -264,7 +279,7 @@ function card(pr){
   const el=document.createElement('article');el.className='card';el.dataset.cat=pr.cat;el.id='p-'+pr.id;
   const maxH=Math.max(...pr.sizes.map(s=>s.h||0));
   const scaled=pr.sizes.length>1&&pr.sizes.some(s=>s.h&&s.h!==maxH);
-  el.innerHTML=`<div class="stage"><span class="tag">${pr.tag}</span>${scaled?'<div class="ruler" aria-hidden="true"><span></span></div>':''}<div class="pic"><img alt="${pr.name}" loading="lazy" decoding="async"></div></div>
+  el.innerHTML=`<div class="stage"><span class="tag">${pr.tag}</span>${scaled?'<div class="ruler" aria-hidden="true"><span></span></div>':''}<div class="pic"><img alt="${pr.name}" loading="lazy" decoding="async"></div>${pr.uso?'<div class="views" role="group" aria-label="Vista"><button type="button" data-v="0" aria-pressed="true">Pieza</button><button type="button" data-v="1" aria-pressed="false">En uso</button></div>':''}</div>
    <div class="body"><h2>${pr.name}</h2><p class="desc">${pr.desc}</p>
    ${pr.sizes.length>1?`<div class="sizes" role="group" aria-label="Tamaño o modelo">${pr.sizes.map((s,i)=>`<button type="button" id="${pr.id}-s${i}" data-i="${i}" aria-pressed="${i===0}">${s.l}${s.h&&scaled&&!/cm/.test(s.l)?`<small>${s.h} cm</small>`:''}</button>`).join('')}</div>`:''}
    <div class="specs"><div class="dims"><span class="dl"></span><b></b></div><div class="pr"></div></div>
@@ -277,7 +292,7 @@ function card(pr){
    </div></div>`;
   const img=el.querySelector('img'),dims=el.querySelector('.dims b'),dl=el.querySelector('.dl'),prc=el.querySelector('.pr'),ruler=el.querySelector('.ruler'),stage=el.querySelector('.stage');
   const qo=el.querySelector('output'),tot=el.querySelector('.total b'),each=el.querySelector('.total small'),deal=el.querySelector('.deal'),tiers=el.querySelector('.tiers');
-  let cur=0,qty=1;
+  let cur=0,qty=1,view=0;
   const unit=(s,n)=>s.u==='juego'?(n===1?'juego':'juegos'):(n===1?'pieza':'piezas');
   function update(){
     const s=pr.sizes[cur],r=priceFor(s.id,qty);
@@ -289,16 +304,20 @@ function card(pr){
     tiers.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{qty=+b.dataset.t;update();}));
     el.querySelector('.wa').href=waLink(orderText());
   }
+  function setImg(src){const old=img.getAttribute('src');if(!old){img.src=src;}else if(old!==src){img.style.opacity=0;img.onload=()=>img.style.opacity=1;img.src=src;}}
   function show(i){
     cur=i;const s=pr.sizes[i];
-    const old=img.getAttribute('src');if(!old){img.src=s.img;}else if(old!==s.img){img.style.opacity=0;img.onload=()=>img.style.opacity=1;img.src=s.img;}
+    setImg(s.img);
     img.alt=`${pr.name} ${s.l}`;dims.textContent=s.d;dl.textContent=s.dl||'Ancho × fondo × alto (cm)';prc.innerHTML=`<span class="price">${fmt(PR.list[s.id])}<small>MXN</small></span>`;
-    if(scaled){const k=Math.max(.36,(s.h||maxH)/maxH);img.style.transform=`scale(${k})`;
+    if(view===1){setImg(pr.uso);img.alt=`${pr.name} en uso`;img.style.transform='none';if(ruler)ruler.hidden=true;}
+    else if(scaled){if(ruler)ruler.hidden=false;const k=Math.max(.36,(s.h||maxH)/maxH);img.style.transform=`scale(${k})`;
       const box=stage.clientHeight*0.90*k,H=box*0.88;ruler.style.height=H+'px';ruler.style.bottom=(stage.clientHeight*0.04+box*0.06)+'px';ruler.style.setProperty('--rh',H+'px');ruler.querySelector('span').textContent=`${s.h} cm${s.hl?' '+s.hl:''}`;}
     el.querySelectorAll('.sizes button').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.i===i)));
     update();
   }
-  el.querySelectorAll('.sizes button').forEach(b=>b.addEventListener('click',()=>show(+b.dataset.i)));
+  el.querySelectorAll('.sizes button').forEach(b=>b.addEventListener('click',()=>{view=0;syncView();show(+b.dataset.i);}));
+  function syncView(){el.querySelectorAll('.views button').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.v===view)));}
+  el.querySelectorAll('.views button').forEach(b=>b.addEventListener('click',()=>{view=+b.dataset.v;syncView();show(cur);}));
   el.querySelector(`#${pr.id}-menos`).addEventListener('click',()=>{if(qty>1){qty--;update();}});
   el.querySelector(`#${pr.id}-mas`).addEventListener('click',()=>{qty=Math.min(qty+1,200);update();});
   function orderText(){const s=pr.sizes[cur],r=priceFor(s.id,qty);const name=pr.sizes.length>1?`${pr.name} (${s.l})`:pr.name;
