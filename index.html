@@ -123,6 +123,14 @@ main{padding-block:18px 8px}
 .sizes button small{font-weight:600;font-size:12px;color:var(--ink-soft)}
 .sizes button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--on)}
 .sizes button[aria-pressed="true"] small{color:var(--on);opacity:.85}
+.cols{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.cols .cl{flex:1 0 100%;font-size:14px;font-weight:600;color:var(--ink-soft)}
+.cols .cl b{color:var(--ink)}
+.cols button{width:32px;height:32px;flex:0 0 auto;border-radius:50%;border:2px solid var(--line);background:var(--c);cursor:pointer;padding:0;box-shadow:inset 0 0 0 2px var(--card);transition:transform .15s}
+.cols button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 3px var(--card);transform:scale(1.1)}
+.stage.dk{background:radial-gradient(120% 90% at 50% 30%,#8497BC,#51688F)}
+.stage.dk .ruler::before{background:#fff}
+.stage.dk .ruler::after{background:#fff;box-shadow:0 calc(var(--rh,100px) - 2px) 0 #fff}
 .dims{margin:0;font-size:14px;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .dims::before{content:"📏 "}
 .buy{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}
@@ -320,7 +328,7 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
     </div>
     <ol class="steps">
       <li>Elige pieza, tamaño y cantidad, y toca «Agregar al carrito». Puedes meter todas las piezas que quieras.</li>
-      <li>Abre el carrito 🛒, escribe colores y detalles, y envíanos tu pedido por WhatsApp o Instagram con todo escrito.</li>
+      <li>Abre el carrito 🛒, escribe nombres y detalles, y envíanos tu pedido por WhatsApp o Instagram con todo escrito.</li>
       <li>Te confirmamos y transfieres el 50% de anticipo.</li>
       <li>Tu pieza entra a la impresora y te avisamos cuando esté lista.</li>
     </ol>
@@ -332,7 +340,7 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
     <a class="f" id="f-fb" target="_blank" rel="noopener"><span>Facebook</span></a>
     <a class="t" id="f-tt" target="_blank" rel="noopener"><span>TikTok</span></a>
   </nav>
-  <p class="fine">Imágenes generadas del modelo 3D real de cada pieza; los colores son ilustrativos y puedes pedir el que quieras. Medidas en centímetros: ancho × fondo × alto con la pieza en su posición de uso (en copos, ancho × alto × grosor; en clips, ancho × largo × alto). Precios en pesos mexicanos.</p>
+  <p class="fine">Imágenes generadas del modelo 3D real de cada pieza. Los colores que puedes elegir son los filamentos que tenemos; el tono en pantalla es aproximado. Si quieres otro color, pregúntanos. Medidas en centímetros: ancho × fondo × alto con la pieza en su posición de uso (en copos, ancho × alto × grosor; en clips, ancho × largo × alto). Precios en pesos mexicanos.</p>
 </main>
 
 <nav class="dock social" aria-label="Contacto">
@@ -354,7 +362,7 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
     <div class="sh-foot" id="sh-foot">
       <div class="sh-total"><span>Total</span><b id="sh-total">$0</b></div>
       <div class="sh-specs" id="sh-specs">
-        <label>Colores que quieres<input id="sp-col" autocomplete="off" placeholder="Ej. pino verde, copos blancos"></label>
+        <label>Notas de color (opcional)<input id="sp-col" autocomplete="off" placeholder="Ej. placa rosa con letras blancas"></label>
         <label>Nombres, fotos u otros detalles<textarea id="sp-det" rows="2" placeholder="Ej. la placa con el nombre «Luna»"></textarea></label>
         <label>¿Para cuándo lo necesitas?<input id="sp-fecha" autocomplete="off" placeholder="Ej. 15 de diciembre"></label>
       </div>
@@ -381,51 +389,81 @@ const CONTACTO={whatsapp:'529992565297',instagram:'https://www.instagram.com/nod
 const waLink=t=>'https://wa.me/'+CONTACTO.whatsapp+'?text='+encodeURIComponent(t);
 // h: medida que se usa para comparar tamaños dentro del mismo producto (cm)
 const P=[
- {id:'pino',cat:'navidad',tag:'Navidad',name:'Pino navideño',desc:'Pino escalonado de pliegues profundos. Se ve increíble en repisas y mesas de centro.',
+ {id:'pino',col:'Blanco',cat:'navidad',tag:'Navidad',name:'Pino navideño',desc:'Pino escalonado de pliegues profundos. Se ve increíble en repisas y mesas de centro.',
   sizes:[{l:'10 cm',img:'img/pino.webp',d:'7.95 × 7.95 × 10.0',h:10,id:'pino10'},{l:'13 cm',img:'img/pino.webp',d:'10.3 × 10.3 × 13.0',h:13,id:'pino13'},{l:'16 cm',img:'img/pino.webp',d:'12.7 × 12.7 × 16.0',h:16,id:'pino16'}]},
- {id:'copo',cat:'navidad',tag:'Navidad',name:'Copo de nieve',desc:'Copo para colgar en el árbol, con aro integrado.',
+ {id:'copo',col:'Blanco',cat:'navidad',tag:'Navidad',name:'Copo de nieve',desc:'Copo para colgar en el árbol, con aro integrado.',
   sizes:[{l:'Mediano',img:'img/copo.webp',d:'8.3 × 10.0 × 0.8',dl:'Ancho × alto × grosor (cm)',h:10,id:'copo_md'},{l:'Grande',img:'img/copo.webp',d:'12.5 × 15.0 × 1.2',dl:'Ancho × alto × grosor (cm)',h:15,id:'copo_gr'}]},
- {id:'esferas',cat:'navidad',tag:'Navidad',name:'Esferas navideñas',desc:'Ocho diseños para tu árbol: en espiral, con gajos rectos o con relieve cruzado. Todas con aro para colgar.',
+ {id:'esferas',col:'Rojo',cat:'navidad',tag:'Navidad',name:'Esferas navideñas',desc:'Ocho diseños para tu árbol: en espiral, con gajos rectos o con relieve cruzado. Todas con aro para colgar.',
   sizes:[{l:'Espiral 1',img:'img/esfera-twist-1.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_t1'},{l:'Espiral 2',img:'img/esfera-twist-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t2'},{l:'Espiral 3',img:'img/esfera-twist.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t3'},
    {l:'Gajos 1',img:'img/esfera-straight-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r1'},{l:'Gajos 2',img:'img/esfera-straight-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r2'},
    {l:'Relieve 1',img:'img/esfera-crossed-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c1'},{l:'Relieve 2',img:'img/esfera-crossed-2.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_c2'},{l:'Relieve 3',img:'img/esfera-crossed-3.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c3'}]},
- {id:'acanalado',cat:'navidad',tag:'Navidad',name:'Árbol acanalado',desc:'Cono de niveles con acabado acanalado, minimalista y elegante.',
+ {id:'acanalado',col:'Beige',cat:'navidad',tag:'Navidad',name:'Árbol acanalado',desc:'Cono de niveles con acabado acanalado, minimalista y elegante.',
   sizes:[{l:'Chico',img:'img/acanalado-chico.webp',d:'4.8 × 4.8 × 8.5',h:8.5,id:'acan_ch'},{l:'Grande',img:'img/acanalado-grande.webp',d:'7.0 × 7.0 × 12.5',h:12.5,id:'acan_gr'}]},
- {id:'nacimiento',cat:'navidad',tag:'Navidad',name:'Nacimiento de 9 piezas',desc:'María, José, el Niño en el pesebre, los tres Reyes Magos, el pastor con su borrego, el ángel y el burrito.',
+ {id:'nacimiento',col:'Beige',cat:'navidad',tag:'Navidad',name:'Nacimiento de 9 piezas',desc:'María, José, el Niño en el pesebre, los tres Reyes Magos, el pastor con su borrego, el ángel y el burrito.',
   sizes:[{l:'Juego completo',img:'img/nacimiento.webp',d:'Figura más alta: 8.0 cm',dl:'Medidas',id:'nacimiento'}]},
- {id:'japandi',cat:'navidad',tag:'Nuevo',name:'Esfera Japandi',desc:'Esfera de estilo japonés con gajos finos. Se arma en 3 piezas (cuerpo, tapa y colgador); te la entregamos armada.',
+ {id:'japandi',col:'Rojo',cat:'navidad',tag:'Nuevo',name:'Esfera Japandi',desc:'Esfera de estilo japonés con gajos finos. Se arma en 3 piezas (cuerpo, tapa y colgador); te la entregamos armada.',
   sizes:[{l:'Chica',img:'img/japandi.webp',d:'7.3 × 7.3 × 8.7',dl:'Ancho × fondo × alto con colgador (cm)',h:8.7,id:'jap_ch'},{l:'Mediana',img:'img/japandi.webp',d:'9.3 × 9.3 × 11.2',dl:'Ancho × fondo × alto con colgador (cm)',h:11.2,id:'jap_md'},{l:'Grande',img:'img/japandi.webp',d:'11.4 × 11.4 × 13.7',dl:'Ancho × fondo × alto con colgador (cm)',h:13.7,id:'jap_gr'}]},
- {id:'estrella',cat:'navidad',tag:'Personalizable',name:'Estrella portarretrato',desc:'Adorno en forma de estrella con la foto de quien tú quieras al centro y argolla para colgar en el árbol. Un regalo perfecto con la foto de tus hijos, tu pareja o tu mascota. Al pedir, mándanos la foto por WhatsApp.',
+ {id:'estrella',tint:false,cat:'navidad',tag:'Personalizable',name:'Estrella portarretrato',desc:'Adorno en forma de estrella con la foto de quien tú quieras al centro y argolla para colgar en el árbol. Un regalo perfecto con la foto de tus hijos, tu pareja o tu mascota. Al pedir, mándanos la foto por WhatsApp.',
   sizes:[{l:'Chica',img:'img/estrella.webp',d:'11.7 × 12.5 × 0.3',dl:'Ancho × alto × grosor (cm)',h:12.5,id:'est_ch'},{l:'Mediana',img:'img/estrella.webp',d:'15.0 × 16.0 × 0.4',dl:'Ancho × alto × grosor (cm)',h:16,id:'est_md'},{l:'Grande',img:'img/estrella.webp',d:'18.8 × 20.0 × 0.5',dl:'Ancho × alto × grosor (cm)',h:20,id:'est_gr'}]},
- {id:'reno',cat:'navidad',tag:'Navidad',name:'Reno navideño',desc:'Reno estilizado con cuerpo acanalado y cornamenta. Ideal para repisas y centros de mesa.',
+ {id:'reno',col:'Beige',cat:'navidad',tag:'Navidad',name:'Reno navideño',desc:'Reno estilizado con cuerpo acanalado y cornamenta. Ideal para repisas y centros de mesa.',
   sizes:[{l:'Único',img:'img/reno.webp',d:'4.7 × 4.6 × 13.5',id:'reno'}]},
- {id:'origami',cat:'navidad',tag:'Navidad',name:'Árbol de origami',desc:'Pino de pliegues geométricos y caladitos que dejan pasar la luz.',
+ {id:'origami',col:'Blanco',cat:'navidad',tag:'Navidad',name:'Árbol de origami',desc:'Pino de pliegues geométricos y caladitos que dejan pasar la luz.',
   sizes:[{l:'Único',img:'img/origami.webp',d:'9.2 × 9.2 × 12.0',id:'origami'}]},
- {id:'cascanueces',cat:'navidad',tag:'Navidad',name:'Cascanueces',desc:'Soldadito cascanueces de 4 piezas: cuerpo, piernas y dos brazos. Te lo entregamos armado.',
+ {id:'cascanueces',col:'Rojo',cat:'navidad',tag:'Navidad',name:'Cascanueces',desc:'Soldadito cascanueces de 4 piezas: cuerpo, piernas y dos brazos. Te lo entregamos armado.',
   sizes:[{l:'Liso',img:'img/cascanueces-liso.webp',d:'Cuerpo: 4.3 × 4.4 × 12.2',id:'casc_liso'},{l:'Acanalado',img:'img/cascanueces-acanalado.webp',d:'Cuerpo: 4.3 × 4.5 × 12.2',id:'casc_acan'}]},
- {id:'jarron',cat:'hogar',tag:'Hogar',name:'Jarrón bulbo',desc:'Jarrón decorativo de cuerpo redondo y textura de gajos finos. Ideal para flores secas.',uso:'img/uso-jarron.webp',
+ {id:'jarron',col:'Beige',cat:'hogar',tag:'Hogar',name:'Jarrón bulbo',desc:'Jarrón decorativo de cuerpo redondo y textura de gajos finos. Ideal para flores secas.',uso:'img/uso-jarron.webp',
   sizes:[{l:'Chico',img:'img/jarron-chico.webp',d:'12.2 × 12.2 × 12.0',h:12,id:'jar_ch'},{l:'Mediano',img:'img/jarron-mediano.webp',d:'15.2 × 15.2 × 15.0',h:15,id:'jar_md'},{l:'Grande',img:'img/jarron-grande.webp',d:'18.3 × 18.3 × 18.0',h:18,id:'jar_gr'}]},
- {id:'organizador',cat:'hogar',tag:'Hogar',name:'Organizador de cables',desc:'Clip ovalado para enrollar y sujetar cables de cargadores y audífonos.',
+ {id:'organizador',col:'Negro',cat:'hogar',tag:'Hogar',name:'Organizador de cables',desc:'Clip ovalado para enrollar y sujetar cables de cargadores y audífonos.',
   sizes:[{l:'Chico',img:'img/org-chico.webp',d:'3.7 × 1.5 × 1.4',h:3.7,hl:'largo',id:'org_ch'},{l:'Mediano',img:'img/org-mediano.webp',d:'3.7 × 1.9 × 1.4',h:3.7,hl:'largo',id:'org_md'},{l:'XL',img:'img/org-xl.webp',d:'4.3 × 2.3 × 1.4',h:4.3,hl:'largo',id:'org_xl'}]},
- {id:'clips',cat:'hogar',tag:'Hogar',name:'Clips para bolsas',desc:'Clips para cerrar bolsas de café, botanas y cereal. Por juego de 6 o sueltos.',
+ {id:'clips',col:'Azul',cat:'hogar',tag:'Hogar',name:'Clips para bolsas',desc:'Clips para cerrar bolsas de café, botanas y cereal. Por juego de 6 o sueltos.',
   sizes:[{l:'Juego de 6',img:'img/clips6.webp',d:'1.4 × 3.5 × 1.0 cada clip',dl:'Ancho × largo × alto (cm)',id:'clips',u:'juego'},{l:'Suelto',img:'img/clips.webp',d:'1.4 × 3.5 × 1.0',dl:'Ancho × largo × alto (cm)',id:'clip1'}]},
- {id:'clipg',cat:'hogar',tag:'Nuevo',name:'Clip grande para bolsas',desc:'Clip de presión para cerrar bolsas de café, cereal o botanas y que no se humedezcan.',uso:'img/uso-clip.webp',
+ {id:'clipg',col:'Rojo',cat:'hogar',tag:'Nuevo',name:'Clip grande para bolsas',desc:'Clip de presión para cerrar bolsas de café, cereal o botanas y que no se humedezcan.',uso:'img/uso-clip.webp',
   sizes:[{l:'Chico',img:'img/clipg-ch.webp',d:'7.8 × 2.6 × 1.8',dl:'Largo × ancho × alto (cm)',h:7.8,hl:'largo',id:'clipg_ch'},{l:'Mediano',img:'img/clipg-md.webp',d:'9.9 × 2.8 × 1.8',dl:'Largo × ancho × alto (cm)',h:9.9,hl:'largo',id:'clipg_md'},{l:'Grande',img:'img/clipg-gr.webp',d:'12.9 × 3.3 × 1.8',dl:'Largo × ancho × alto (cm)',h:12.9,hl:'largo',id:'clipg_gr'}]},
- {id:'te',cat:'hogar',tag:'Nuevo',name:'Porta bolsitas de té',desc:'Organizador para tener tus bolsitas de té o café en orden y a la mano.',uso:'img/uso-te.webp',
+ {id:'te',col:'Gris',cat:'hogar',tag:'Nuevo',name:'Porta bolsitas de té',desc:'Organizador para tener tus bolsitas de té o café en orden y a la mano.',uso:'img/uso-te.webp',
   sizes:[{l:'Único',img:'img/te.webp',d:'8.1 × 15.3 × 8.5',dl:'Medidas totales (cm)',id:'te'}]},
- {id:'esponja',cat:'hogar',tag:'Nuevo',name:'Dispensador de esponjas',desc:'Se fija a la pared y guarda tus esponjas de repuesto; incluye tapa. Sacas una por abajo cuando la necesitas.',uso:'img/uso-esponja.webp',
+ {id:'esponja',col:'Azul',cat:'hogar',tag:'Nuevo',name:'Dispensador de esponjas',desc:'Se fija a la pared y guarda tus esponjas de repuesto; incluye tapa. Sacas una por abajo cuando la necesitas.',uso:'img/uso-esponja.webp',
   sizes:[{l:'Único',img:'img/esponja.webp',d:'8.0 × 10.3 × 21.0',id:'esponja'}]},
- {id:'rollo',cat:'hogar',tag:'Nuevo',name:'Porta rollo de cocina',desc:'Organizador de pared con tres aros de 4.5 cm para tener a la mano el aluminio, el plástico autoadherible y el papel encerado.',uso:'img/uso-rollo.webp',
+ {id:'rollo',col:'Negro',cat:'hogar',tag:'Nuevo',name:'Porta rollo de cocina',desc:'Organizador de pared con tres aros de 4.5 cm para tener a la mano el aluminio, el plástico autoadherible y el papel encerado.',uso:'img/uso-rollo.webp',
   sizes:[{l:'Único',img:'img/rollo.webp',d:'16.2 × 5.7 × 1.8',dl:'Medidas totales (cm)',id:'rollo'}]},
- {id:'torre',cat:'hogar',tag:'Hogar',name:'Torre para papel XL',desc:'Torre grande para papel con acabado acanalado.',
+ {id:'torre',col:'Gris pizarra',cat:'hogar',tag:'Hogar',name:'Torre para papel XL',desc:'Torre grande para papel con acabado acanalado.',
   sizes:[{l:'XL',img:'img/torre.webp',d:'16.0 × 19.3 × 16.0',dl:'Medidas totales (cm)',id:'torre'}]},
- {id:'hueso',cat:'llaveros',tag:'Personalizable',name:'Placa de hueso personalizada',desc:'Placa en forma de hueso con argolla para el collar o tu llavero, y el nombre de tu mascota en relieve, en los colores que elijas. Al pedir, dinos el tamaño y el nombre.',uso:'img/uso-hueso.webp',usoL:'Foto real',
+ {id:'hueso',tint:false,cat:'llaveros',tag:'Personalizable',name:'Placa de hueso personalizada',desc:'Placa en forma de hueso con argolla para el collar o tu llavero, y el nombre de tu mascota en relieve, en los colores que elijas. Al pedir, dinos el tamaño y el nombre.',uso:'img/uso-hueso.webp',usoL:'Foto real',
   sizes:[{l:'Chica',img:'img/hueso.webp',d:'4.0 × 2.4 × 0.4',dl:'Largo × alto × grosor (cm)',h:4,hl:'largo',id:'hueso_ch'},{l:'Mediana',img:'img/hueso.webp',d:'6.0 × 3.5 × 0.4',dl:'Largo × alto × grosor (cm)',h:6,hl:'largo',id:'hueso_md'},{l:'Grande',img:'img/hueso.webp',d:'8.0 × 4.7 × 0.4',dl:'Largo × alto × grosor (cm)',h:8,hl:'largo',id:'hueso_gr'}]},
- {id:'llavero_copo',cat:'llaveros',tag:'Llavero',name:'Llavero copo de nieve',desc:'Copo de nieve chico con aro integrado para tu llavero o mochila. También sirve como adorno para el árbol.',
+ {id:'llavero_copo',col:'Blanco',cat:'llaveros',tag:'Llavero',name:'Llavero copo de nieve',desc:'Copo de nieve chico con aro integrado para tu llavero o mochila. También sirve como adorno para el árbol.',
   sizes:[{l:'Único',img:'img/copo.webp',d:'4.2 × 5.0 × 0.4',dl:'Ancho × alto × grosor (cm)',id:'copo_ch'}]},
- {id:'snoopy',cat:'llaveros',tag:'Nuevo',name:'Llavero clicker Snoopy',desc:'Llavero antiestrés con un switch de teclado mecánico adentro: lo presionas y hace clic. Cara blanca con el dibujo en negro, argolla con cadena incluida.',
+ {id:'snoopy',cat:'llaveros',tag:'Nuevo',tint:false,name:'Llavero clicker de personajes',desc:'Llavero antiestrés con un switch de teclado mecánico adentro: lo presionas y hace clic. Cara en dos colores con el dibujo del personaje, argolla con cadena incluida.',
   sizes:[{l:'Único',img:'img/snoopy.webp',d:'5.1 × 4.5 × 1.7',dl:'Ancho × alto × grosor (cm)',id:'snoopy'}]},
 ];
+// Colores: son los filamentos reales del taller (los genera generar_precios.js). Cada render se pinta en el navegador
+// con el color elegido: se conserva la luz y la sombra del modelo y solo cambia el tono de la pieza.
+const COLS=PR.colors||[];
+const hexRgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const lumOf=h=>{const [r,g,b]=hexRgb(h).map(v=>v/255);return .2126*r+.7152*g+.0722*b;};
+const TINT=new Map();let tintChain=Promise.resolve();
+function loadImg(src){return new Promise((ok,no)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=no;im.src=src;});}
+async function doTint(src,hex){
+  const im=await loadImg(src),cv=document.createElement('canvas');cv.width=im.naturalWidth;cv.height=im.naturalHeight;
+  const cx=cv.getContext('2d',{willReadFrequently:true});cx.drawImage(im,0,0);
+  const id=cx.getImageData(0,0,cv.width,cv.height),d=id.data,n=d.length,hist=new Uint32Array(256);let cnt=0;
+  const isPiece=i=>{if(d[i+3]<8)return -1;const r=d[i],g=d[i+1],b=d[i+2],mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2;
+    const den=255-Math.abs(mx+mn-255);return den>0&&(mx-mn)/den>0.18?l:-1;};
+  for(let i=0;i<n;i+=4){const l=isPiece(i);if(l>=0){hist[l|0]++;cnt++;}}
+  if(!cnt)return src;
+  let acc=0,med=128;for(let k=0;k<256;k++){acc+=hist[k];if(acc>=cnt*0.6){med=k||1;break;}}
+  const T=hexRgb(hex),dark=lumOf(hex)<0.12;
+  for(let i=0;i<n;i+=4){const l=isPiece(i);if(l<0)continue;const sh=l/med;
+    for(let c=0;c<3;c++){const t=T[c];d[i+c]=sh<=1?t*(1-(1-sh)*(dark?0.6:0.8)):t+(255-t)*Math.min(1,(sh-1)*(dark?0.9:0.7));}}
+  cx.putImageData(id,0,0);
+  const blob=await new Promise(ok=>cv.toBlob(ok,'image/webp',0.9));
+  return blob?URL.createObjectURL(blob):src;
+}
+// una imagen a la vez para no trabar el teléfono; cada combinación se pinta una sola vez
+// pre: el color por defecto ya viene pintado en img/col/ (generar_colores.js); si faltara el archivo, se pinta aquí
+const slug=s=>s.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+function tinted(src,hex,pre){if(!hex)return Promise.resolve(src);const k=src+'|'+hex;
+  if(!TINT.has(k)){const paint=()=>{const p=tintChain.then(()=>doTint(src,hex)).catch(()=>src);tintChain=p;return p;};
+    if(pre){const u=src.replace(/^img\//,'img/col/').replace(/\.webp$/,'-'+slug(pre)+'.webp');TINT.set(k,loadImg(u).then(()=>u,paint));}else TINT.set(k,paint());}
+  return TINT.get(k);}
 const fmt=n=>'$'+n.toLocaleString('es-MX');
 // Precio para n piezas: usa el escalón más alto que alcance (precio por pieza de ese escalón × n).
 function priceFor(id,n){
@@ -450,11 +488,12 @@ const SPEC_KEY='nodo-especs';let specs={};try{specs=JSON.parse(localStorage.getI
 const getSpecs=()=>({col:(specs.col||'').trim(),det:(specs.det||'').trim(),fecha:(specs.fecha||'').trim()});
 const lineTotal=i=>priceFor(i.id,i.q).total;
 const cartTotal=()=>cart.reduce((a,i)=>a+lineTotal(i),0);
-function addToCart(id,name,u,q){const it=cart.find(i=>i.id===id);if(it)it.q=Math.min(it.q+q,200);else cart.push({id,name,u,q});saveCart();renderCart();}
+function addToCart(id,name,u,q){const it=cart.find(i=>i.id===id&&i.name===name);if(it)it.q=Math.min(it.q+q,200);else cart.push({id,name,u,q});saveCart();renderCart();}
 function cartText(){
   const lines=cart.map(i=>i.u==='paquete'?`• ${i.q} × ${i.name}: ${fmt(lineTotal(i))}`:`• ${i.q} ${unitName(i.u,i.q)} de ${i.name}: ${fmt(lineTotal(i))}`);
   const sp=getSpecs();
-  let t=`Hola Nodo Creative, quiero agendar este pedido:\n${lines.join('\n')}\nTotal: ${fmt(cartTotal())}\n\nColores: ${sp.col||'(por definir)'}`;
+  let t=`Hola Nodo Creative, quiero agendar este pedido:\n${lines.join('\n')}\nTotal: ${fmt(cartTotal())}`;
+  if(sp.col)t+=`\n\nNotas de color: ${sp.col}`;else if(cart.some(i=>!/, color /.test(i.name)))t+=`\n\nColores: (por definir)`;else t+='\n';
   if(sp.det)t+=`\nDetalles: ${sp.det}`;
   if(sp.fecha)t+=`\nLo necesito para: ${sp.fecha}`;
   if(cart.some(i=>i.id.startsWith('hueso'))&&!sp.det)t+=`\nNombre para la placa: `;
@@ -466,10 +505,12 @@ function card(pr){
   const el=document.createElement('article');el.className='card';el.dataset.cat=pr.cat;el.id='p-'+pr.id;
   const maxH=Math.max(...pr.sizes.map(s=>s.h||0));
   const scaled=pr.sizes.length>1&&pr.sizes.some(s=>s.h&&s.h!==maxH);
-  const ruled=scaled&&!pr.sizes.some(s=>s.hl); // la regla es vertical: solo para piezas que se miden de alto
+  const ruled=scaled&&!pr.sizes.some(s=>s.hl);
+  const tintable=pr.tint!==false&&COLS.length>0;let color=tintable?(COLS.find(c=>c.n===pr.col)||COLS[0]):null; // la regla es vertical: solo para piezas que se miden de alto
   el.innerHTML=`<div class="stage${ruled?'':' noruler'}"><span class="tag">${pr.tag}</span>${ruled?'<div class="ruler" aria-hidden="true"><span></span></div>':''}<div class="pic"><img alt="${pr.name}" loading="lazy" decoding="async"></div>${pr.uso?'<div class="views" role="group" aria-label="Vista"><button type="button" data-v="0" aria-pressed="true">Pieza</button><button type="button" data-v="1" aria-pressed="false">'+(pr.usoL||'En uso')+'</button></div>':''}</div>
    <div class="body"><h2>${pr.name}</h2><p class="desc">${pr.desc}</p>
    ${pr.sizes.length>1?`<div class="sizes" role="group" aria-label="Tamaño o modelo">${pr.sizes.map((s,i)=>`<button type="button" id="${pr.id}-s${i}" data-i="${i}" aria-pressed="${i===0}">${s.l}${s.h&&scaled&&!/cm/.test(s.l)?`<small>${s.h} cm</small>`:''}</button>`).join('')}</div>`:''}
+   ${tintable?`<div class="cols" role="group" aria-label="Color"><span class="cl">Color: <b></b></span>${COLS.map((c,i)=>`<button type="button" data-c="${i}" title="${c.n}" aria-label="Color ${c.n.toLowerCase()}" aria-pressed="false" style="--c:${c.hex}"></button>`).join('')}</div>`:''}
    <p class="dims"></p>
    <div class="buy"><div class="pr"></div>
      <div class="step" role="group" aria-label="Cantidad"><button type="button" id="${pr.id}-menos" aria-label="Quitar una">−</button><output id="${pr.id}-q">1</output><button type="button" id="${pr.id}-mas" aria-label="Agregar una">+</button></div></div>
@@ -488,12 +529,15 @@ function card(pr){
     deal.textContent=r.tier&&r.each<PR.list[s.id]-0.01?`Precio de ${r.tier}+ ${unit(s,2)}: ${fmt(Math.round(r.each))} c/u`:(next?`Desde ${next[0]} ${unit(s,2)}: ${fmt(Math.round(next[1]/next[0]))} c/u`:'');
     if(!add.classList.contains('ok'))add.innerHTML=CART_SVG+(qty>1?`Agregar ${qty} al carrito · ${fmt(r.total)}`:'Agregar al carrito');
   }
-  function setImg(src){const old=img.getAttribute('src');if(!old){img.src=src;}else if(old!==src){img.style.opacity=0;img.onload=()=>img.style.opacity=1;img.src=src;}}
+  let want='';
+  function setImg(src){const hex=color&&view===0?color.hex:null,key=src+'|'+hex;if(key===want)return;want=key;
+    tinted(src,hex,hex&&color.n===pr.col?color.n:null).then(u=>{if(want!==key)return;if(!img.getAttribute('src')){img.src=u;}else{img.style.opacity=0;img.onload=()=>img.style.opacity=1;img.src=u;}});}
   function show(i){
     cur=i;const s=pr.sizes[i];
     setImg(view===1?pr.uso:s.img);
     img.alt=`${pr.name} ${s.l}`;dims.textContent=dimText(s);dims.title=s.dl||'Ancho × fondo × alto (cm)';
-    stage.classList.toggle('photo',view===1&&!!pr.usoL);
+    stage.classList.toggle('photo',view===1&&!!pr.usoL);stage.classList.toggle('dk',view===0&&!!color&&lumOf(color.hex)>0.75);
+    if(color){el.querySelector('.cl b').textContent=color.n;el.querySelectorAll('.cols button').forEach(b=>b.setAttribute('aria-pressed',String(COLS[+b.dataset.c]===color)));}
     if(view===1){img.alt=`${pr.name}: ${(pr.usoL||'en uso').toLowerCase()}`;img.style.transform='none';if(ruler)ruler.hidden=true;}
     else if(scaled){if(ruler)ruler.hidden=false;const k=Math.max(.5,(s.h||maxH)/maxH);img.style.transform=`scale(${k})`;
       if(ruler){const pic=el.querySelector('.pic'),side=Math.min(pic.clientWidth,pic.clientHeight)*k,H=side*0.88;ruler.style.height=H+'px';ruler.style.bottom=(stage.clientHeight*0.04+side*0.06)+'px';ruler.style.setProperty('--rh',H+'px');ruler.querySelector('span').textContent=`${s.h} cm`;}}
@@ -501,12 +545,13 @@ function card(pr){
     update();
   }
   el.querySelectorAll('.sizes button').forEach(b=>b.addEventListener('click',()=>{view=0;syncView();show(+b.dataset.i);}));
+  el.querySelectorAll('.cols button').forEach(b=>b.addEventListener('click',()=>{color=COLS[+b.dataset.c];view=0;syncView();show(cur);}));
   function syncView(){el.querySelectorAll('.views button').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.v===view)));}
   el.querySelectorAll('.views button').forEach(b=>b.addEventListener('click',()=>{view=+b.dataset.v;syncView();show(cur);}));
   el.querySelector(`#${pr.id}-menos`).addEventListener('click',()=>{if(qty>1){qty--;update();}});
   el.querySelector(`#${pr.id}-mas`).addEventListener('click',()=>{qty=Math.min(qty+1,200);update();});
   add.addEventListener('click',()=>{
-    const s=pr.sizes[cur];const name=pr.sizes.length>1?`${pr.name} (${s.l})`:pr.name;
+    const s=pr.sizes[cur];const name=(pr.sizes.length>1?`${pr.name} (${s.l})`:pr.name)+(color?`, color ${color.n.toLowerCase()}`:'');
     addToCart(s.id,name,s.u||'',qty);say(`Agregado: ${qty} ${unit(s,qty)} de ${name}`);
     qty=1;add.classList.add('ok');add.textContent='✓ Agregado al carrito';const cb=document.getElementById('cartbtn');cb.classList.remove('bump');void cb.offsetWidth;cb.classList.add('bump');clearTimeout(okT);
     okT=setTimeout(()=>{add.classList.remove('ok');update();},1600);update();
@@ -566,7 +611,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!sheet.hidden)close
 document.getElementById('sh-clear').onclick=()=>{cart=[];saveCart();renderCart();say('Carrito vacío');};
 const bg=document.getElementById('bgrid');
 PR.bundles.forEach(b=>{const el=document.createElement('article');el.className='bcard';
-  el.innerHTML=`<img src="${b.img}" alt="${b.name}" loading="lazy" decoding="async"><div><h3>${b.name}</h3><p>${b.desc}</p><div class="row"><span class="now">${fmt(b.price)}</span><span class="was">${fmt(b.single)}</span><span class="save">Ahorras ${fmt(b.save)}</span></div>${b.id?`<button type="button" class="badd" id="${b.id}-add" aria-label="Agregar al carrito: Paquete ${b.name}">${CART_SVG}Agregar</button>`:''}</div>`;
+  const bp=P.find(p=>p.sizes.some(z=>z.img===b.img)),bc=bp&&bp.tint!==false&&(COLS.find(c=>c.n===bp.col)||COLS[0]);
+  el.innerHTML=`<img alt="${b.name}" decoding="async"><div><h3>${b.name}</h3><p>${b.desc}</p><div class="row"><span class="now">${fmt(b.price)}</span><span class="was">${fmt(b.single)}</span><span class="save">Ahorras ${fmt(b.save)}</span></div>${b.id?`<button type="button" class="badd" id="${b.id}-add" aria-label="Agregar al carrito: Paquete ${b.name}">${CART_SVG}Agregar</button>`:''}</div>`;
+  tinted(b.img,bc?bc.hex:null,bc&&bc.n===bp.col?bc.n:null).then(u=>el.querySelector('img').src=u);
   const ba=el.querySelector('.badd');let bt;if(ba)ba.addEventListener('click',()=>{addToCart(b.id,'Paquete '+b.name,'paquete',1);say('Agregado: Paquete '+b.name);
     ba.classList.add('ok');ba.textContent='✓ Agregado';const cb=document.getElementById('cartbtn');cb.classList.remove('bump');void cb.offsetWidth;cb.classList.add('bump');
     clearTimeout(bt);bt=setTimeout(()=>{ba.classList.remove('ok');ba.innerHTML=CART_SVG+'Agregar';},1600);});
