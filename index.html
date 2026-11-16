@@ -353,7 +353,7 @@ const P=[
   sizes:[{l:'Juego completo',img:'img/nacimiento.webp',d:'Figura más alta: 8.0 cm',dl:'Medidas',id:'nacimiento'}]},
  {id:'japandi',cat:'navidad',tag:'Nuevo',name:'Esfera Japandi',desc:'Esfera de estilo japonés con gajos finos. Se arma en 3 piezas (cuerpo, tapa y colgador); te la entregamos armada.',
   sizes:[{l:'Chico',img:'img/japandi.webp',d:'7.3 × 7.3 × 8.7',dl:'Ancho × fondo × alto con colgador (cm)',h:8.7,id:'jap_ch'},{l:'Mediano',img:'img/japandi.webp',d:'9.3 × 9.3 × 11.2',dl:'Ancho × fondo × alto con colgador (cm)',h:11.2,id:'jap_md'},{l:'Grande',img:'img/japandi.webp',d:'11.4 × 11.4 × 13.7',dl:'Ancho × fondo × alto con colgador (cm)',h:13.7,id:'jap_gr'}]},
- {id:'estrella',cat:'navidad',tag:'Nuevo',name:'Estrella colgante',desc:'Estrella de contorno con argolla para colgar en el árbol, la puerta o la ventana.',
+ {id:'estrella',cat:'navidad',tag:'Personalizable',name:'Estrella portarretrato',desc:'Adorno en forma de estrella con la foto de quien tú quieras al centro y argolla para colgar en el árbol. Un regalo perfecto con la foto de tus hijos, tu pareja o tu mascota. Al pedir, mándanos la foto por WhatsApp.',
   sizes:[{l:'Chica',img:'img/estrella.webp',d:'11.7 × 12.5 × 0.3',dl:'Ancho × alto × grosor (cm)',h:12.5,id:'est_ch'},{l:'Mediana',img:'img/estrella.webp',d:'15.0 × 16.0 × 0.4',dl:'Ancho × alto × grosor (cm)',h:16,id:'est_md'},{l:'Grande',img:'img/estrella.webp',d:'18.8 × 20.0 × 0.5',dl:'Ancho × alto × grosor (cm)',h:20,id:'est_gr'}]},
  {id:'reno',cat:'navidad',tag:'Navidad',name:'Reno navideño',desc:'Reno estilizado con cuerpo acanalado y cornamenta. Ideal para repisas y centros de mesa.',
   sizes:[{l:'Única',img:'img/reno.webp',d:'4.7 × 4.6 × 13.5',id:'reno'}]},
@@ -408,6 +408,7 @@ function cartText(){
   const lines=cart.map(i=>`• ${i.q} ${unitName(i.u,i.q)} de ${i.name}: ${fmt(lineTotal(i))}`);
   let t=`Hola Nodo Creative, quiero hacer este pedido:\n${lines.join('\n')}\nTotal: ${fmt(cartTotal())}\n\nColores que quiero: `;
   if(cart.some(i=>i.id.startsWith('hueso')))t+=`\nNombre para la placa: `;
+  if(cart.some(i=>i.id.startsWith('est_')))t+=`\nTe mando la foto para la estrella en este chat.`;
   return t;
 }
 
