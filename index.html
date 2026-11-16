@@ -117,38 +117,28 @@ main{padding-block:18px 8px}
 .body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:12px;flex:1}
 .card h2{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.05;margin:0;letter-spacing:-.01em}
 .card p.desc{margin:0;color:var(--ink-soft);font-size:15px}
-.sizes{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;scroll-snap-type:x proximity}
-.sizes::-webkit-scrollbar{display:none}
-.sizes button{flex:0 0 auto;scroll-snap-align:start;font:700 14px var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:14px;padding:8px 14px;min-height:44px;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
+.sizes{display:flex;flex-wrap:wrap;gap:8px}
+.sizes button{flex:0 0 auto;font:700 14px var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:14px;padding:8px 14px;min-height:44px;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
 .sizes button small{font-weight:600;font-size:12px;color:var(--ink-soft)}
 .sizes button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:#fff}
 .sizes button[aria-pressed="true"] small{color:#fff;opacity:.9}
-.specs{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
-.dims{display:flex;flex-direction:column;gap:2px;min-width:0}
-.dims span{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
-.dims b{font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+.dims{margin:0;font-size:14px;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.dims::before{content:"📏 "}
+.buy{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}
 .price{font-family:var(--display);font-weight:900;font-size:32px;line-height:1;white-space:nowrap;font-variant-numeric:tabular-nums}
 .price small{font-family:var(--body);font-size:13px;font-weight:700;color:var(--ink-soft);margin-left:3px}
 
-/* quantity + order */
-.order{background:var(--soft);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:10px}
-.qrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+/* quantity + add to order */
+.price .each{display:block;font-family:var(--body);font-size:13px;font-weight:600;color:var(--ink-soft);margin:4px 0 0}
 .step{display:flex;align-items:center;background:var(--card);border-radius:999px;border:1.5px solid var(--line)}
 .step button{width:44px;height:44px;border:0;background:transparent;color:var(--ink);font:800 22px var(--body);cursor:pointer;border-radius:999px}
 .step output{min-width:40px;text-align:center;font:800 18px var(--body);font-variant-numeric:tabular-nums}
-.total{text-align:right;font-variant-numeric:tabular-nums}
-.total b{display:block;font-family:var(--display);font-weight:900;font-size:24px;line-height:1}
-.total small{color:var(--ink-soft);font-size:13px;font-weight:600}
-.deal{font-size:13px;font-weight:700;color:var(--gold)}
-.tiers{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
-.tiers::-webkit-scrollbar{display:none}
-.tiers button{flex:0 0 auto;border:1.5px dashed var(--line);background:transparent;color:var(--ink);border-radius:12px;padding:6px 10px;font:600 13px var(--body);cursor:pointer;font-variant-numeric:tabular-nums;min-height:40px}
-.tiers button b{font-weight:800}
-.tiers button.on{border-style:solid;border-color:var(--accent)}
-.cta{display:grid;grid-template-columns:1fr auto;gap:8px}
+.deal{font-size:13px;font-weight:700;color:var(--gold);margin:-4px 0 0}
+.deal:empty{display:none}
+.add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:999px;background:var(--ink);color:var(--bg);font:800 16px var(--body);padding:12px 16px;min-height:50px;cursor:pointer;font-variant-numeric:tabular-nums;transition:background .2s}
+.add.ok{background:#1F9E55;color:#fff}
 .wa{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;background:#1F9E55;color:#fff;font:800 15px var(--body);padding:12px 16px;min-height:48px;text-decoration:none}
 .wa::before,.social a::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
-.copy{border:1.5px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font:800 15px var(--body);padding:12px 16px;min-height:48px;cursor:pointer}
 .wa,.social .w{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z'/%3E%3C/svg%3E")}
 .social .i{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 3.8c2.7 0 3 0 4 .1 2.7.1 4 1.4 4.1 4.1.1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.7-1.4 4-4.1 4.1-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.7-.1-4-1.4-4.1-4.1-.1-1-.1-1.3-.1-4s0-3 .1-4C3.9 5.3 5.3 4 8 3.9c1-.1 1.3-.1 4-.1zM12 2c-2.7 0-3.1 0-4.1.1C4.3 2.2 2.2 4.3 2.1 7.9 2 8.9 2 9.3 2 12s0 3.1.1 4.1c.1 3.6 2.2 5.7 5.8 5.8 1 .1 1.4.1 4.1.1s3.1 0 4.1-.1c3.6-.1 5.7-2.2 5.8-5.8.1-1 .1-1.4.1-4.1s0-3.1-.1-4.1c-.1-3.6-2.2-5.7-5.8-5.8C15.1 2 14.7 2 12 2z'/%3E%3C/svg%3E")}
 .social .f{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z'/%3E%3C/svg%3E")}
@@ -197,6 +187,45 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
 
 .toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);background:var(--ink);color:var(--bg);font:700 15px var(--body);padding:12px 18px;border-radius:999px;z-index:40;transition:transform .3s,opacity .3s,visibility .3s;max-width:calc(100% - 32px);text-align:center;opacity:0;visibility:hidden}
 .toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
+/* pasos rápidos bajo el título */
+.flow{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;max-width:760px;counter-reset:f;text-align:left}
+@media (min-width:700px){.flow{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.flow li{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:14px;box-shadow:0 2px 0 var(--line);padding:8px 10px;font-size:13px;line-height:1.25;color:var(--ink-soft)}
+.flow li::before{counter-increment:f;content:counter(f);flex:0 0 24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font:800 13px var(--display);display:grid;place-items:center}
+.flow b{color:var(--ink)}
+@media (max-width:520px){header{padding-block:18px 12px;gap:6px}.lede{display:none}h1{font-size:clamp(32px,9vw,44px)}.slogan{font-size:19px}}
+
+/* carrito: barra inferior + hoja con el pedido */
+.cartbar{position:fixed;left:0;right:0;bottom:0;z-index:26;display:flex;gap:8px;justify-content:center;padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:var(--bar);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+body.has-cart .dock{display:none}
+.cb-open{flex:1 1 auto;max-width:280px;display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 16px;min-height:48px;cursor:pointer;text-align:left;font-variant-numeric:tabular-nums}
+.cb-open .cb-n{flex:0 0 auto;min-width:28px;height:28px;border-radius:999px;background:var(--accent);color:#fff;font:800 14px var(--body);display:grid;place-items:center;padding:0 6px}
+.cb-open span.cb-t{display:flex;flex-direction:column;line-height:1.1}
+.cb-open b{font:900 18px var(--display)}
+.cb-open small{font:700 12px var(--body);color:var(--ink-soft)}
+.cartbar .wa{flex:1 1 auto;max-width:260px;white-space:nowrap}
+.cb-open,.cb-open small{white-space:nowrap}
+body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!important}
+@media (max-width:360px){.cb-open{padding:6px 10px;gap:8px}.cartbar .wa{padding:10px 12px;font-size:14px}}
+.sheet{position:fixed;inset:0;z-index:45;background:rgba(12,18,32,.55);display:flex;align-items:flex-end;justify-content:center}
+.sh-box{background:var(--card);color:var(--ink);width:100%;max-width:560px;max-height:88vh;border-radius:24px 24px 0 0;display:flex;flex-direction:column;padding:18px 16px calc(16px + env(safe-area-inset-bottom,0px))}
+@media (min-width:700px){.sheet{align-items:center}.sh-box{border-radius:24px}}
+.sh-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.sh-head h3{font:900 26px var(--display);margin:0}
+.sh-head .x{width:44px;height:44px;border-radius:50%;border:0;background:var(--soft);color:var(--ink);font:800 22px var(--body);cursor:pointer}
+.sh-list{list-style:none;margin:0;padding:0;overflow-y:auto;flex:1 1 auto}
+.sh-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.sh-list .nm{font-weight:700;line-height:1.25}
+.sh-list .nm small{display:block;font-weight:600;color:var(--ink-soft);font-size:13px}
+.sh-list .lt{font:900 18px var(--display);text-align:right;font-variant-numeric:tabular-nums}
+.sh-list .step{justify-self:start}
+.sh-list .rm{justify-self:end;border:0;background:none;color:var(--ink-soft);font:700 13px var(--body);text-decoration:underline;cursor:pointer;padding:8px 0}
+.sh-foot{display:flex;flex-direction:column;gap:10px;padding-top:12px}
+.sh-total{display:flex;justify-content:space-between;align-items:baseline;font-weight:700}
+.sh-total b{font:900 30px var(--display);font-variant-numeric:tabular-nums}
+.sh-note{margin:0;font-size:14px;color:var(--ink-soft)}
+.sh-clear{align-self:center;border:0;background:none;color:var(--ink-soft);font:700 14px var(--body);text-decoration:underline;cursor:pointer;padding:6px}
+.foot-social{padding-top:28px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -208,6 +237,12 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
   <h1>Catálogo <em>Navidad</em><br>y hogar</h1>
   <p class="slogan">Tú lo imaginas, <em>nosotros lo imprimimos.</em></p>
   <p class="lede">Piezas impresas en 3D bajo pedido, capa por capa. Elige del catálogo o pídenos algo hecho a tu medida.</p>
+  <ol class="flow" aria-label="Cómo pedir, en 4 pasos">
+    <li><span><b>Elige</b> y toca «Agregar al pedido»</span></li>
+    <li><span><b>Envía</b> tu pedido por WhatsApp</span></li>
+    <li><span><b>Anticipo</b> del 50% para empezar</span></li>
+    <li><span><b>Te avisamos</b> cuando esté listo</span></li>
+  </ol>
 </header>
 
 <nav class="bar" aria-label="Categorías"><div class="wrap gut">
@@ -256,13 +291,19 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
       <p>de anticipo para arrancar tu impresión. El otro 50% lo pagas al recibir tu pedido.</p>
     </div>
     <ol class="steps">
-      <li>Elige pieza, tamaño y cantidad, y toca «Pedir por WhatsApp».</li>
-      <li>Se abre WhatsApp con tu pedido escrito: solo dinos el color y envíalo.</li>
+      <li>Elige pieza, tamaño y cantidad, y toca «Agregar al pedido». Puedes agregar varias piezas.</li>
+      <li>Toca «Enviar pedido»: se abre WhatsApp con todo escrito. Solo dinos los colores y envíalo.</li>
       <li>Te confirmamos y transfieres el 50% de anticipo.</li>
       <li>Tu pieza entra a la impresora y te avisamos cuando esté lista.</li>
     </ol>
   </section>
 
+  <nav class="social foot-social" aria-label="Síguenos">
+    <a class="w" id="f-wa" target="_blank" rel="noopener"><span>WhatsApp</span></a>
+    <a class="i" id="f-ig" target="_blank" rel="noopener"><span>Instagram</span></a>
+    <a class="f" id="f-fb" target="_blank" rel="noopener"><span>Facebook</span></a>
+    <a class="t" id="f-tt" target="_blank" rel="noopener"><span>TikTok</span></a>
+  </nav>
   <p class="fine">Imágenes generadas del modelo 3D real de cada pieza; los colores son ilustrativos y puedes pedir el que quieras. Medidas en centímetros: ancho × fondo × alto con la pieza en su posición de uso (en copos, ancho × alto × grosor; en clips, ancho × largo × alto). Precios en pesos mexicanos.</p>
 </main>
 
@@ -272,6 +313,22 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
   <a class="f" id="d-fb" target="_blank" rel="noopener" aria-label="Facebook"><span>Facebook</span></a>
   <a class="t" id="d-tt" target="_blank" rel="noopener" aria-label="TikTok"><span>TikTok</span></a>
 </nav>
+<div class="cartbar" id="cartbar" hidden>
+  <button type="button" class="cb-open" id="cb-open" aria-label="Ver mi pedido"><span class="cb-n" id="cb-n">0</span><span class="cb-t"><b id="cb-t">$0</b><small>Ver pedido</small></span></button>
+  <a class="wa" id="cb-send" target="_blank" rel="noopener">Enviar pedido</a>
+</div>
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sh-title">
+  <div class="sh-box">
+    <div class="sh-head"><h3 id="sh-title">Tu pedido</h3><button type="button" class="x" id="sh-x" aria-label="Cerrar">×</button></div>
+    <ul class="sh-list" id="sh-list"></ul>
+    <div class="sh-foot">
+      <div class="sh-total"><span>Total</span><b id="sh-total">$0</b></div>
+      <p class="sh-note">Al enviar se abre WhatsApp con tu pedido escrito. Ahí nos dices los colores y te confirmamos.</p>
+      <a class="wa" id="sh-send" target="_blank" rel="noopener">Enviar pedido por WhatsApp</a>
+      <button type="button" class="sh-clear" id="sh-clear">Vaciar pedido</button>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="precios.js"></script>
@@ -287,9 +344,9 @@ const P=[
  {id:'copo',cat:'navidad',tag:'Navidad',name:'Copo de nieve',desc:'Copo para colgar en el árbol, con aro integrado.',
   sizes:[{l:'Mediano',img:'img/copo.webp',d:'8.3 × 10.0 × 0.8',dl:'Ancho × alto × grosor (cm)',h:10,id:'copo_md'},{l:'Grande',img:'img/copo.webp',d:'12.5 × 15.0 × 1.2',dl:'Ancho × alto × grosor (cm)',h:15,id:'copo_gr'}]},
  {id:'esferas',cat:'navidad',tag:'Navidad',name:'Esferas navideñas',desc:'Ocho diseños para tu árbol: en espiral, con gajos rectos o con relieve cruzado. Todas con aro para colgar.',
-  sizes:[{l:'Twist 1',img:'img/esfera-twist-1.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_t1'},{l:'Twist 2',img:'img/esfera-twist-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t2'},{l:'Twist 3',img:'img/esfera-twist.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t3'},
-   {l:'Recta 1',img:'img/esfera-straight-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r1'},{l:'Recta 2',img:'img/esfera-straight-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r2'},
-   {l:'Cruzada 1',img:'img/esfera-crossed-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c1'},{l:'Cruzada 2',img:'img/esfera-crossed-2.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_c2'},{l:'Cruzada 3',img:'img/esfera-crossed-3.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c3'}]},
+  sizes:[{l:'Espiral 1',img:'img/esfera-twist-1.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_t1'},{l:'Espiral 2',img:'img/esfera-twist-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t2'},{l:'Espiral 3',img:'img/esfera-twist.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t3'},
+   {l:'Gajos 1',img:'img/esfera-straight-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r1'},{l:'Gajos 2',img:'img/esfera-straight-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r2'},
+   {l:'Relieve 1',img:'img/esfera-crossed-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c1'},{l:'Relieve 2',img:'img/esfera-crossed-2.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_c2'},{l:'Relieve 3',img:'img/esfera-crossed-3.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c3'}]},
  {id:'acanalado',cat:'navidad',tag:'Navidad',name:'Árbol acanalado',desc:'Cono de niveles con acabado acanalado, minimalista y elegante.',
   sizes:[{l:'Chico',img:'img/acanalado-chico.webp',d:'4.8 × 4.8 × 8.5',h:8.5,id:'acan_ch'},{l:'Grande',img:'img/acanalado-grande.webp',d:'7.0 × 7.0 × 12.5',h:12.5,id:'acan_gr'}]},
  {id:'nacimiento',cat:'navidad',tag:'Navidad',name:'Nacimiento de 9 piezas',desc:'María, José, el Niño en el pesebre, los tres Reyes Magos, el pastor con su borrego, el ángel y el burrito.',
@@ -336,6 +393,23 @@ function priceFor(id,n){
 }
 const toast=document.getElementById('toast');let tt;
 function say(t){toast.textContent=t;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2200);}
+const unitName=(u,n)=>u==='juego'?(n===1?'juego':'juegos'):(n===1?'pieza':'piezas');
+// Medidas en una línea: "Medidas: 7.95 × 7.95 × 10.0 cm" (el detalle de qué es cada número va en el title)
+function dimText(s){const d=/cm/.test(s.d)?s.d:s.d.replace(/(\d+(?:\.\d+)?)(?!.*\d)/,'$1 cm');return /:/.test(d)?d:'Medidas: '+d;}
+
+// --- Pedido (carrito): se guarda en este navegador y se manda en un solo WhatsApp ---
+const CART_KEY='nodo-pedido';let cart=[];
+try{cart=(JSON.parse(localStorage.getItem(CART_KEY))||[]).filter(i=>i&&PR.list[i.id]!=null&&i.q>0);}catch(e){cart=[];}
+function saveCart(){try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch(e){}}
+const lineTotal=i=>priceFor(i.id,i.q).total;
+const cartTotal=()=>cart.reduce((a,i)=>a+lineTotal(i),0);
+function addToCart(id,name,u,q){const it=cart.find(i=>i.id===id);if(it)it.q=Math.min(it.q+q,200);else cart.push({id,name,u,q});saveCart();renderCart();}
+function cartText(){
+  const lines=cart.map(i=>`• ${i.q} ${unitName(i.u,i.q)} de ${i.name}: ${fmt(lineTotal(i))}`);
+  let t=`Hola Nodo Creative, quiero hacer este pedido:\n${lines.join('\n')}\nTotal: ${fmt(cartTotal())}\n\nColores que quiero: `;
+  if(cart.some(i=>i.id.startsWith('hueso')))t+=`\nNombre para la placa: `;
+  return t;
+}
 
 function card(pr){
   const el=document.createElement('article');el.className='card';el.dataset.cat=pr.cat;el.id='p-'+pr.id;
@@ -345,33 +419,29 @@ function card(pr){
   el.innerHTML=`<div class="stage${ruled?'':' noruler'}"><span class="tag">${pr.tag}</span>${ruled?'<div class="ruler" aria-hidden="true"><span></span></div>':''}<div class="pic"><img alt="${pr.name}" loading="lazy" decoding="async"></div>${pr.uso?'<div class="views" role="group" aria-label="Vista"><button type="button" data-v="0" aria-pressed="true">Pieza</button><button type="button" data-v="1" aria-pressed="false">En uso</button></div>':''}</div>
    <div class="body"><h2>${pr.name}</h2><p class="desc">${pr.desc}</p>
    ${pr.sizes.length>1?`<div class="sizes" role="group" aria-label="Tamaño o modelo">${pr.sizes.map((s,i)=>`<button type="button" id="${pr.id}-s${i}" data-i="${i}" aria-pressed="${i===0}">${s.l}${s.h&&scaled&&!/cm/.test(s.l)?`<small>${s.h} cm</small>`:''}</button>`).join('')}</div>`:''}
-   <div class="specs"><div class="dims"><span class="dl"></span><b></b></div><div class="pr"></div></div>
-   <div class="order">
-     <div class="qrow"><div class="step" role="group" aria-label="Cantidad"><button type="button" id="${pr.id}-menos" aria-label="Quitar una">−</button><output id="${pr.id}-q">1</output><button type="button" id="${pr.id}-mas" aria-label="Agregar una">+</button></div>
-       <div class="total"><b></b><small></small></div></div>
-     <div class="deal"></div>
-     <div class="tiers" role="group" aria-label="Precio por cantidad"></div>
-     <div class="cta"><a class="wa" id="${pr.id}-wa" target="_blank" rel="noopener">Pedir por WhatsApp</a><button type="button" class="copy" id="${pr.id}-copy" aria-label="Copiar pedido">Copiar</button></div>
-   </div></div>`;
-  const img=el.querySelector('img'),dims=el.querySelector('.dims b'),dl=el.querySelector('.dl'),prc=el.querySelector('.pr'),ruler=el.querySelector('.ruler'),stage=el.querySelector('.stage');
-  const qo=el.querySelector('output'),tot=el.querySelector('.total b'),each=el.querySelector('.total small'),deal=el.querySelector('.deal'),tiers=el.querySelector('.tiers');
-  let cur=0,qty=1,view=0;
-  const unit=(s,n)=>s.u==='juego'?(n===1?'juego':'juegos'):(n===1?'pieza':'piezas');
+   <p class="dims"></p>
+   <div class="buy"><div class="pr"></div>
+     <div class="step" role="group" aria-label="Cantidad"><button type="button" id="${pr.id}-menos" aria-label="Quitar una">−</button><output id="${pr.id}-q">1</output><button type="button" id="${pr.id}-mas" aria-label="Agregar una">+</button></div></div>
+   <p class="deal"></p>
+   <button type="button" class="add" id="${pr.id}-add">Agregar al pedido</button>
+   </div>`;
+  const img=el.querySelector('img'),dims=el.querySelector('.dims'),prc=el.querySelector('.pr'),ruler=el.querySelector('.ruler'),stage=el.querySelector('.stage');
+  const qo=el.querySelector('output'),deal=el.querySelector('.deal'),add=el.querySelector('.add');
+  let cur=0,qty=1,view=0,okT;
+  const unit=(s,n)=>unitName(s.u,n);
   function update(){
     const s=pr.sizes[cur],r=priceFor(s.id,qty);
-    qo.textContent=qty;tot.textContent=fmt(r.total);
-    each.textContent=qty>1?`${fmt(Math.round(r.each))} c/u`:`por ${unit(s,1)}`;
+    qo.textContent=qty;
+    prc.innerHTML=`<span class="price">${fmt(PR.list[s.id])}<small>MXN</small><span class="each">por ${unit(s,1)}</span></span>`;
     const disc=PR.tiers[s.id].filter(([t,p])=>p/t<PR.list[s.id]-0.01);const next=disc.find(([t])=>t>qty);
-    deal.textContent=r.tier&&r.each<PR.list[s.id]-0.01?`Precio de ${r.tier}+ ${unit(s,2)} aplicado`:(next?`Desde ${next[0]} ${unit(s,2)}: ${fmt(Math.round(next[1]/next[0]))} c/u`:'');
-    tiers.hidden=!disc.length;tiers.innerHTML=disc.map(([t,p])=>`<button type="button" data-t="${t}" class="${r.tier===t?'on':''}">${t} ${unit(s,t)} · <b>${fmt(p)}</b></button>`).join('');
-    tiers.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{qty=+b.dataset.t;update();}));
-    el.querySelector('.wa').href=waLink(orderText());
+    deal.textContent=r.tier&&r.each<PR.list[s.id]-0.01?`Precio de ${r.tier}+ ${unit(s,2)}: ${fmt(Math.round(r.each))} c/u`:(next?`Desde ${next[0]} ${unit(s,2)}: ${fmt(Math.round(next[1]/next[0]))} c/u`:'');
+    if(!add.classList.contains('ok'))add.textContent=qty>1?`Agregar ${qty} al pedido · ${fmt(r.total)}`:'Agregar al pedido';
   }
   function setImg(src){const old=img.getAttribute('src');if(!old){img.src=src;}else if(old!==src){img.style.opacity=0;img.onload=()=>img.style.opacity=1;img.src=src;}}
   function show(i){
     cur=i;const s=pr.sizes[i];
     setImg(s.img);
-    img.alt=`${pr.name} ${s.l}`;dims.textContent=s.d;dl.textContent=s.dl||'Ancho × fondo × alto (cm)';prc.innerHTML=`<span class="price">${fmt(PR.list[s.id])}<small>MXN</small></span>`;
+    img.alt=`${pr.name} ${s.l}`;dims.textContent=dimText(s);dims.title=s.dl||'Ancho × fondo × alto (cm)';
     if(view===1){setImg(pr.uso);img.alt=`${pr.name} en uso`;img.style.transform='none';if(ruler)ruler.hidden=true;}
     else if(scaled){if(ruler)ruler.hidden=false;const k=Math.max(.5,(s.h||maxH)/maxH);img.style.transform=`scale(${k})`;
       if(ruler){const pic=el.querySelector('.pic'),side=Math.min(pic.clientWidth,pic.clientHeight)*k,H=side*0.88;ruler.style.height=H+'px';ruler.style.bottom=(stage.clientHeight*0.04+side*0.06)+'px';ruler.style.setProperty('--rh',H+'px');ruler.querySelector('span').textContent=`${s.h} cm`;}}
@@ -383,24 +453,52 @@ function card(pr){
   el.querySelectorAll('.views button').forEach(b=>b.addEventListener('click',()=>{view=+b.dataset.v;syncView();show(cur);}));
   el.querySelector(`#${pr.id}-menos`).addEventListener('click',()=>{if(qty>1){qty--;update();}});
   el.querySelector(`#${pr.id}-mas`).addEventListener('click',()=>{qty=Math.min(qty+1,200);update();});
-  function orderText(){const s=pr.sizes[cur],r=priceFor(s.id,qty);const name=pr.sizes.length>1?`${pr.name} (${s.l})`:pr.name;
-    return `Hola Nodo Creative, me interesa: ${qty} ${unit(s,qty)} de ${name}, total ${fmt(r.total)}. ¿Qué colores tienen?`;}
-  el.querySelector('.copy').addEventListener('click',async()=>{
-    const t=orderText();
-    try{await navigator.clipboard.writeText(t);say('Pedido copiado. Pégalo en tu mensaje.');}
-    catch(e){say(t);}
+  add.addEventListener('click',()=>{
+    const s=pr.sizes[cur];const name=pr.sizes.length>1?`${pr.name} (${s.l})`:pr.name;
+    addToCart(s.id,name,s.u||'',qty);say(`Agregado: ${qty} ${unit(s,qty)} de ${name}`);
+    qty=1;add.classList.add('ok');add.textContent='✓ Agregado a tu pedido';clearTimeout(okT);
+    okT=setTimeout(()=>{add.classList.remove('ok');update();},1600);update();
   });
   new ResizeObserver(()=>{if(scaled)show(cur);}).observe(stage);
   if(ruler)ruler.style.transition='none';img.style.transition='none';img.loading='eager';
   show(0);requestAnimationFrame(()=>requestAnimationFrame(()=>{if(ruler)ruler.style.transition='';img.style.transition='';}));return el;
 }
 const hola='Hola Nodo Creative, vi su catálogo y quiero hacer un pedido.';
-['d-wa'].forEach(i=>document.getElementById(i).href=waLink(hola));
+['d-wa','f-wa'].forEach(i=>document.getElementById(i).href=waLink(hola));
 document.getElementById('cu-wa').href=waLink('Hola Nodo Creative, quiero cotizar una pieza personalizada. Necesito: ');
-['d-ig'].forEach(i=>document.getElementById(i).href=CONTACTO.instagram);
-['d-tt'].forEach(i=>document.getElementById(i).href=CONTACTO.tiktok);
-['d-fb'].forEach(i=>{const a=document.getElementById(i);if(CONTACTO.facebook)a.href=CONTACTO.facebook;else a.hidden=true;});
+['d-ig','f-ig'].forEach(i=>document.getElementById(i).href=CONTACTO.instagram);
+['d-tt','f-tt'].forEach(i=>document.getElementById(i).href=CONTACTO.tiktok);
+['d-fb','f-fb'].forEach(i=>{const a=document.getElementById(i);if(CONTACTO.facebook)a.href=CONTACTO.facebook;else a.hidden=true;});
 const grid=document.getElementById('grid');P.forEach(p=>grid.appendChild(card(p)));
+
+// Barra del pedido y hoja con el detalle
+const cbar=document.getElementById('cartbar'),sheet=document.getElementById('sheet'),shList=document.getElementById('sh-list');
+function renderCart(){
+  const n=cart.reduce((a,i)=>a+i.q,0),has=cart.length>0;
+  cbar.hidden=!has;document.body.classList.toggle('has-cart',has);
+  document.getElementById('cb-n').textContent=n;document.getElementById('cb-t').textContent=fmt(cartTotal());
+  document.getElementById('sh-total').textContent=fmt(cartTotal());
+  const link=waLink(cartText());document.getElementById('cb-send').href=link;document.getElementById('sh-send').href=link;
+  shList.innerHTML='';
+  cart.forEach(i=>{const r=priceFor(i.id,i.q);const li=document.createElement('li');
+    li.innerHTML=`<div class="nm"></div><div class="lt">${fmt(r.total)}</div>
+      <div class="step" role="group" aria-label="Cantidad"><button type="button" aria-label="Quitar una">−</button><output>${i.q}</output><button type="button" aria-label="Agregar una">+</button></div>
+      <button type="button" class="rm">Quitar</button>`;
+    li.querySelector('.nm').innerHTML=`${esc(i.name)}<small>${fmt(Math.round(r.each))} c/u</small>`;
+    const [m,p]=li.querySelectorAll('.step button');
+    m.onclick=()=>{i.q--;if(i.q<1)cart=cart.filter(x=>x!==i);saveCart();renderCart();};
+    p.onclick=()=>{i.q=Math.min(i.q+1,200);saveCart();renderCart();};
+    li.querySelector('.rm').onclick=()=>{cart=cart.filter(x=>x!==i);saveCart();renderCart();};
+    shList.appendChild(li);});
+  if(!has&&!sheet.hidden)closeSheet();
+}
+function openSheet(){sheet.hidden=false;document.body.style.overflow='hidden';document.getElementById('sh-x').focus();}
+function closeSheet(){sheet.hidden=true;document.body.style.overflow='';}
+document.getElementById('cb-open').onclick=openSheet;
+document.getElementById('sh-x').onclick=closeSheet;
+sheet.addEventListener('click',e=>{if(e.target===sheet)closeSheet();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!sheet.hidden)closeSheet();});
+document.getElementById('sh-clear').onclick=()=>{cart=[];saveCart();renderCart();say('Pedido vacío');};
 const bg=document.getElementById('bgrid');
 PR.bundles.forEach(b=>{const el=document.createElement('article');el.className='bcard';
   el.innerHTML=`<img src="${b.img}" alt="${b.name}" loading="lazy" decoding="async"><div><h3>${b.name}</h3><p>${b.desc}</p><div class="row"><span class="now">${fmt(b.price)}</span><span class="was">${fmt(b.single)}</span><span class="save">Ahorras ${fmt(b.save)}</span></div></div>`;bg.appendChild(el);});
@@ -442,6 +540,7 @@ function pick(f,jump){
 }
 btns.forEach(b=>b.addEventListener('click',()=>pick(b.dataset.f,true)));
 const h0=decodeURIComponent(location.hash.slice(1));if(h0)pick(h0,true);
+renderCart();
 </script>
 
 </body>
