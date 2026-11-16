@@ -60,6 +60,7 @@ h1 em{font-style:normal;color:var(--accent-t)}
 .bar .barin{display:flex;align-items:center;gap:10px;padding-block:10px}
 .bar .cats{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1 1 auto;min-width:0}
 .bar .cats::-webkit-scrollbar{display:none}
+.bar .cats{padding-right:26px;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent)}
 .bar .cats button{flex:0 0 auto;font:700 15px var(--body);color:var(--ink);background:var(--chip);border:1.5px solid var(--line);border-radius:999px;padding:9px 18px;min-height:42px;cursor:pointer}
 .bar .cats button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 
@@ -121,12 +122,13 @@ main{padding-block:18px 8px}
 .sizes{display:flex;flex-wrap:wrap;gap:8px}
 .sizes button{flex:0 0 auto;font:700 14px var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:14px;padding:8px 14px;min-height:44px;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
 .sizes button small{font-weight:600;font-size:12px;color:var(--ink-soft)}
-.sizes button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--on)}
-.sizes button[aria-pressed="true"] small{color:var(--on);opacity:.85}
+.sizes button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.sizes button[aria-pressed="true"] small{color:var(--bg);opacity:.85}
 .cols{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .cols .cl{flex:1 0 100%;font-size:14px;font-weight:600;color:var(--ink-soft)}
 .cols .cl b{color:var(--ink)}
-.cols button{width:32px;height:32px;flex:0 0 auto;border-radius:50%;border:2px solid var(--line);background:var(--c);cursor:pointer;padding:0;box-shadow:inset 0 0 0 2px var(--card);transition:transform .15s}
+.cols button::after{content:"";position:absolute;inset:-6px}
+.cols button{position:relative;width:32px;height:32px;flex:0 0 auto;border-radius:50%;border:2px solid var(--line);background:var(--c);cursor:pointer;padding:0;box-shadow:inset 0 0 0 2px var(--card);transition:transform .15s}
 .cols button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 3px var(--card);transform:scale(1.1)}
 .stage.dk{background:radial-gradient(120% 90% at 50% 30%,#8497BC,#51688F)}
 .stage.dk .ruler::before{background:#fff}
@@ -238,6 +240,7 @@ body.has-cart .dock{display:none}
 .cb-open small{font:700 12px var(--body);color:var(--ink-soft)}
 .cartbar .wa{flex:1 1 auto;max-width:260px;white-space:nowrap}
 .cb-open,.cb-open small{white-space:nowrap}
+.cb-open{min-width:0}.cb-open .cb-t{min-width:0;overflow:hidden}.cb-go{flex:0 1 auto}
 body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!important}
 @media (max-width:360px){.cb-open{padding:6px 10px;gap:8px}.cartbar .wa{padding:10px 12px;font-size:14px}}
 .sheet{position:fixed;inset:0;z-index:45;background:rgba(12,18,32,.55);display:flex;align-items:flex-end;justify-content:center}
@@ -260,6 +263,9 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
 .sh-note{margin:0;font-size:14px;color:var(--ink-soft)}
 .sh-clear{align-self:center;border:0;background:none;color:var(--ink-soft);font:700 14px var(--body);text-decoration:underline;cursor:pointer;padding:6px}
 .foot-social{padding-top:28px}
+@media (hover:hover){.add:hover,.badd:hover,.cartbtn:hover,.cb-go:hover,.wa:hover,.ig:hover,.cu-cta:hover,.social a:hover{filter:brightness(1.12)}
+  .bar .cats button:hover,.sizes button:hover,.cb-open:hover{border-color:var(--ink)}.views button:hover{background:var(--soft)}.views button[aria-pressed="true"]:hover{background:var(--ink)}
+  .cols button:hover{transform:scale(1.1)}.step button:hover{background:var(--soft)}.refs button:hover img{transform:scale(1.03)}.refs img{transition:transform .25s}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -431,7 +437,7 @@ const P=[
   sizes:[{l:'Chica',img:'img/hueso.webp',d:'4.0 × 2.4 × 0.4',dl:'Largo × alto × grosor (cm)',h:4,hl:'largo',id:'hueso_ch'},{l:'Mediana',img:'img/hueso.webp',d:'6.0 × 3.5 × 0.4',dl:'Largo × alto × grosor (cm)',h:6,hl:'largo',id:'hueso_md'},{l:'Grande',img:'img/hueso.webp',d:'8.0 × 4.7 × 0.4',dl:'Largo × alto × grosor (cm)',h:8,hl:'largo',id:'hueso_gr'}]},
  {id:'llavero_copo',col:'Blanco',fotos:['img/ref/05-llavero-copo-de-nieve.webp'],cat:'llaveros',tag:'Llavero',name:'Llavero copo de nieve',desc:'Copo de nieve chico con aro integrado para tu llavero o mochila. También sirve como adorno para el árbol.',
   sizes:[{l:'Único',img:'img/copo.webp',d:'4.2 × 5.0 × 0.4',dl:'Ancho × alto × grosor (cm)',id:'copo_ch'}]},
- {id:'snoopy',cat:'llaveros',tag:'Nuevo',tint:false,name:'Llavero clicker de personajes',desc:'Llavero antiestrés con un switch de teclado mecánico adentro: lo presionas y hace clic. Cara en dos colores con el dibujo del personaje, argolla con cadena incluida.',
+ {id:'snoopy',cat:'llaveros',tag:'Nuevo',tint:false,fotos:['img/ref/07-llavero-perrito.webp'],name:'Llavero clicker de personajes',desc:'Llavero antiestrés con un switch de teclado mecánico adentro: lo presionas y hace clic. Cara en dos colores con el dibujo del personaje, argolla con cadena incluida.',
   sizes:[{l:'Único',img:'img/snoopy.webp',d:'5.1 × 4.5 × 1.7',dl:'Ancho × alto × grosor (cm)',id:'snoopy'}]},
 ];
 // Colores: son los filamentos reales del taller (los genera generar_precios.js). Cada render se pinta en el navegador
@@ -576,7 +582,7 @@ function renderCart(){
   const n=cart.reduce((a,i)=>a+i.q,0),has=cart.length>0;
   cbar.hidden=!has;document.body.classList.toggle('has-cart',has);
   document.getElementById('cb-n').textContent=n;document.getElementById('cb-t').textContent=fmt(cartTotal());
-  document.getElementById('cb-s').textContent=`${n} ${n===1?'pieza':'piezas'} · Ver carrito`;
+  document.getElementById('cb-s').textContent='Ver carrito';
   const bd=document.getElementById('cart-badge');bd.hidden=!has;bd.textContent=n;
   document.getElementById('sh-empty').hidden=has;document.getElementById('sh-foot').hidden=!has;
   document.getElementById('sh-total').textContent=fmt(cartTotal());
