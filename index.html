@@ -57,10 +57,11 @@ h1 em{font-style:normal;color:var(--accent)}
 
 /* sticky category bar */
 .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bar);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.bar .wrap{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-block:10px}
-.bar .wrap::-webkit-scrollbar{display:none}
-.bar button{flex:0 0 auto;font:700 15px var(--body);color:var(--ink);background:var(--chip);border:1.5px solid var(--line);border-radius:999px;padding:9px 18px;min-height:42px;cursor:pointer}
-.bar button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.bar .barin{display:flex;align-items:center;gap:10px;padding-block:10px}
+.bar .cats{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1 1 auto;min-width:0}
+.bar .cats::-webkit-scrollbar{display:none}
+.bar .cats button{flex:0 0 auto;font:700 15px var(--body);color:var(--ink);background:var(--chip);border:1.5px solid var(--line);border-radius:999px;padding:9px 18px;min-height:42px;cursor:pointer}
+.bar .cats button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 
 main{padding-block:18px 8px}
 #paquetes,#pedir,#medida,#referencias{scroll-margin-top:72px}
@@ -140,7 +141,7 @@ main{padding-block:18px 8px}
 .wa{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;background:#1F9E55;color:#fff;font:800 15px var(--body);padding:12px 16px;min-height:48px;text-decoration:none}
 .wa::before,.social a::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
 .wa,.social .w{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z'/%3E%3C/svg%3E")}
-.social .i{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 3.8c2.7 0 3 0 4 .1 2.7.1 4 1.4 4.1 4.1.1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.7-1.4 4-4.1 4.1-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.7-.1-4-1.4-4.1-4.1-.1-1-.1-1.3-.1-4s0-3 .1-4C3.9 5.3 5.3 4 8 3.9c1-.1 1.3-.1 4-.1zM12 2c-2.7 0-3.1 0-4.1.1C4.3 2.2 2.2 4.3 2.1 7.9 2 8.9 2 9.3 2 12s0 3.1.1 4.1c.1 3.6 2.2 5.7 5.8 5.8 1 .1 1.4.1 4.1.1s3.1 0 4.1-.1c3.6-.1 5.7-2.2 5.8-5.8.1-1 .1-1.4.1-4.1s0-3.1-.1-4.1c-.1-3.6-2.2-5.7-5.8-5.8C15.1 2 14.7 2 12 2z'/%3E%3C/svg%3E")}
+.social .i,.ig{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 3.8c2.7 0 3 0 4 .1 2.7.1 4 1.4 4.1 4.1.1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.7-1.4 4-4.1 4.1-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.7-.1-4-1.4-4.1-4.1-.1-1-.1-1.3-.1-4s0-3 .1-4C3.9 5.3 5.3 4 8 3.9c1-.1 1.3-.1 4-.1zM12 2c-2.7 0-3.1 0-4.1.1C4.3 2.2 2.2 4.3 2.1 7.9 2 8.9 2 9.3 2 12s0 3.1.1 4.1c.1 3.6 2.2 5.7 5.8 5.8 1 .1 1.4.1 4.1.1s3.1 0 4.1-.1c3.6-.1 5.7-2.2 5.8-5.8.1-1 .1-1.4.1-4.1s0-3.1-.1-4.1c-.1-3.6-2.2-5.7-5.8-5.8C15.1 2 14.7 2 12 2z'/%3E%3C/svg%3E")}
 .social .f{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z'/%3E%3C/svg%3E")}
 .social{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .social a{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 18px;min-height:48px;font:800 15px var(--body);text-decoration:none;color:#fff}
@@ -187,6 +188,26 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
 
 .toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);background:var(--ink);color:var(--bg);font:700 15px var(--body);padding:12px 18px;border-radius:999px;z-index:40;transition:transform .3s,opacity .3s,visibility .3s;max-width:calc(100% - 32px);text-align:center;opacity:0;visibility:hidden}
 .toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
+/* botón de carrito en la barra */
+.cartbtn{position:relative;flex:0 0 auto;width:48px;height:48px;border-radius:50%;border:0;background:var(--ink);color:var(--bg);display:grid;place-items:center;cursor:pointer;box-shadow:0 3px 0 var(--line)}
+.cartbtn svg{width:24px;height:24px}
+.badge{position:absolute;top:-5px;right:-5px;min-width:22px;height:22px;border-radius:999px;background:#E2453C;color:#fff;font:800 12px var(--body);display:grid;place-items:center;padding:0 5px;border:2px solid var(--bg)}
+.bump{animation:bump .45s}
+@keyframes bump{40%{transform:scale(1.18)}}
+.add svg,.cb-open svg{width:20px;height:20px;flex:0 0 auto}
+.foot-social{display:none!important}
+body.has-cart .foot-social{display:flex!important}
+.sh-empty{margin:18px 0 10px;text-align:center;color:var(--ink-soft)}
+.sh-specs{display:flex;flex-direction:column;gap:10px;padding-top:12px}
+.sh-specs label{display:flex;flex-direction:column;gap:4px;font:700 14px var(--body)}
+.sh-specs input,.sh-specs textarea{font:500 16px var(--body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;resize:vertical}
+.sh-specs input:focus,.sh-specs textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+.sh-send{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ig{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;background:#C13584;color:#fff;font:800 15px var(--body);padding:12px 16px;min-height:48px;text-decoration:none}
+.ig::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+@media (max-width:420px){.sh-send{grid-template-columns:1fr}}
+.cb-go{flex:1 1 auto;max-width:260px;border:0;border-radius:999px;background:#1F9E55;color:#fff;font:800 15px var(--body);padding:12px 16px;min-height:48px;cursor:pointer;white-space:nowrap}
+.cb-open .cb-n{display:none}
 /* pasos rápidos bajo el título */
 .flow{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;max-width:760px;counter-reset:f;text-align:left}
 @media (min-width:700px){.flow{grid-template-columns:repeat(4,minmax(0,1fr))}}
@@ -213,7 +234,8 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
 .sh-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
 .sh-head h3{font:900 26px var(--display);margin:0}
 .sh-head .x{width:44px;height:44px;border-radius:50%;border:0;background:var(--soft);color:var(--ink);font:800 22px var(--body);cursor:pointer}
-.sh-list{list-style:none;margin:0;padding:0;overflow-y:auto;flex:1 1 auto}
+.sh-scroll{overflow-y:auto;flex:1 1 auto;min-height:0}
+.sh-list{list-style:none;margin:0;padding:0}
 .sh-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
 .sh-list .nm{font-weight:700;line-height:1.25}
 .sh-list .nm small{display:block;font-weight:600;color:var(--ink-soft);font-size:13px}
@@ -238,14 +260,14 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
   <p class="slogan">Tú lo imaginas, <em>nosotros lo imprimimos.</em></p>
   <p class="lede">Piezas impresas en 3D bajo pedido, capa por capa. Elige del catálogo o pídenos algo hecho a tu medida.</p>
   <ol class="flow" aria-label="Cómo pedir, en 4 pasos">
-    <li><span><b>Elige</b> y toca «Agregar al pedido»</span></li>
-    <li><span><b>Envía</b> tu pedido por WhatsApp</span></li>
+    <li><span><b>Elige</b> y agrega al carrito 🛒</span></li>
+    <li><span><b>Envía</b> tu pedido por WhatsApp o Instagram</span></li>
     <li><span><b>Anticipo</b> del 50% para empezar</span></li>
     <li><span><b>Te avisamos</b> cuando esté listo</span></li>
   </ol>
 </header>
 
-<nav class="bar" aria-label="Categorías"><div class="wrap gut">
+<nav class="bar" aria-label="Categorías"><div class="wrap gut barin"><div class="cats">
   <button type="button" id="f-todo" data-f="todo" aria-pressed="true">Todo</button>
   <button type="button" id="f-navidad" data-f="navidad" aria-pressed="false">Navidad</button>
   <button type="button" id="f-hogar" data-f="hogar" aria-pressed="false">Hogar</button>
@@ -254,6 +276,8 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
   <button type="button" id="f-medida" data-f="medida" aria-pressed="false">A tu medida</button>
   <button type="button" id="f-referencias" data-f="referencias" aria-pressed="false">Referencias</button>
   <button type="button" id="f-pedir" data-f="pedir" aria-pressed="false">Cómo pedir</button>
+  </div>
+  <button type="button" class="cartbtn" id="cartbtn" aria-label="Ver mi carrito"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2.5 3.5h2.6l2.4 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2l1.6-7.3H6.1"/></svg><span class="badge" id="cart-badge" hidden>0</span></button>
 </div></nav>
 
 <main class="wrap gut">
@@ -291,8 +315,8 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
       <p>de anticipo para arrancar tu impresión. El otro 50% lo pagas al recibir tu pedido.</p>
     </div>
     <ol class="steps">
-      <li>Elige pieza, tamaño y cantidad, y toca «Agregar al pedido». Puedes agregar varias piezas.</li>
-      <li>Toca «Enviar pedido»: se abre WhatsApp con todo escrito. Solo dinos los colores y envíalo.</li>
+      <li>Elige pieza, tamaño y cantidad, y toca «Agregar al carrito». Puedes meter todas las piezas que quieras.</li>
+      <li>Abre el carrito 🛒, escribe colores y detalles, y envíanos tu pedido por WhatsApp o Instagram con todo escrito.</li>
       <li>Te confirmamos y transfieres el 50% de anticipo.</li>
       <li>Tu pieza entra a la impresora y te avisamos cuando esté lista.</li>
     </ol>
@@ -314,18 +338,30 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
   <a class="t" id="d-tt" target="_blank" rel="noopener" aria-label="TikTok"><span>TikTok</span></a>
 </nav>
 <div class="cartbar" id="cartbar" hidden>
-  <button type="button" class="cb-open" id="cb-open" aria-label="Ver mi pedido"><span class="cb-n" id="cb-n">0</span><span class="cb-t"><b id="cb-t">$0</b><small>Ver pedido</small></span></button>
-  <a class="wa" id="cb-send" target="_blank" rel="noopener">Enviar pedido</a>
+  <button type="button" class="cb-open" id="cb-open" aria-label="Ver mi carrito"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2.5 3.5h2.6l2.4 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2l1.6-7.3H6.1"/></svg><span class="cb-n" id="cb-n">0</span><span class="cb-t"><b id="cb-t">$0</b><small id="cb-s">Ver carrito</small></span></button>
+  <button type="button" class="cb-go" id="cb-go">Terminar pedido</button>
 </div>
 <div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sh-title">
   <div class="sh-box">
-    <div class="sh-head"><h3 id="sh-title">Tu pedido</h3><button type="button" class="x" id="sh-x" aria-label="Cerrar">×</button></div>
+    <div class="sh-head"><h3 id="sh-title">Tu carrito</h3><button type="button" class="x" id="sh-x" aria-label="Cerrar">×</button></div>
+    <div class="sh-scroll">
+    <p class="sh-empty" id="sh-empty">Tu carrito está vacío. Toca «Agregar al carrito» en las piezas que te gusten.</p>
     <ul class="sh-list" id="sh-list"></ul>
-    <div class="sh-foot">
+    <div class="sh-foot" id="sh-foot">
       <div class="sh-total"><span>Total</span><b id="sh-total">$0</b></div>
-      <p class="sh-note">Al enviar se abre WhatsApp con tu pedido escrito. Ahí nos dices los colores y te confirmamos.</p>
-      <a class="wa" id="sh-send" target="_blank" rel="noopener">Enviar pedido por WhatsApp</a>
-      <button type="button" class="sh-clear" id="sh-clear">Vaciar pedido</button>
+      <div class="sh-specs" id="sh-specs">
+        <label>Colores que quieres<input id="sp-col" autocomplete="off" placeholder="Ej. pino verde, copos blancos"></label>
+        <label>Nombres, fotos u otros detalles<textarea id="sp-det" rows="2" placeholder="Ej. la placa con el nombre «Luna»"></textarea></label>
+        <label>¿Para cuándo lo necesitas?<input id="sp-fecha" autocomplete="off" placeholder="Ej. 15 de diciembre"></label>
+      </div>
+      <p class="sh-note">Envíanos tu pedido para agendarlo. Te confirmamos colores, fecha y el anticipo del 50%.</p>
+      <div class="sh-send">
+        <a class="wa" id="sh-send" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="ig" id="sh-ig" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <p class="sh-note" style="font-size:13px">En Instagram copiamos tu pedido: solo pégalo en el chat y envíalo.</p>
+      <button type="button" class="sh-clear" id="sh-clear">Vaciar carrito</button>
+    </div>
     </div>
   </div>
 </div>
@@ -393,6 +429,7 @@ function priceFor(id,n){
 }
 const toast=document.getElementById('toast');let tt;
 function say(t){toast.textContent=t;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2200);}
+const CART_SVG='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2.5 3.5h2.6l2.4 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2l1.6-7.3H6.1"/></svg>';
 const unitName=(u,n)=>u==='juego'?(n===1?'juego':'juegos'):(n===1?'pieza':'piezas');
 // Medidas en una línea: "Medidas: 7.95 × 7.95 × 10.0 cm" (el detalle de qué es cada número va en el title)
 function dimText(s){const d=/cm/.test(s.d)?s.d:s.d.replace(/(\d+(?:\.\d+)?)(?!.*\d)/,'$1 cm');return /:/.test(d)?d:'Medidas: '+d;}
@@ -401,13 +438,18 @@ function dimText(s){const d=/cm/.test(s.d)?s.d:s.d.replace(/(\d+(?:\.\d+)?)(?!.*
 const CART_KEY='nodo-pedido';let cart=[];
 try{cart=(JSON.parse(localStorage.getItem(CART_KEY))||[]).filter(i=>i&&PR.list[i.id]!=null&&i.q>0);}catch(e){cart=[];}
 function saveCart(){try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch(e){}}
+const SPEC_KEY='nodo-especs';let specs={};try{specs=JSON.parse(localStorage.getItem(SPEC_KEY))||{};}catch(e){specs={};}
+const getSpecs=()=>({col:(specs.col||'').trim(),det:(specs.det||'').trim(),fecha:(specs.fecha||'').trim()});
 const lineTotal=i=>priceFor(i.id,i.q).total;
 const cartTotal=()=>cart.reduce((a,i)=>a+lineTotal(i),0);
 function addToCart(id,name,u,q){const it=cart.find(i=>i.id===id);if(it)it.q=Math.min(it.q+q,200);else cart.push({id,name,u,q});saveCart();renderCart();}
 function cartText(){
   const lines=cart.map(i=>`• ${i.q} ${unitName(i.u,i.q)} de ${i.name}: ${fmt(lineTotal(i))}`);
-  let t=`Hola Nodo Creative, quiero hacer este pedido:\n${lines.join('\n')}\nTotal: ${fmt(cartTotal())}\n\nColores que quiero: `;
-  if(cart.some(i=>i.id.startsWith('hueso')))t+=`\nNombre para la placa: `;
+  const sp=getSpecs();
+  let t=`Hola Nodo Creative, quiero agendar este pedido:\n${lines.join('\n')}\nTotal: ${fmt(cartTotal())}\n\nColores: ${sp.col||'(por definir)'}`;
+  if(sp.det)t+=`\nDetalles: ${sp.det}`;
+  if(sp.fecha)t+=`\nLo necesito para: ${sp.fecha}`;
+  if(cart.some(i=>i.id.startsWith('hueso'))&&!sp.det)t+=`\nNombre para la placa: `;
   if(cart.some(i=>i.id.startsWith('est_')))t+=`\nTe mando la foto para la estrella en este chat.`;
   return t;
 }
@@ -424,7 +466,7 @@ function card(pr){
    <div class="buy"><div class="pr"></div>
      <div class="step" role="group" aria-label="Cantidad"><button type="button" id="${pr.id}-menos" aria-label="Quitar una">−</button><output id="${pr.id}-q">1</output><button type="button" id="${pr.id}-mas" aria-label="Agregar una">+</button></div></div>
    <p class="deal"></p>
-   <button type="button" class="add" id="${pr.id}-add">Agregar al pedido</button>
+   <button type="button" class="add" id="${pr.id}-add"></button>
    </div>`;
   const img=el.querySelector('img'),dims=el.querySelector('.dims'),prc=el.querySelector('.pr'),ruler=el.querySelector('.ruler'),stage=el.querySelector('.stage');
   const qo=el.querySelector('output'),deal=el.querySelector('.deal'),add=el.querySelector('.add');
@@ -436,7 +478,7 @@ function card(pr){
     prc.innerHTML=`<span class="price">${fmt(PR.list[s.id])}<small>MXN</small><span class="each">por ${unit(s,1)}</span></span>`;
     const disc=PR.tiers[s.id].filter(([t,p])=>p/t<PR.list[s.id]-0.01);const next=disc.find(([t])=>t>qty);
     deal.textContent=r.tier&&r.each<PR.list[s.id]-0.01?`Precio de ${r.tier}+ ${unit(s,2)}: ${fmt(Math.round(r.each))} c/u`:(next?`Desde ${next[0]} ${unit(s,2)}: ${fmt(Math.round(next[1]/next[0]))} c/u`:'');
-    if(!add.classList.contains('ok'))add.textContent=qty>1?`Agregar ${qty} al pedido · ${fmt(r.total)}`:'Agregar al pedido';
+    if(!add.classList.contains('ok'))add.innerHTML=CART_SVG+(qty>1?`Agregar ${qty} al carrito · ${fmt(r.total)}`:'Agregar al carrito');
   }
   function setImg(src){const old=img.getAttribute('src');if(!old){img.src=src;}else if(old!==src){img.style.opacity=0;img.onload=()=>img.style.opacity=1;img.src=src;}}
   function show(i){
@@ -457,7 +499,7 @@ function card(pr){
   add.addEventListener('click',()=>{
     const s=pr.sizes[cur];const name=pr.sizes.length>1?`${pr.name} (${s.l})`:pr.name;
     addToCart(s.id,name,s.u||'',qty);say(`Agregado: ${qty} ${unit(s,qty)} de ${name}`);
-    qty=1;add.classList.add('ok');add.textContent='✓ Agregado a tu pedido';clearTimeout(okT);
+    qty=1;add.classList.add('ok');add.textContent='✓ Agregado al carrito';const cb=document.getElementById('cartbtn');cb.classList.remove('bump');void cb.offsetWidth;cb.classList.add('bump');clearTimeout(okT);
     okT=setTimeout(()=>{add.classList.remove('ok');update();},1600);update();
   });
   new ResizeObserver(()=>{if(scaled)show(cur);}).observe(stage);
@@ -478,8 +520,11 @@ function renderCart(){
   const n=cart.reduce((a,i)=>a+i.q,0),has=cart.length>0;
   cbar.hidden=!has;document.body.classList.toggle('has-cart',has);
   document.getElementById('cb-n').textContent=n;document.getElementById('cb-t').textContent=fmt(cartTotal());
+  document.getElementById('cb-s').textContent=`${n} ${n===1?'pieza':'piezas'} · Ver carrito`;
+  const bd=document.getElementById('cart-badge');bd.hidden=!has;bd.textContent=n;
+  document.getElementById('sh-empty').hidden=has;document.getElementById('sh-foot').hidden=!has;
   document.getElementById('sh-total').textContent=fmt(cartTotal());
-  const link=waLink(cartText());document.getElementById('cb-send').href=link;document.getElementById('sh-send').href=link;
+  updateSend();
   shList.innerHTML='';
   cart.forEach(i=>{const r=priceFor(i.id,i.q);const li=document.createElement('li');
     li.innerHTML=`<div class="nm"></div><div class="lt">${fmt(r.total)}</div>
@@ -491,15 +536,25 @@ function renderCart(){
     p.onclick=()=>{i.q=Math.min(i.q+1,200);saveCart();renderCart();};
     li.querySelector('.rm').onclick=()=>{cart=cart.filter(x=>x!==i);saveCart();renderCart();};
     shList.appendChild(li);});
-  if(!has&&!sheet.hidden)closeSheet();
 }
+function updateSend(){document.getElementById('sh-send').href=waLink(cartText());document.getElementById('sh-ig').href=IG_DM;}
+const IG_DM='https://ig.me/m/nodocreatiive';
+[['sp-col','col'],['sp-det','det'],['sp-fecha','fecha']].forEach(([id,k])=>{const f=document.getElementById(id);f.value=specs[k]||'';
+  f.addEventListener('input',()=>{specs[k]=f.value;try{localStorage.setItem(SPEC_KEY,JSON.stringify(specs));}catch(e){}updateSend();});});
+function legacyCopy(t){const a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();let ok=false;try{ok=document.execCommand('copy');}catch(e){}a.remove();return ok;}
+document.getElementById('sh-ig').addEventListener('click',()=>{const t=cartText();
+  // se copia en el mismo toque (antes de que se abra Instagram) para que el navegador lo permita
+  if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).catch(()=>legacyCopy(t));else legacyCopy(t);
+  say('Pedido copiado. Pégalo en el chat de Instagram y envíalo.');});
 function openSheet(){sheet.hidden=false;document.body.style.overflow='hidden';document.getElementById('sh-x').focus();}
 function closeSheet(){sheet.hidden=true;document.body.style.overflow='';}
 document.getElementById('cb-open').onclick=openSheet;
+document.getElementById('cb-go').onclick=()=>{openSheet();setTimeout(()=>document.getElementById('sh-specs').scrollIntoView({block:'center'}),50);};
+document.getElementById('cartbtn').onclick=openSheet;
 document.getElementById('sh-x').onclick=closeSheet;
 sheet.addEventListener('click',e=>{if(e.target===sheet)closeSheet();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!sheet.hidden)closeSheet();});
-document.getElementById('sh-clear').onclick=()=>{cart=[];saveCart();renderCart();say('Pedido vacío');};
+document.getElementById('sh-clear').onclick=()=>{cart=[];saveCart();renderCart();say('Carrito vacío');};
 const bg=document.getElementById('bgrid');
 PR.bundles.forEach(b=>{const el=document.createElement('article');el.className='bcard';
   el.innerHTML=`<img src="${b.img}" alt="${b.name}" loading="lazy" decoding="async"><div><h3>${b.name}</h3><p>${b.desc}</p><div class="row"><span class="now">${fmt(b.price)}</span><span class="was">${fmt(b.single)}</span><span class="save">Ahorras ${fmt(b.save)}</span></div></div>`;bg.appendChild(el);});
@@ -524,7 +579,7 @@ function closeLb(){lb.remove();document.body.style.overflow='';}
 
 // Barra de categorías: cada botón muestra solo lo suyo y lleva justo debajo del encabezado.
 // (Antes se mostraban todas las piezas y se hacía un scroll largo que el celular cortaba a medias.)
-const btns=[...document.querySelectorAll('.bar button')];
+const btns=[...document.querySelectorAll('.bar .cats button')];
 const SECS=['medida','referencias','paquetes','pedir'];
 function pick(f,jump){
   if(!btns.some(x=>x.dataset.f===f))f='todo';
