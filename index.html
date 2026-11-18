@@ -165,6 +165,8 @@ main{padding-block:18px 8px}
 .stage.dk .ruler::after{background:#fff;box-shadow:0 calc(var(--rh,100px) - 2px) 0 #fff}
 .dims{margin:0;font-size:14px;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .dims::before{content:"📏 "}
+.ptime{margin:0;font-size:14px;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.ptime::before{content:"⏱️ "}
 .buy{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}
 .price{font-family:var(--display);font-weight:900;font-size:32px;line-height:1;white-space:nowrap;font-variant-numeric:tabular-nums}
 .price small{font-family:var(--body);font-size:13px;font-weight:700;color:var(--ink-soft);margin-left:3px}
@@ -446,8 +448,8 @@ const P=[
    {l:'Relieve 1',img:'img/esfera-crossed-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c1'},{l:'Relieve 2',img:'img/esfera-crossed-2.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_c2'},{l:'Relieve 3',img:'img/esfera-crossed-3.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c3'}]},
  {id:'acanalado',col:'Beige',cat:'navidad',tag:'Navidad',name:'Árbol acanalado',desc:'Cono de niveles con acabado acanalado, minimalista y elegante.',
   sizes:[{l:'Chico',img:'img/acanalado-chico.webp',d:'4.8 × 4.8 × 8.5',h:8.5,id:'acan_ch'},{l:'Grande',img:'img/acanalado-grande.webp',d:'7.0 × 7.0 × 12.5',h:12.5,id:'acan_gr'}]},
- {id:'nacimiento',col:'Beige',cat:'navidad',tag:'Navidad',name:'Nacimiento de 9 piezas',desc:'María, José, el Niño en el pesebre, los tres Reyes Magos, el pastor con su borrego, el ángel y el burrito.',
-  sizes:[{l:'Juego completo',img:'img/nacimiento.webp',d:'Figura más alta: 8.0 cm',dl:'Medidas',id:'nacimiento'}]},
+ {id:'nacimiento',col:'Beige',cat:'navidad',tag:'Navidad',name:'Nacimiento de 9 piezas',desc:'María, José, el Niño en el pesebre, los tres Reyes Magos, el pastor con su borrego, el ángel y el burrito. Medidas de alto: José y dos Reyes Magos de pie, 8 cm; María, el Rey arrodillado, el pastor y el ángel, 6.5 cm; el burrito, 4.5 cm (5.5 cm de largo); el Niño en el pesebre, 3 cm (4 cm de largo).',
+  sizes:[{l:'Juego completo',img:'img/nacimiento.webp',d:'9 piezas de 3 a 8 cm de alto',dl:'Medidas',u:'juego',id:'nacimiento'}]},
  {id:'japandi',col:'Rojo',cat:'navidad',tag:'Nuevo',name:'Esfera Japandi',desc:'Esfera de estilo japonés con gajos finos. Se arma en 3 piezas (cuerpo, tapa y colgador); te la entregamos armada.',
   sizes:[{l:'Chica',img:'img/japandi.webp',d:'7.3 × 7.3 × 8.7',dl:'Ancho × fondo × alto con colgador (cm)',h:8.7,id:'jap_ch'},{l:'Mediana',img:'img/japandi.webp',d:'9.3 × 9.3 × 11.2',dl:'Ancho × fondo × alto con colgador (cm)',h:11.2,id:'jap_md'},{l:'Grande',img:'img/japandi.webp',d:'11.4 × 11.4 × 13.7',dl:'Ancho × fondo × alto con colgador (cm)',h:13.7,id:'jap_gr'}]},
  {id:'estrella',tint:false,cat:'navidad',tag:'Personalizable',name:'Estrella portarretrato',desc:'Adorno en forma de estrella con la foto de quien tú quieras al centro y argolla para colgar en el árbol. Un regalo perfecto con la foto de tus hijos, tu pareja o tu mascota. Al pedir, mándanos la foto por WhatsApp.',
@@ -528,6 +530,8 @@ function say(t){toast.textContent=t;toast.classList.add('show');clearTimeout(tt)
 const CART_SVG='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2.5 3.5h2.6l2.4 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2l1.6-7.3H6.1"/></svg>';
 const unitName=(u,n)=>u==='juego'?(n===1?'juego':'juegos'):u==='paquete'?(n===1?'paquete':'paquetes'):(n===1?'pieza':'piezas');
 // Medidas en una línea: "Medidas: 7.95 × 7.95 × 10.0 cm" (el detalle de qué es cada número va en el title)
+// Tiempo de impresión aproximado: menos de 1 h en minutos; si no, redondeado a media hora.
+function hrsText(h){if(!h)return '';if(h<1)return `Impresión aprox.: ${Math.max(5,Math.round(h*12)*5)} min`;const r=Math.round(h*2)/2;return `Impresión aprox.: ${Math.floor(r)}${r%1?'½':''} h`;}
 function dimText(s){const d=/cm/.test(s.d)?s.d:s.d.replace(/(\d+(?:\.\d+)?)(?!.*\d)/,'$1 cm');return /:/.test(d)?d:'Medidas: '+d;}
 
 // --- Pedido (carrito): se guarda en este navegador y se manda en un solo WhatsApp ---
@@ -566,12 +570,13 @@ function card(pr){
    ${pr.sizes.length>1?`<div class="sizes" role="group" aria-label="Tamaño o modelo">${pr.sizes.map((s,i)=>`<button type="button" id="${pr.id}-s${i}" data-i="${i}" aria-pressed="${i===0}">${s.l}${s.h&&scaled&&!/cm/.test(s.l)?`<small>${s.h} cm</small>`:''}</button>`).join('')}</div>`:''}
    ${tintable?`<div class="cols" role="group" aria-label="Color"><span class="cl">Color: <b></b></span>${COLS.map((c,i)=>`<button type="button" data-c="${i}" title="${c.n}" aria-label="Color ${c.n.toLowerCase()}" aria-pressed="false" style="--c:${c.hex}"></button>`).join('')}</div>`:''}
    <p class="dims"></p>
+   <p class="ptime"></p>
    <div class="buy"><div class="pr"></div>
      <div class="step" role="group" aria-label="Cantidad"><button type="button" id="${pr.id}-menos" aria-label="Quitar una">−</button><output id="${pr.id}-q">1</output><button type="button" id="${pr.id}-mas" aria-label="Agregar una">+</button></div></div>
    <p class="deal"></p>
    <button type="button" class="add" id="${pr.id}-add"></button>
    </div>`;
-  const img=el.querySelector('img'),dims=el.querySelector('.dims'),prc=el.querySelector('.pr'),ruler=el.querySelector('.ruler'),stage=el.querySelector('.stage');
+  const img=el.querySelector('img'),dims=el.querySelector('.dims'),ptime=el.querySelector('.ptime'),prc=el.querySelector('.pr'),ruler=el.querySelector('.ruler'),stage=el.querySelector('.stage');
   const qo=el.querySelector('output'),deal=el.querySelector('.deal'),add=el.querySelector('.add');
   let cur=0,qty=1,view=0,okT;
   const unit=(s,n)=>unitName(s.u,n);
@@ -589,7 +594,7 @@ function card(pr){
   function show(i){
     cur=i;const s=pr.sizes[i];
     setImg(view>0?V[view].src:s.img);
-    img.alt=`${pr.name} ${s.l}`;dims.textContent=dimText(s);dims.title=s.dl||'Ancho × fondo × alto (cm)';
+    img.alt=`${pr.name} ${s.l}`;dims.textContent=dimText(s);dims.title=s.dl||'Ancho × fondo × alto (cm)';ptime.textContent=hrsText(PR.hrs&&PR.hrs[s.id]);ptime.hidden=!ptime.textContent;
     stage.classList.toggle('photo',view>0&&!!V[view].photo);stage.classList.toggle('dk',view===0&&!!color&&lumOf(color.hex)>0.75);
     if(color){el.querySelector('.cl b').textContent=color.n;el.querySelectorAll('.cols button').forEach(b=>b.setAttribute('aria-pressed',String(COLS[+b.dataset.c]===color)));}
     if(view>0){img.alt=`${pr.name}: ${V[view].l.toLowerCase()}`;img.style.transform='none';if(ruler)ruler.hidden=true;}
