@@ -28,7 +28,7 @@
   --bg:#F5F5F7; --card:#FFFFFF; --ink:#1D1D1F; --ink-soft:#6E6E73; --ink-faint:#86868B;
   --accent:#0071E3; --accent-t:#0066CC; --on:#FFFFFF; --hot:#BF4800; --line:#D2D2D7; --hair:rgba(0,0,0,.08);
   --soft:#F5F5F7; --chip:#E8E8ED; --stage:#EDEDF0; --stage2:#FAFAFB; --bar:rgba(245,245,247,.82);
-  --green:#1F8F4E; --gold-t:#B25000; --gold:#FFE8D6;
+  --green:#187A42; --gold-t:#B25000; --gold:#FFE8D6; --ring:rgba(0,0,0,.22);
   --display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,"Segoe UI",sans-serif;
   --body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,"Segoe UI",sans-serif;
   --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);
@@ -36,11 +36,11 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#000000; --card:#1C1C1E; --ink:#F5F5F7; --ink-soft:#A1A1A6; --ink-faint:#8E8E93;
   --accent:#0A84FF; --accent-t:#2997FF; --hot:#FF9F45; --line:#3A3A3C; --hair:rgba(255,255,255,.1);
-  --soft:#2C2C2E; --chip:#2C2C2E; --bar:rgba(0,0,0,.72); --gold-t:#FF9F45; --gold:#3A2A1C; --shadow:none; color-scheme:dark}}
+  --soft:#2C2C2E; --chip:#2C2C2E; --bar:rgba(0,0,0,.72); --gold-t:#FF9F45; --gold:#3A2A1C; --shadow:none; --ring:rgba(255,255,255,.55); --stage:#9C9CA3; --stage2:#C4C4CA; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#000000; --card:#1C1C1E; --ink:#F5F5F7; --ink-soft:#A1A1A6; --ink-faint:#8E8E93;
   --accent:#0A84FF; --accent-t:#2997FF; --hot:#FF9F45; --line:#3A3A3C; --hair:rgba(255,255,255,.1);
-  --soft:#2C2C2E; --chip:#2C2C2E; --bar:rgba(0,0,0,.72); --gold-t:#FF9F45; --gold:#3A2A1C; --shadow:none; color-scheme:dark}
+  --soft:#2C2C2E; --chip:#2C2C2E; --bar:rgba(0,0,0,.72); --gold-t:#FF9F45; --gold:#3A2A1C; --shadow:none; --ring:rgba(255,255,255,.55); --stage:#9C9CA3; --stage2:#C4C4CA; color-scheme:dark}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -124,6 +124,8 @@ main{padding-block:22px 8px}
 .stage img{width:100%;height:100%;object-fit:contain;object-position:center bottom;transform-origin:50% 100%;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .25s}
 .stage.photo .pic{inset:0}.stage.photo img{object-fit:cover;object-position:50% 65%}
 .stage.dk{background:radial-gradient(120% 90% at 50% 25%,#B4B8C2,#7E838F)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .stage.dk{background:radial-gradient(120% 90% at 50% 25%,#ABABB2,#85858C)}}
+:root[data-theme="dark"] .stage.dk{background:radial-gradient(120% 90% at 50% 25%,#ABABB2,#85858C)}
 .stage.dk .ruler::before{background:#fff}
 .stage.dk .ruler::after{background:#fff;box-shadow:0 calc(var(--rh,100px) - 2px) 0 #fff}
 .views{position:absolute;right:10px;top:10px;z-index:2;display:flex;background:rgba(255,255,255,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:999px;padding:3px}
@@ -140,7 +142,7 @@ main{padding-block:22px 8px}
 .from{display:none;margin:0;font:500 15px var(--body);color:var(--ink);font-variant-numeric:tabular-nums}
 .more{display:none;margin:0;font:400 14px var(--body);color:var(--accent-t)}
 .dots{display:none;align-items:center;gap:3px;margin:0}
-.dots i{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.dots i{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1.5px var(--ring)}
 .dots span{margin-left:3px;font:500 12px var(--body);color:var(--ink-faint);white-space:nowrap}
 .cx{display:none}
 .lbl{display:block;font:600 15px var(--body);color:var(--ink);margin:0 0 8px}
@@ -152,9 +154,9 @@ main{padding-block:22px 8px}
 .cols .cl{flex:1 0 100%;font-size:15px;color:var(--ink-soft)}
 .cols .cl .lbl{margin:0}
 .cols .cl b{color:var(--ink);font-weight:500}
-.cols button{position:relative;width:32px;height:32px;flex:0 0 auto;border-radius:50%;border:0;background:var(--c);cursor:pointer;padding:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);transition:transform .15s}
+.cols button{position:relative;width:32px;height:32px;flex:0 0 auto;border-radius:50%;border:0;background:var(--c);cursor:pointer;padding:0;box-shadow:inset 0 0 0 1.5px var(--ring);transition:transform .15s}
 .cols button::after{content:"";position:absolute;inset:-6px}
-.cols button[aria-pressed="true"]{box-shadow:inset 0 0 0 1px rgba(0,0,0,.15),0 0 0 2px var(--card),0 0 0 4px var(--accent)}
+.cols button[aria-pressed="true"]{box-shadow:inset 0 0 0 1.5px var(--ring),0 0 0 2px var(--card),0 0 0 4px var(--accent)}
 .dims{margin:0;font-size:15px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .dims::before{content:"📏 "}
 .buy{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:auto;padding-top:6px;border-top:1px solid var(--hair)}
@@ -336,13 +338,19 @@ body.has-cart .dock{display:none}
 
 /* guía paso a paso */
 .tour{position:fixed;inset:0;z-index:60}
-.tour-hole{position:fixed;border-radius:18px;box-shadow:0 0 0 9999px rgba(0,0,0,.62);transition:all .35s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.tour-hole{position:fixed;border-radius:18px;box-shadow:0 0 0 3px rgba(255,255,255,.95),0 0 0 9999px rgba(0,0,0,.66);transition:all .35s cubic-bezier(.2,.8,.2,1);pointer-events:none}
 .tour-hole.none{left:50%!important;top:40%!important;width:0!important;height:0!important}
-.tour-card{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(420px,calc(100% - 24px));background:var(--card);color:var(--ink);border-radius:22px;padding:22px 20px 16px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.tour-card{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(420px,calc(100% - 24px));background:var(--card);color:var(--ink);border-radius:22px;padding:22px 20px 16px;box-shadow:0 20px 60px rgba(0,0,0,.35);border:1px solid var(--hair)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tour-card{border-color:rgba(255,255,255,.22)}}
+:root[data-theme="dark"] .tour-card{border-color:rgba(255,255,255,.22)}
+.tour-demo{display:flex;justify-content:center;margin:14px 0 2px;padding:14px;border-radius:16px;background:var(--soft)}
+.tour-demo span{background:var(--green);color:#fff;font:600 16px var(--body);border-radius:999px;padding:12px 22px;box-shadow:0 0 0 4px color-mix(in srgb,var(--green) 25%,transparent)}
+.tour-demo[hidden],.tour-dots[hidden]{display:none}
 .tour-card.mid{bottom:auto;top:50%;transform:translate(-50%,-50%)}
 .tour-n{margin:0;font:600 13px var(--body);color:var(--hot)}
 .tour-card h3{margin:4px 0 6px;font:700 24px/1.15 var(--display);letter-spacing:-.025em}
 .tour-card p.tb{margin:0;color:var(--ink-soft);font-size:16px}
+.tour-card p.tf{margin:10px 0 0;color:var(--ink-soft);font-size:14px}.tour-card p.tf[hidden]{display:none}
 .tour-dots{display:flex;gap:6px;margin:16px 0 0}
 .tour-dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
 .tour-dots i.on{background:var(--ink);width:18px;border-radius:4px}
@@ -837,7 +845,7 @@ const TOUR=[
  {sel:'.bar .cats',t:'Elige qué quieres ver',b:'Toca «Navidad», «Hogar» o «Llaveros» para ver solo eso. «Todo» te muestra el catálogo completo.'},
  {sel:'#grid .card:not([hidden])',t:'Toca una pieza',b:'Se abre su ficha: ahí eliges el tamaño, el color y cuántas quieres, y ves cuánto mide y cuánto cuesta.'},
  {sel:'#cartbtn',t:'Tu carrito 🛒',b:'Cuando tocas el botón azul «Agregar al carrito», la pieza se guarda aquí. Puedes agregar todas las que quieras.'},
- {t:'Envía tu pedido 💬',b:'Al terminar, toca el botón verde «Enviar pedido» que aparece abajo. Se abre WhatsApp con tu pedido ya escrito: solo lo envías y te respondemos para confirmar.'}];
+ {t:'Envía tu pedido 💬',b:'Cuando agregues algo, abajo aparece este botón verde. Tócalo y se abre WhatsApp con tu pedido ya escrito: solo lo envías y te respondemos para confirmar.',demo:true,foot:'¿Se te olvidó algo? Toca «¿Cómo pido?» arriba y ves esta guía otra vez.'}];
 let tourEl=null,tourI=0;const TOUR_KEY='nodo-guia-vista';
 function tourPlace(){if(!tourEl)return;const st=TOUR[tourI],hole=tourEl.querySelector('.tour-hole'),cardT=tourEl.querySelector('.tour-card');
   const el=st.sel&&document.querySelector(st.sel);
@@ -849,7 +857,8 @@ function tourPlace(){if(!tourEl)return;const st=TOUR[tourI],hole=tourEl.querySel
 function tourShow(i){tourI=i;const st=TOUR[i];
   tourEl.querySelector('.tour-n').textContent=i?`Paso ${i} de ${TOUR.length-1}`:'Guía rápida';
   tourEl.querySelector('h3').textContent=st.t;tourEl.querySelector('.tb').textContent=st.b;
-  tourEl.querySelector('.tour-dots').innerHTML=TOUR.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('');
+  const dots=tourEl.querySelector('.tour-dots');dots.hidden=i===0;dots.innerHTML=TOUR.slice(1).map((_,k)=>`<i class="${k+1===i?'on':''}"></i>`).join('');
+  tourEl.querySelector('.tour-demo').hidden=!st.demo;const tf=tourEl.querySelector('.tf');tf.textContent=st.foot||'';tf.hidden=!st.foot;
   tourEl.querySelector('.back').hidden=i===0;tourEl.querySelector('.next').textContent=i===0?'Empezar':i===TOUR.length-1?'¡Entendido!':'Siguiente';
   tourEl.querySelector('.skip').hidden=i===TOUR.length-1;
   const el=st.sel&&document.querySelector(st.sel);
@@ -859,7 +868,7 @@ function tourShow(i){tourI=i;const st=TOUR[i];
   requestAnimationFrame(tourPlace);tourEl.querySelector('.next').focus();}
 function tourOpen(){closeCard();if(!sheet.hidden)closeSheet();if(qv){qv='';qIn.value='';}pick('todo',false);
   if(!tourEl){tourEl=document.createElement('div');tourEl.className='tour';tourEl.setAttribute('role','dialog');tourEl.setAttribute('aria-modal','true');tourEl.setAttribute('aria-labelledby','tour-h');
-    tourEl.innerHTML='<div class="tour-hole"></div><div class="tour-card"><p class="tour-n"></p><h3 id="tour-h"></h3><p class="tb"></p><div class="tour-dots"></div><div class="tour-nav"><button type="button" class="skip">Saltar guía</button><button type="button" class="back">Atrás</button><button type="button" class="next"></button></div></div>';
+    tourEl.innerHTML='<div class="tour-hole"></div><div class="tour-card"><p class="tour-n"></p><h3 id="tour-h"></h3><p class="tb"></p><div class="tour-demo" hidden><span>Enviar pedido ›</span></div><p class="tf"></p><div class="tour-dots"></div><div class="tour-nav"><button type="button" class="skip">Saltar guía</button><button type="button" class="back">Atrás</button><button type="button" class="next"></button></div></div>';
     tourEl.querySelector('.skip').onclick=tourClose;tourEl.querySelector('.back').onclick=()=>tourShow(Math.max(0,tourI-1));
     tourEl.querySelector('.next').onclick=()=>tourI<TOUR.length-1?tourShow(tourI+1):tourClose();
     addEventListener('resize',tourPlace);addEventListener('scroll',tourPlace,{passive:true});}
