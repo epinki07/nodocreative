@@ -20,305 +20,368 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@600;800;900&family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: phone-first. Compact brand header, sticky category bar, one card per product with a size stage that
-   scales the piece next to a cm ruler, quantity stepper that totals the order, bundles as a swipe row. */
+/* Estilo limpio tipo Apple: fondo gris muy claro, tarjetas blancas, tipografía del sistema (SF en iPhone/Mac, Inter en el resto),
+   mucho aire y un solo color de acción (azul). En celular: dos columnas y ficha a pantalla completa. */
 :root{
-  --bg:#F5F0E4; --dot:#DCD3C0; --card:#FFFDF8; --ink:#2F4A80; --ink-soft:#4E6894;
-  --accent:#6E9BD6; --gold:#C9A86A; --on:#1B2742; --gold-t:#86631F; --accent-t:#3E6FB3; --stage:#ECE4D3; --stage2:#F6F0E3; --soft:#ECE4D3; --line:#E3DACA; --chip:#FFFFFF; --bar:rgba(245,240,228,.92);
-  --display:"Gabarito","Figtree",ui-rounded,system-ui,sans-serif;
-  --body:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --bg:#F5F5F7; --card:#FFFFFF; --ink:#1D1D1F; --ink-soft:#6E6E73; --ink-faint:#86868B;
+  --accent:#0071E3; --accent-t:#0066CC; --on:#FFFFFF; --hot:#BF4800; --line:#D2D2D7; --hair:rgba(0,0,0,.08);
+  --soft:#F5F5F7; --chip:#E8E8ED; --stage:#EDEDF0; --stage2:#FAFAFB; --bar:rgba(245,245,247,.82);
+  --green:#1F8F4E; --gold-t:#B25000; --gold:#FFE8D6;
+  --display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,"Segoe UI",sans-serif;
+  --body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,"Segoe UI",sans-serif;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#17223A; --dot:#24345A; --card:#1E2C49; --ink:#EAF0FB; --ink-soft:#A9BBDC;
-  --accent:#8DB4EA; --gold:#D9BC84; --on:#1B2742; --gold-t:#D9BC84; --accent-t:#8DB4EA; --stage:#DED6C6; --stage2:#F2ECE1; --soft:#263759; --line:#2C3E63; --chip:#22325A; --bar:rgba(23,34,58,.92); color-scheme:dark}}
+  --bg:#000000; --card:#1C1C1E; --ink:#F5F5F7; --ink-soft:#A1A1A6; --ink-faint:#8E8E93;
+  --accent:#0A84FF; --accent-t:#2997FF; --hot:#FF9F45; --line:#3A3A3C; --hair:rgba(255,255,255,.1);
+  --soft:#2C2C2E; --chip:#2C2C2E; --bar:rgba(0,0,0,.72); --gold-t:#FF9F45; --gold:#3A2A1C; --shadow:none; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#17223A; --dot:#24345A; --card:#1E2C49; --ink:#EAF0FB; --ink-soft:#A9BBDC;
-  --accent:#8DB4EA; --gold:#D9BC84; --on:#1B2742; --gold-t:#D9BC84; --accent-t:#8DB4EA; --stage:#DED6C6; --stage2:#F2ECE1; --soft:#263759; --line:#2C3E63; --chip:#22325A; --bar:rgba(23,34,58,.92); color-scheme:dark}
+  --bg:#000000; --card:#1C1C1E; --ink:#F5F5F7; --ink-soft:#A1A1A6; --ink-faint:#8E8E93;
+  --accent:#0A84FF; --accent-t:#2997FF; --hot:#FF9F45; --line:#3A3A3C; --hair:rgba(255,255,255,.1);
+  --soft:#2C2C2E; --chip:#2C2C2E; --bar:rgba(0,0,0,.72); --gold-t:#FF9F45; --gold:#3A2A1C; --shadow:none; color-scheme:dark}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--bg);background-image:radial-gradient(var(--dot) 1.3px,transparent 1.4px);background-size:22px 22px;
-  color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.47;letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bar)}
-.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.wrap{max-width:1120px;margin:0 auto}
-button{font-family:inherit}
-button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.gut{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1080px;margin:0 auto}
+button{font-family:inherit;letter-spacing:inherit}
+button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 
-/* header */
-header{padding-block:28px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
-.mark{font-family:var(--display);font-weight:800;line-height:.86;color:var(--accent-t);font-size:24px;letter-spacing:-.02em}
-.mark small{display:block;font-family:var(--body);font-weight:800;color:var(--gold-t);font-size:10px;letter-spacing:.3em;margin-top:5px}
-h1{font-family:var(--display);font-weight:900;font-size:clamp(36px,10vw,68px);line-height:.95;letter-spacing:-.025em;margin:4px 0 0;text-wrap:balance}
-h1 em{font-style:normal;color:var(--accent-t)}
-.lede{margin:0;max-width:40ch;color:var(--ink-soft);font-size:16px;text-wrap:balance}
+/* portada */
+header{padding-block:44px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.mark{font:700 19px var(--display);letter-spacing:-.02em;color:var(--ink)}
+.mark b{font-weight:700;color:var(--accent-t)}
+.eyebrow{margin:6px 0 0;font:600 15px var(--body);color:var(--hot);letter-spacing:0}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,9vw,72px);line-height:1.04;letter-spacing:-.035em;margin:0;text-wrap:balance;max-width:14ch}
+h1 em{font-style:normal;color:var(--ink-faint)}
+.lede{margin:0;max-width:34ch;color:var(--ink-soft);font-size:clamp(17px,2.4vw,21px);line-height:1.4;text-wrap:balance}
+.hero-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:6px}
+.btn-pri,.btn-sec{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;padding:12px 22px;min-height:48px;font:600 17px var(--body);text-decoration:none;cursor:pointer;border:0}
+.btn-pri{background:var(--accent);color:#fff}
+.btn-sec{background:transparent;color:var(--accent-t);box-shadow:inset 0 0 0 1.5px var(--accent-t)}
+.howto{width:100%;max-width:880px;margin-top:22px}
+.howto-t{display:none}
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:f;text-align:left;background:var(--card);border-radius:20px;box-shadow:var(--shadow)}
+.flow li{display:flex;flex-direction:column;gap:6px;padding:18px 18px 20px;font-size:15px;line-height:1.3;color:var(--ink-soft)}
+.flow li+li{border-left:1px solid var(--hair)}
+.flow li::before{counter-increment:f;content:"Paso " counter(f);font:600 12px var(--body);color:var(--hot);letter-spacing:.02em;text-transform:uppercase}
+.flow b{color:var(--ink);font-weight:600}
+@media (max-width:640px){
+  header{padding-block:30px 18px;gap:12px}
+  .flow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flow li{padding:14px 14px 16px;font-size:14px}
+  .flow li:nth-child(3){border-left:0}
+  .flow li:nth-child(n+3){border-top:1px solid var(--hair)}
+  .btn-pri,.btn-sec{flex:1 1 auto}
+}
 
-/* sticky category bar */
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bar);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+/* barra de categorías */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bar);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--hair)}
 .bar .barin{display:flex;align-items:center;gap:10px;padding-block:10px}
-.bar .cats{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1 1 auto;min-width:0}
+.bar .cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1 1 auto;min-width:0;padding-right:26px;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent)}
 .bar .cats::-webkit-scrollbar{display:none}
-.bar .cats{padding-right:26px;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent)}
-.bar .cats button{flex:0 0 auto;font:700 15px var(--body);color:var(--ink);background:var(--chip);border:1.5px solid var(--line);border-radius:999px;padding:9px 18px;min-height:42px;cursor:pointer}
-.bar .cats button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.bar .cats button{flex:0 0 auto;font:500 15px var(--body);color:var(--ink);background:var(--chip);border:0;border-radius:999px;padding:8px 16px;min-height:40px;cursor:pointer}
+.bar .cats button[aria-pressed="true"]{background:var(--ink);color:var(--bg);font-weight:600}
+.cartbtn{position:relative;flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:0;background:var(--chip);color:var(--ink);display:grid;place-items:center;cursor:pointer}
+.cartbtn svg{width:22px;height:22px}
+.badge{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:999px;background:var(--accent);color:#fff;font:700 12px var(--body);display:grid;place-items:center;padding:0 5px;border:2px solid var(--bg)}
+.bump{animation:bump .45s}@keyframes bump{40%{transform:scale(1.18)}}
 
-main{padding-block:18px 8px}
+main{padding-block:22px 8px}
 #paquetes,#pedir,#medida,#referencias{scroll-margin-top:72px}
 
-/* referencias: fotos reales de piezas ya impresas */
-.refs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-@media (min-width:700px){.refs{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}}
-@media (min-width:1040px){.refs{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.refs button{position:relative;display:block;width:100%;padding:0;border:0;border-radius:18px;overflow:hidden;background:var(--stage);box-shadow:0 3px 0 var(--line);cursor:zoom-in;aspect-ratio:4/5}
-.refs img{width:100%;height:100%;object-fit:cover;display:block}
-.refs span{position:absolute;left:0;right:0;bottom:0;padding:22px 10px 9px;font:700 13px/1.25 var(--body);color:#fff;text-align:left;background:linear-gradient(transparent,rgba(20,28,48,.78))}
-.refs-empty{background:var(--card);border-radius:22px;box-shadow:0 4px 0 var(--line);padding:22px 18px;color:var(--ink-soft);text-align:center}
-.lb{position:fixed;inset:0;z-index:50;background:rgba(12,18,32,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:max(16px,env(safe-area-inset-top,0px)) 16px max(16px,env(safe-area-inset-bottom,0px))}
-.lb img{max-width:100%;max-height:calc(100% - 90px);object-fit:contain;border-radius:12px}
-.lb p{margin:0;color:#F5F0E4;font:700 15px var(--body);text-align:center;max-width:40ch}
-.lb .x{position:absolute;top:max(12px,env(safe-area-inset-top,0px));right:12px;width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font:800 24px var(--body);cursor:pointer}
-.lb .nv{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font:800 22px var(--body);cursor:pointer}
-.lb .nv.prev{left:10px}.lb .nv.next{right:10px}
-.slogan{margin:2px 0 0;font-family:var(--display);font-weight:800;font-size:clamp(20px,5.4vw,28px);line-height:1.15;color:var(--ink);text-wrap:balance}
-.slogan em{font-style:normal;color:var(--gold-t)}
-.custom{margin-top:28px;border-radius:26px;background:#2F4A80;color:#F5F0E4;padding:26px 20px;position:relative;overflow:hidden;box-shadow:0 5px 0 #6E9BD6}
-.custom::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(245,240,228,.16) 1.3px,transparent 1.4px);background-size:20px 20px;opacity:.6;pointer-events:none}
-.cu-text{position:relative;display:flex;flex-direction:column;gap:12px;max-width:760px}
-.cu-kicker{align-self:flex-start;font:800 11px var(--body);letter-spacing:.16em;text-transform:uppercase;background:#C9A86A;color:#1B2742;border-radius:999px;padding:5px 12px}
-.custom h2{font-family:var(--display);font-weight:900;font-size:clamp(30px,8.5vw,48px);line-height:1;margin:0;text-wrap:balance}
-.custom h2 em{font-style:normal;color:#9CC3EE}
-.custom p{margin:0;font-size:16px;opacity:.92}
-.cu-ideas{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-.cu-ideas li{font:700 14px var(--body);border:1.5px solid rgba(245,240,228,.4);border-radius:999px;padding:7px 13px}
-.cu-cta{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;margin-top:6px;background:#17804A;color:#fff;font:800 16px var(--body);text-decoration:none;border-radius:999px;padding:14px 22px;min-height:50px}
-.cu-cta::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z'/%3E%3C/svg%3E")}
-.cu-cta:focus-visible{outline:3px solid #F5F0E4;outline-offset:3px}
-.cu-note{font-size:14px!important;opacity:.8!important}
-@media (min-width:760px){.custom{padding:38px 40px}}
+/* buscador */
+.search{margin-bottom:8px}
+.search input{width:100%;font:400 17px var(--body);color:var(--ink);background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:12px 16px;min-height:48px;-webkit-appearance:none;appearance:none}
+.search input::placeholder{color:var(--ink-faint)}
+.search input:focus{outline:3px solid color-mix(in srgb,var(--accent) 40%,transparent);outline-offset:0;border-color:var(--accent)}
+.tip{display:none;margin:10px 2px 0;font:400 15px var(--body);color:var(--ink-soft)}
+@media (max-width:699px){.tip{display:block}}
+.nores{margin:14px 0 0;background:var(--card);border-radius:16px;padding:16px;color:var(--ink-soft)}
+.nores a{color:var(--accent-t);font-weight:600}
+
+/* encabezados de temporada dentro del catálogo */
+.season{grid-column:1/-1;padding:30px 2px 4px}
+.season:first-child{padding-top:10px}
+.season small{display:block;font:600 14px var(--body);color:var(--hot)}
+.season h2{margin:2px 0 0;font:700 clamp(28px,6vw,40px)/1.08 var(--display);letter-spacing:-.03em}
+.season p{margin:6px 0 0;color:var(--ink-soft);font-size:17px}
+
+/* tarjetas de producto */
 .grid{display:grid;grid-template-columns:1fr;gap:18px}
 @media (min-width:700px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}}
 @media (min-width:1040px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-
-/* buscador */
-.search{margin-bottom:14px}
-.search input{width:100%;font:500 16px var(--body);color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:12px 18px;min-height:48px;-webkit-appearance:none;appearance:none}
-.search input:focus{outline:3px solid var(--accent);outline-offset:1px}
-.nores{margin:14px 0 0;background:var(--card);border-radius:18px;box-shadow:0 3px 0 var(--line);padding:16px;color:var(--ink-soft)}
-.nores a{color:var(--ink);font-weight:800}
-.from{display:none;margin:0;font:800 15px var(--body);color:var(--ink);font-variant-numeric:tabular-nums}
+.card{background:var(--card);border-radius:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;min-width:0;scroll-margin-top:80px;transition:transform .25s,box-shadow .25s}
+.stage{position:relative;aspect-ratio:1/1;max-width:100%;background:radial-gradient(120% 90% at 50% 25%,var(--stage2),var(--stage));overflow:hidden}
+.stage .pic{position:absolute;inset:6% 8% 4% 14%;display:flex;align-items:flex-end;justify-content:center}
+.stage.noruler .pic{inset:6% 8% 4% 8%;align-items:center}
+.stage.noruler img{object-position:center;transform-origin:50% 50%}
+.stage img{width:100%;height:100%;object-fit:contain;object-position:center bottom;transform-origin:50% 100%;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .25s}
+.stage.photo .pic{inset:0}.stage.photo img{object-fit:cover;object-position:50% 65%}
+.stage.dk{background:radial-gradient(120% 90% at 50% 25%,#B4B8C2,#7E838F)}
+.stage.dk .ruler::before{background:#fff}
+.stage.dk .ruler::after{background:#fff;box-shadow:0 calc(var(--rh,100px) - 2px) 0 #fff}
+.views{position:absolute;right:10px;top:10px;z-index:2;display:flex;background:rgba(255,255,255,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:999px;padding:3px}
+.views button{border:0;background:transparent;color:#1D1D1F;font:500 13px var(--body);padding:7px 11px;min-height:36px;border-radius:999px;cursor:pointer}
+.views button[aria-pressed="true"]{background:#1D1D1F;color:#fff}
+.tag{position:absolute;top:12px;left:12px;font:600 12px var(--body);color:var(--hot);background:rgba(255,255,255,.85);border-radius:999px;padding:4px 10px;z-index:2}
+.ruler{position:absolute;left:5%;bottom:4%;width:28px;display:flex;flex-direction:column;align-items:center;transition:height .45s cubic-bezier(.2,.8,.2,1);z-index:1}
+.ruler::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1.5px;transform:translateX(-50%);background:#86868B}
+.ruler::after{content:"";position:absolute;left:50%;top:0;width:12px;height:1.5px;transform:translateX(-50%);background:#86868B;box-shadow:0 calc(var(--rh,100px) - 2px) 0 #86868B}
+.ruler span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font:600 12px var(--body);color:#1D1D1F;background:#fff;border-radius:999px;padding:2px 8px;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:14px;flex:1}
+.card h2{font:700 24px/1.12 var(--display);letter-spacing:-.025em;margin:0}
+.card p.desc{margin:0;color:var(--ink-soft);font-size:16px}
+.from{display:none;margin:0;font:500 15px var(--body);color:var(--ink);font-variant-numeric:tabular-nums}
+.more{display:none;margin:0;font:400 14px var(--body);color:var(--accent-t)}
+.dots{display:none;align-items:center;gap:3px;margin:0}
+.dots i{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.dots span{margin-left:3px;font:500 12px var(--body);color:var(--ink-faint);white-space:nowrap}
 .cx{display:none}
-.flowmini{display:none}
-.facts{grid-column:1/-1;list-style:none;margin:0;padding:16px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr;gap:10px}
-@media (min-width:760px){.facts{grid-template-columns:1fr 1fr;gap:12px 28px}}
-.facts li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start;font-size:15px}
-.facts b{display:block}
-/* celular: catálogo en dos columnas compactas; al tocar una pieza se abre su ficha a pantalla completa */
+.lbl{display:block;font:600 15px var(--body);color:var(--ink);margin:0 0 8px}
+.sizes{display:flex;flex-wrap:wrap;gap:8px}
+.sizes button{flex:0 0 auto;font:500 15px var(--body);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 14px;min-height:46px;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
+.sizes button small{font-weight:400;font-size:12px;color:var(--ink-soft)}
+.sizes button[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);color:var(--ink)}
+.cols{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.cols .cl{flex:1 0 100%;font-size:15px;color:var(--ink-soft)}
+.cols .cl .lbl{margin:0}
+.cols .cl b{color:var(--ink);font-weight:500}
+.cols button{position:relative;width:32px;height:32px;flex:0 0 auto;border-radius:50%;border:0;background:var(--c);cursor:pointer;padding:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);transition:transform .15s}
+.cols button::after{content:"";position:absolute;inset:-6px}
+.cols button[aria-pressed="true"]{box-shadow:inset 0 0 0 1px rgba(0,0,0,.15),0 0 0 2px var(--card),0 0 0 4px var(--accent)}
+.dims{margin:0;font-size:15px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.dims::before{content:"📏 "}
+.buy{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:auto;padding-top:6px;border-top:1px solid var(--hair)}
+.price{font:700 30px/1 var(--display);letter-spacing:-.03em;white-space:nowrap;font-variant-numeric:tabular-nums;display:block;padding-top:12px}
+.price small{font:500 13px var(--body);color:var(--ink-soft);margin-left:4px;letter-spacing:0}
+.price .each{display:block;font:400 13px var(--body);color:var(--ink-soft);margin:6px 0 0;letter-spacing:0}
+.qty{display:flex;flex-direction:column;align-items:flex-end}.qty .lbl{margin:12px 0 6px;font-size:13px;color:var(--ink-soft);font-weight:500}
+.step{display:flex;align-items:center;background:var(--soft);border-radius:999px}
+.step button{width:44px;height:44px;border:0;background:transparent;color:var(--ink);font:500 22px var(--body);cursor:pointer;border-radius:999px}
+.step output{min-width:34px;text-align:center;font:600 17px var(--body);font-variant-numeric:tabular-nums}
+.deal{font-size:14px;font-weight:500;color:var(--gold-t);margin:-4px 0 0}
+.deal:empty{display:none}
+.add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:14px;background:var(--accent);color:#fff;font:600 17px var(--body);padding:13px 16px;min-height:52px;cursor:pointer;font-variant-numeric:tabular-nums;transition:background .2s}
+.add.ok{background:var(--green)}
+.add svg,.cb-open svg{width:20px;height:20px;flex:0 0 auto}
+
+/* celular: dos columnas compactas; al tocar una pieza se abre su ficha a pantalla completa */
 @media (max-width:699px){
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .season{padding-top:22px}
   .card:not(.open){border-radius:18px;cursor:pointer}
-  .card:not(.open) .body{padding:10px 10px 12px;gap:4px}
-  .card:not(.open) .body>:not(h2):not(.from){display:none}
-  .card:not(.open) h2{font-size:16px;line-height:1.15}
-  .card:not(.open) .from{display:block}
+  .card:not(.open) .body{padding:12px 12px 14px;gap:4px}
+  .card:not(.open) .body>:not(h2):not(.from):not(.more):not(.dots){display:none}
+  .card:not(.open) h2{font-size:16px;line-height:1.2;letter-spacing:-.015em}
+  .card:not(.open) .from,.card:not(.open) .more{display:block}
+  .card:not(.open) .dots{display:flex;margin-top:4px}
   .card:not(.open) .views,.card:not(.open) .ruler,.card:not(.open) .tag{display:none}
   .card:not(.open) .stage img{transform:none!important}
   .card:not(.open) .stage .pic{inset:8%}
   .card:not(.open) .stage.photo .pic{inset:0}
   .card.open{position:fixed;inset:0;z-index:24;border-radius:0;overflow-y:auto;box-shadow:none;overscroll-behavior:contain;padding-top:env(safe-area-inset-top,0px);padding-bottom:calc(86px + env(safe-area-inset-bottom,0px))}
   .card.open .stage{flex:0 0 auto}
-  .card.open .cx{display:grid;place-items:center;position:fixed;top:calc(10px + env(safe-area-inset-top,0px));left:10px;z-index:3;width:44px;height:44px;border-radius:50%;border:0;background:var(--card);color:var(--ink);font:800 22px var(--body);box-shadow:0 2px 0 var(--line);cursor:pointer}
-  .card.open .tag{left:64px;top:22px}
+  .card.open .cx{display:flex;align-items:center;gap:4px;position:fixed;top:calc(10px + env(safe-area-inset-top,0px));left:10px;z-index:3;height:40px;padding:0 16px 0 12px;border-radius:999px;border:0;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#1D1D1F;font:600 15px var(--body);box-shadow:0 1px 4px rgba(0,0,0,.12);cursor:pointer}
+  .card.open .tag{left:auto;right:12px;top:auto;bottom:12px}
 }
-/* product card */
-.card{background:var(--card);border-radius:24px;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;overflow:hidden;min-width:0;scroll-margin-top:80px}
-.stage{position:relative;aspect-ratio:1/1;max-width:100%;background:radial-gradient(120% 90% at 50% 30%,var(--stage2),var(--stage));overflow:hidden}
-.stage .pic{position:absolute;inset:6% 8% 4% 14%;display:flex;align-items:flex-end;justify-content:center}
-.stage.noruler .pic{inset:6% 8% 4% 8%;align-items:center}
-.stage.noruler img{object-position:center;transform-origin:50% 50%}
-.stage img{width:100%;height:100%;object-fit:contain;object-position:center bottom;transform-origin:50% 100%;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .25s}
-.views{position:absolute;right:10px;top:10px;z-index:2;display:flex;background:var(--card);border-radius:999px;padding:3px;box-shadow:0 2px 0 var(--line)}
-.views button{border:0;background:transparent;color:var(--ink);font:800 13px var(--body);padding:8px 10px;min-height:38px;border-radius:999px;cursor:pointer}
-.views button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-.tag{position:absolute;top:12px;left:12px;font:800 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--on);background:var(--gold);border-radius:999px;padding:5px 11px;z-index:2}
-.ruler{position:absolute;left:5%;bottom:4%;width:28px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;transition:height .45s cubic-bezier(.2,.8,.2,1);z-index:1}
-.ruler::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:#56709F;opacity:.8}
-.ruler::after{content:"";position:absolute;left:50%;top:0;width:14px;height:2px;transform:translateX(-50%);background:#56709F;opacity:.8;box-shadow:0 calc(var(--rh,100px) - 2px) 0 #56709F}
-.ruler span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font:800 13px var(--body);color:var(--ink);background:var(--card);border-radius:999px;padding:2px 8px;white-space:nowrap;box-shadow:0 1px 0 var(--line)}
-.body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:12px;flex:1}
-.card h2{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.05;margin:0;letter-spacing:-.01em}
-.card p.desc{margin:0;color:var(--ink-soft);font-size:15px}
-.sizes{display:flex;flex-wrap:wrap;gap:8px}
-.sizes button{flex:0 0 auto;font:700 14px var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:14px;padding:8px 14px;min-height:44px;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
-.sizes button small{font-weight:600;font-size:12px;color:var(--ink-soft)}
-.sizes button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
-.sizes button[aria-pressed="true"] small{color:var(--bg);opacity:.85}
-.cols{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
-.cols .cl{flex:1 0 100%;font-size:14px;font-weight:600;color:var(--ink-soft)}
-.cols .cl b{color:var(--ink)}
-.cols button::after{content:"";position:absolute;inset:-6px}
-.cols button{position:relative;width:32px;height:32px;flex:0 0 auto;border-radius:50%;border:2px solid var(--line);background:var(--c);cursor:pointer;padding:0;box-shadow:inset 0 0 0 2px var(--card);transition:transform .15s}
-.cols button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 3px var(--card);transform:scale(1.1)}
-.stage.dk{background:radial-gradient(120% 90% at 50% 30%,#8497BC,#51688F)}
-.stage.dk .ruler::before{background:#fff}
-.stage.dk .ruler::after{background:#fff;box-shadow:0 calc(var(--rh,100px) - 2px) 0 #fff}
-.dims{margin:0;font-size:14px;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
-.dims::before{content:"📏 "}
-.ptime{margin:0;font-size:14px;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
-.ptime::before{content:"⏱️ "}
-.btime{margin:2px 0 0;font-size:13px;font-weight:600;color:var(--ink-soft)}
-.buy{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}
-.price{font-family:var(--display);font-weight:900;font-size:32px;line-height:1;white-space:nowrap;font-variant-numeric:tabular-nums}
-.price small{font-family:var(--body);font-size:13px;font-weight:700;color:var(--ink-soft);margin-left:3px}
 
-/* quantity + add to order */
-.price .each{display:block;font-family:var(--body);font-size:13px;font-weight:600;color:var(--ink-soft);margin:4px 0 0}
-.step{display:flex;align-items:center;background:var(--card);border-radius:999px;border:1.5px solid var(--line)}
-.step button{width:44px;height:44px;border:0;background:transparent;color:var(--ink);font:800 22px var(--body);cursor:pointer;border-radius:999px}
-.step output{min-width:40px;text-align:center;font:800 18px var(--body);font-variant-numeric:tabular-nums}
-.deal{font-size:13px;font-weight:700;color:var(--gold-t);margin:-4px 0 0}
-.deal:empty{display:none}
-.add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:999px;background:var(--ink);color:var(--bg);font:800 16px var(--body);padding:12px 16px;min-height:50px;cursor:pointer;font-variant-numeric:tabular-nums;transition:background .2s}
-.add.ok{background:#17804A;color:#fff}
-.wa{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;background:#17804A;color:#fff;font:800 15px var(--body);padding:12px 16px;min-height:48px;text-decoration:none}
-.wa::before,.social a::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
-.wa,.social .w{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z'/%3E%3C/svg%3E")}
-.social .i,.ig{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 3.8c2.7 0 3 0 4 .1 2.7.1 4 1.4 4.1 4.1.1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.7-1.4 4-4.1 4.1-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.7-.1-4-1.4-4.1-4.1-.1-1-.1-1.3-.1-4s0-3 .1-4C3.9 5.3 5.3 4 8 3.9c1-.1 1.3-.1 4-.1zM12 2c-2.7 0-3.1 0-4.1.1C4.3 2.2 2.2 4.3 2.1 7.9 2 8.9 2 9.3 2 12s0 3.1.1 4.1c.1 3.6 2.2 5.7 5.8 5.8 1 .1 1.4.1 4.1.1s3.1 0 4.1-.1c3.6-.1 5.7-2.2 5.8-5.8.1-1 .1-1.4.1-4.1s0-3.1-.1-4.1c-.1-3.6-2.2-5.7-5.8-5.8C15.1 2 14.7 2 12 2z'/%3E%3C/svg%3E")}
-.social .f{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z'/%3E%3C/svg%3E")}
-.social{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
-.social a{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 18px;min-height:48px;font:800 15px var(--body);text-decoration:none;color:#fff}
-.social .w{background:#17804A}.social .i{background:#C13584}.social .f{background:#1877F2}
-.social .t{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9a6.3 6.3 0 1 0 5.3 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.5 4.5 0 0 1-4.4-4.7z'/%3E%3C/svg%3E")}
-.social .t{background:#111;box-shadow:inset 0 0 0 1.5px #3a3a3a}
-.dock a span{min-width:0;overflow:hidden;text-overflow:ellipsis}
-@media (max-width:520px){.dock a:not(.w){flex:0 0 48px;padding:0}.dock a:not(.w) span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.dock a.w{flex:1 1 auto;max-width:none}}
+/* hecho a tu medida */
+.custom{margin-top:44px;border-radius:26px;background:#1D1D1F;color:#F5F5F7;padding:34px 24px;position:relative;overflow:hidden}
+:root[data-theme="dark"] .custom{background:#1C1C1E}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .custom{background:#1C1C1E}}
+.cu-text{position:relative;display:flex;flex-direction:column;gap:14px;max-width:720px}
+.cu-kicker{font:600 15px var(--body);color:#FF9F45}
+.custom h2{font:700 clamp(30px,7vw,48px)/1.06 var(--display);letter-spacing:-.035em;margin:0;text-wrap:balance}
+.custom h2 em{font-style:normal;color:#A1A1A6}
+.custom p{margin:0;font-size:17px;color:#D2D2D7}
+.cu-ideas{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.cu-ideas li{font:500 14px var(--body);background:rgba(255,255,255,.1);border-radius:999px;padding:7px 13px}
+.cu-cta{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;margin-top:6px;background:var(--green);color:#fff;font:600 17px var(--body);text-decoration:none;border-radius:999px;padding:13px 22px;min-height:50px}
+.cu-note{font-size:14px!important;color:#A1A1A6!important}
+@media (min-width:760px){.custom{padding:48px 52px}}
 
-.dock{position:fixed;left:0;right:0;bottom:0;z-index:25;display:flex;justify-content:center;gap:10px;padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:var(--bar);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
-.dock{flex-wrap:nowrap!important;gap:8px}
-.dock a{flex:1 1 0;min-width:0;max-width:180px;justify-content:center;gap:6px;padding:10px 6px;min-height:46px;font-size:13.5px;white-space:nowrap}
-.dock a::before{width:18px;height:18px;flex:0 0 auto}
-body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
-.toast{bottom:calc(86px + env(safe-area-inset-bottom,0px))!important}
+/* secciones */
+.sec-head{display:flex;flex-direction:column;gap:6px;padding-block:44px 16px}
+.sec-head h2{font:700 clamp(30px,7vw,44px)/1.06 var(--display);letter-spacing:-.035em;margin:0}
+.sec-head p{margin:0;color:var(--ink-soft);font-size:17px}
 
-/* bundles */
-.sec-head{display:flex;flex-direction:column;gap:4px;padding-block:28px 12px}
-.sec-head h2{font-family:var(--display);font-weight:900;font-size:clamp(30px,8vw,46px);margin:0;line-height:1}
-.sec-head p{margin:0;color:var(--ink-soft)}
-.brow{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,82%);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
+/* fotos reales */
+.refs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:700px){.refs{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}}
+@media (min-width:1040px){.refs{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.refs button{position:relative;display:block;width:100%;padding:0;border:0;border-radius:18px;overflow:hidden;background:var(--stage);cursor:zoom-in;aspect-ratio:4/5}
+.refs img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.refs span{position:absolute;left:0;right:0;bottom:0;padding:24px 12px 10px;font:500 13px/1.25 var(--body);color:#fff;text-align:left;background:linear-gradient(transparent,rgba(0,0,0,.6))}
+.refs-empty{background:var(--card);border-radius:20px;padding:22px 18px;color:var(--ink-soft);text-align:center}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:max(16px,env(safe-area-inset-top,0px)) 16px max(16px,env(safe-area-inset-bottom,0px))}
+.lb img{max-width:100%;max-height:calc(100% - 90px);object-fit:contain;border-radius:12px}
+.lb p{margin:0;color:#F5F5F7;font:500 15px var(--body);text-align:center;max-width:40ch}
+.lb .x,.lb .nv{position:absolute;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font:400 24px var(--body);cursor:pointer}
+.lb .x{top:max(12px,env(safe-area-inset-top,0px));right:12px}
+.lb .nv{top:50%;transform:translateY(-50%)}.lb .nv.prev{left:10px}.lb .nv.next{right:10px}
+
+/* paquetes */
+.brow{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,84%);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:8px;margin-inline:calc(-1 * max(20px,env(safe-area-inset-left,0px)));padding-inline:max(20px,env(safe-area-inset-left,0px))}
 .brow::-webkit-scrollbar{display:none}
 @media (min-width:700px){.brow{grid-auto-flow:row;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));overflow:visible;margin-inline:0;padding-inline:0}}
-.bcard{scroll-snap-align:start;background:var(--card);border-radius:22px;box-shadow:0 4px 0 var(--line);display:grid;grid-template-columns:92px minmax(0,1fr);gap:12px;padding:12px;align-items:center}
-.bthumb{position:relative;width:92px;height:92px;background:var(--stage);border-radius:16px;overflow:hidden}
-.bthumb.dk{background:#6A80A8}
+.bcard{scroll-snap-align:start;background:var(--card);border-radius:20px;box-shadow:var(--shadow);display:grid;grid-template-columns:92px minmax(0,1fr);gap:14px;padding:14px;align-items:center}
+.bthumb{position:relative;width:92px;height:92px;background:var(--stage);border-radius:14px;overflow:hidden}
+.bthumb.dk{background:#9095A1}
 .bthumb img{position:absolute;bottom:7%;object-fit:contain;object-position:center bottom}
-.bcard h3{font-family:var(--display);font-weight:800;font-size:19px;margin:0;line-height:1.1}
+.bcard h3{font:700 19px/1.15 var(--display);letter-spacing:-.02em;margin:0}
 .bcard p{margin:2px 0 6px;color:var(--ink-soft);font-size:14px}
 .bcard .row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.bcard .now{font-family:var(--display);font-weight:900;font-size:24px}
-.bcard .was{color:var(--ink-soft);text-decoration:line-through;font-size:14px}
-.badd{margin-top:8px;display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;background:var(--ink);color:var(--bg);font:800 14px var(--body);padding:9px 16px;min-height:44px;cursor:pointer;transition:background .2s}
-.stage.photo .pic{inset:0}.stage.photo img{object-fit:cover;object-position:50% 65%}
+.bcard .now{font:700 24px var(--display);letter-spacing:-.02em}
+.bcard .was{color:var(--ink-faint);text-decoration:line-through;font-size:14px}
+.bcard .save{background:var(--gold);color:var(--gold-t);border-radius:999px;padding:2px 10px;font-size:12px;font-weight:600}
+.badd{margin-top:8px;display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;background:var(--accent);color:#fff;font:600 15px var(--body);padding:9px 16px;min-height:44px;cursor:pointer}
 .badd svg{width:18px;height:18px}
-.badd.ok{background:#17804A;color:#fff}
-.bcard .save{background:var(--gold);color:var(--on);border-radius:999px;padding:2px 10px;font-size:12px;font-weight:800}
+.badd.ok{background:var(--green)}
 
-/* how to order */
-.how{margin-block:28px 0;background:var(--card);border-radius:24px;box-shadow:0 4px 0 var(--line);padding:22px 18px;display:grid;grid-template-columns:1fr;gap:18px}
-@media (min-width:760px){.how{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);padding:30px 36px;align-items:center}}
-.how h3{font-family:var(--display);font-weight:900;font-size:clamp(28px,7vw,40px);line-height:1;margin:0}
-.how h3 em{font-style:normal;color:var(--accent-t)}
-.how .big{font-family:var(--display);font-weight:900;color:var(--accent-t);font-size:52px;line-height:1;margin-top:10px}
-.how .big + p{margin:4px 0 0;color:var(--ink-soft)}
-.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
-.steps li{display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;align-items:center}
-.steps li::before{counter-increment:s;content:counter(s);width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--on);font:800 17px var(--display);display:grid;place-items:center;box-shadow:0 3px 0 var(--ink)}
-.fine{text-align:center;color:var(--ink-soft);font-size:13px;margin:0;padding-block:20px 40px;text-wrap:balance}
+/* cómo pedir + dudas */
+.how{margin-block:44px 0;background:var(--card);border-radius:26px;box-shadow:var(--shadow);padding:28px 22px;display:grid;grid-template-columns:1fr;gap:22px}
+@media (min-width:760px){.how{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);padding:44px 48px;align-items:center}}
+.how h3{font:700 clamp(30px,7vw,44px)/1.06 var(--display);letter-spacing:-.035em;margin:0}
+.how h3 em{font-style:normal;color:var(--ink-faint)}
+.how .big{font:700 64px/1 var(--display);letter-spacing:-.04em;color:var(--accent-t);margin-top:14px}
+.how .big + p{margin:6px 0 0;color:var(--ink-soft)}
+.btn-tour{margin-top:16px}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px;align-items:start;font-size:16px}
+.steps li::before{counter-increment:s;content:counter(s);width:34px;height:34px;border-radius:50%;background:var(--soft);color:var(--ink);font:600 16px var(--display);display:grid;place-items:center}
+.facts{grid-column:1/-1;list-style:none;margin:0;padding:20px 0 0;border-top:1px solid var(--hair);display:grid;grid-template-columns:1fr;gap:14px}
+@media (min-width:760px){.facts{grid-template-columns:1fr 1fr;gap:16px 32px}}
+.facts li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start;font-size:15px;color:var(--ink-soft)}
+.facts b{display:block;color:var(--ink);font-weight:600}
+.faq{grid-column:1/-1;border-top:1px solid var(--hair);padding-top:20px;display:flex;flex-direction:column}
+.faq h4{margin:0 0 8px;font:700 24px var(--display);letter-spacing:-.025em}
+.faq details{border-bottom:1px solid var(--hair)}
+.faq summary{cursor:pointer;font:500 17px var(--body);padding:14px 2px;list-style:none;display:flex;justify-content:space-between;gap:10px;min-height:52px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:300 26px var(--body);color:var(--accent-t);flex:0 0 auto}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin:0;padding:0 2px 16px;color:var(--ink-soft);font-size:16px}
+.fine{text-align:center;color:var(--ink-faint);font-size:13px;margin:0;padding-block:24px 40px;text-wrap:balance}
 
-.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);background:var(--ink);color:var(--bg);font:700 15px var(--body);padding:12px 18px;border-radius:999px;z-index:40;transition:transform .3s,opacity .3s,visibility .3s;max-width:calc(100% - 32px);text-align:center;opacity:0;visibility:hidden}
-.toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
-/* botón de carrito en la barra */
-.cartbtn{position:relative;flex:0 0 auto;width:48px;height:48px;border-radius:50%;border:0;background:var(--ink);color:var(--bg);display:grid;place-items:center;cursor:pointer;box-shadow:0 3px 0 var(--line)}
-.cartbtn svg{width:24px;height:24px}
-.badge{position:absolute;top:-5px;right:-5px;min-width:22px;height:22px;border-radius:999px;background:#C9342C;color:#fff;font:800 12px var(--body);display:grid;place-items:center;padding:0 5px;border:2px solid var(--bg)}
-.bump{animation:bump .45s}
-@keyframes bump{40%{transform:scale(1.18)}}
-.add svg,.cb-open svg{width:20px;height:20px;flex:0 0 auto}
-.foot-social{display:none!important}
+/* redes y botones de contacto */
+.wa,.ig{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;color:#fff;font:600 16px var(--body);padding:12px 16px;min-height:48px;text-decoration:none}
+.wa{background:var(--green)}.ig{background:#C13584}
+.wa::before,.ig::before,.social a::before,.cu-cta::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;flex:0 0 auto}
+.wa,.social .w,.cu-cta{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z'/%3E%3C/svg%3E")}
+.social .i,.ig{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 3.8c2.7 0 3 0 4 .1 2.7.1 4 1.4 4.1 4.1.1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.7-1.4 4-4.1 4.1-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.7-.1-4-1.4-4.1-4.1-.1-1-.1-1.3-.1-4s0-3 .1-4C3.9 5.3 5.3 4 8 3.9c1-.1 1.3-.1 4-.1zM12 2c-2.7 0-3.1 0-4.1.1C4.3 2.2 2.2 4.3 2.1 7.9 2 8.9 2 9.3 2 12s0 3.1.1 4.1c.1 3.6 2.2 5.7 5.8 5.8 1 .1 1.4.1 4.1.1s3.1 0 4.1-.1c3.6-.1 5.7-2.2 5.8-5.8.1-1 .1-1.4.1-4.1s0-3.1-.1-4.1c-.1-3.6-2.2-5.7-5.8-5.8C15.1 2 14.7 2 12 2z'/%3E%3C/svg%3E")}
+.social .f{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z'/%3E%3C/svg%3E")}
+.social .t{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9a6.3 6.3 0 1 0 5.3 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.5 4.5 0 0 1-4.4-4.7z'/%3E%3C/svg%3E")}
+.social{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.social a{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 18px;min-height:48px;font:600 15px var(--body);text-decoration:none;color:#fff}
+.social .w{background:var(--green)}.social .i{background:#C13584}.social .f{background:#1877F2}.social .t{background:#111}
+.foot-social{display:none!important;padding-top:32px}
 body.has-cart .foot-social{display:flex!important}
-.sh-empty{margin:18px 0 10px;text-align:center;color:var(--ink-soft)}
-.sh-specs{display:flex;flex-direction:column;gap:10px;padding-top:12px}
-.sh-specs label{display:flex;flex-direction:column;gap:4px;font:700 14px var(--body)}
-.sh-specs input,.sh-specs textarea{font:500 16px var(--body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;resize:vertical}
-.sh-specs input:focus,.sh-specs textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
-.sh-send{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.ig{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;background:#C13584;color:#fff;font:800 15px var(--body);padding:12px 16px;min-height:48px;text-decoration:none}
-.ig::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
-@media (max-width:420px){.sh-send{grid-template-columns:1fr}}
-.cb-go{flex:1 1 auto;max-width:260px;border:0;border-radius:999px;background:#17804A;color:#fff;font:800 15px var(--body);padding:12px 16px;min-height:48px;cursor:pointer;white-space:nowrap}
-.cb-open .cb-n{display:none}
-/* pasos rápidos bajo el título */
-.flow{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;max-width:760px;counter-reset:f;text-align:left}
-@media (min-width:700px){.flow{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.flow li{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:14px;box-shadow:0 2px 0 var(--line);padding:8px 10px;font-size:13px;line-height:1.25;color:var(--ink-soft)}
-.flow li::before{counter-increment:f;content:counter(f);flex:0 0 24px;height:24px;border-radius:50%;background:var(--accent);color:var(--on);font:800 13px var(--display);display:grid;place-items:center}
-.flow b{color:var(--ink)}
-@media (max-width:520px){.flow{display:none}.flowmini{display:inline-flex;align-items:center;gap:6px;margin-top:4px;border:1.5px solid var(--line);background:var(--card);color:var(--ink-soft);font:600 13px var(--body);border-radius:999px;padding:8px 14px;min-height:40px;cursor:pointer}.flowmini b{color:var(--ink)}header{padding-block:18px 12px;gap:6px}.lede{display:none}h1{font-size:clamp(32px,9vw,44px)}.slogan{font-size:19px}}
 
-/* carrito: barra inferior + hoja con el pedido */
-.cartbar{position:fixed;left:0;right:0;bottom:0;z-index:26;display:flex;gap:8px;justify-content:center;padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:var(--bar);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+/* barra inferior: contacto (sin carrito) o carrito */
+.dock,.cartbar{position:fixed;left:0;right:0;bottom:0;z-index:25;display:flex;justify-content:center;flex-wrap:nowrap;gap:8px;padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:var(--bar);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-top:1px solid var(--hair)}
+.cartbar{z-index:26}
+.dock a{flex:1 1 0;min-width:0;max-width:180px;justify-content:center;gap:6px;padding:10px 6px;min-height:46px;font-size:14px;white-space:nowrap}
+.dock a::before{width:18px;height:18px}
+.dock a span{min-width:0;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:520px){.dock a:not(.w){flex:0 0 46px;padding:0}.dock a:not(.w) span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.dock a.w{flex:1 1 auto;max-width:none}}
+body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
 body.has-cart .dock{display:none}
-.cb-open{flex:1 1 auto;max-width:280px;display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 16px;min-height:48px;cursor:pointer;text-align:left;font-variant-numeric:tabular-nums}
-.cb-open .cb-n{flex:0 0 auto;min-width:28px;height:28px;border-radius:999px;background:var(--accent);color:#fff;font:800 14px var(--body);display:grid;place-items:center;padding:0 6px}
-.cb-open span.cb-t{display:flex;flex-direction:column;line-height:1.1}
-.cb-open b{font:900 18px var(--display)}
-.cb-open small{font:700 12px var(--body);color:var(--ink-soft)}
-.cartbar .wa{flex:1 1 auto;max-width:260px;white-space:nowrap}
-.cb-open,.cb-open small{white-space:nowrap}
-.cb-open{min-width:0}.cb-open .cb-t{min-width:0;overflow:hidden}.cb-go{flex:0 1 auto}
-body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!important}
-@media (max-width:360px){.cb-open{padding:6px 10px;gap:8px}.cartbar .wa{padding:10px 12px;font-size:14px}}
-.sheet{position:fixed;inset:0;z-index:45;background:rgba(12,18,32,.55);display:flex;align-items:flex-end;justify-content:center}
-.sh-box{background:var(--card);color:var(--ink);width:100%;max-width:560px;max-height:88vh;border-radius:24px 24px 0 0;display:flex;flex-direction:column;padding:18px 16px calc(16px + env(safe-area-inset-bottom,0px))}
-@media (min-width:700px){.sheet{align-items:center}.sh-box{border-radius:24px}}
-.sh-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
-.sh-head h3{font:900 26px var(--display);margin:0}
-.sh-head .x{width:44px;height:44px;border-radius:50%;border:0;background:var(--soft);color:var(--ink);font:800 22px var(--body);cursor:pointer}
-.sh-scroll{overflow-y:auto;flex:1 1 auto;min-height:0}
+.cb-open{flex:1 1 auto;max-width:280px;min-width:0;display:flex;align-items:center;gap:10px;border:0;background:var(--card);color:var(--ink);border-radius:999px;padding:6px 16px;min-height:48px;cursor:pointer;text-align:left;font-variant-numeric:tabular-nums;box-shadow:inset 0 0 0 1px var(--hair);white-space:nowrap}
+.cb-open .cb-n{display:none}
+.cb-open .cb-t{display:flex;flex-direction:column;line-height:1.1;min-width:0;overflow:hidden}
+.cb-open b{font:700 18px var(--display)}
+.cb-open small{font:400 12px var(--body);color:var(--ink-soft);white-space:nowrap}
+.cb-go{flex:0 1 auto;max-width:260px;border:0;border-radius:999px;background:var(--green);color:#fff;font:600 16px var(--body);padding:12px 20px;min-height:48px;cursor:pointer;white-space:nowrap}
+@media (max-width:360px){.cb-open{padding:6px 10px;gap:8px}}
+
+/* hoja del carrito */
+.sheet{position:fixed;inset:0;z-index:45;background:rgba(0,0,0,.4);display:flex;align-items:flex-end;justify-content:center}
+.sh-box{background:var(--card);color:var(--ink);width:100%;max-width:560px;max-height:90vh;border-radius:22px 22px 0 0;display:flex;flex-direction:column;padding:20px 18px calc(16px + env(safe-area-inset-bottom,0px))}
+@media (min-width:700px){.sheet{align-items:center}.sh-box{border-radius:22px}}
+.sh-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+.sh-head h3{font:700 28px var(--display);letter-spacing:-.03em;margin:0}
+.sh-head .x{width:36px;height:36px;border-radius:50%;border:0;background:var(--soft);color:var(--ink-soft);font:500 20px var(--body);cursor:pointer}
+.sh-scroll{overflow-y:auto;flex:1 1 auto;min-height:0;padding-right:6px}
+.sh-empty{margin:18px 0 10px;text-align:center;color:var(--ink-soft)}
+.sh-step{margin:18px 0 0;font:600 17px var(--body);color:var(--ink)}
+.sh-step small{display:block;font:400 14px var(--body);color:var(--ink-soft)}
+.sh-step[hidden]{display:none}
 .sh-list{list-style:none;margin:0;padding:0}
-.sh-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
-.sh-list .nm{font-weight:700;line-height:1.25}
-.sh-list .nm small{display:block;font-weight:600;color:var(--ink-soft);font-size:13px}
-.sh-list .lt{font:900 18px var(--display);text-align:right;font-variant-numeric:tabular-nums}
+.sh-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--hair)}
+.sh-list .nm{font-weight:500;line-height:1.3}
+.sh-list .nm small{display:block;font-weight:400;color:var(--ink-soft);font-size:13px}
+.sh-list .lt{font:600 17px var(--body);text-align:right;font-variant-numeric:tabular-nums}
 .sh-list .step{justify-self:start}
-.sh-list .rm{justify-self:end;border:0;background:none;color:var(--ink-soft);font:700 13px var(--body);text-decoration:underline;cursor:pointer;padding:8px 0}
+.sh-list .rm{justify-self:end;border:0;background:none;color:var(--accent-t);font:400 15px var(--body);cursor:pointer;padding:8px 0}
 .sh-foot{display:flex;flex-direction:column;gap:10px;padding-top:12px}
-.sh-total{display:flex;justify-content:space-between;align-items:baseline;font-weight:700}
-.sh-total b{font:900 30px var(--display);font-variant-numeric:tabular-nums}
-.sh-note{margin:0;font-size:14px;color:var(--ink-soft)}
-.sh-clear{align-self:center;border:0;background:none;color:var(--ink-soft);font:700 14px var(--body);text-decoration:underline;cursor:pointer;padding:6px}
-.foot-social{padding-top:28px}
-@media (hover:hover){.add:hover,.badd:hover,.cartbtn:hover,.cb-go:hover,.wa:hover,.ig:hover,.cu-cta:hover,.social a:hover{filter:brightness(1.12)}
-  .bar .cats button:hover,.sizes button:hover,.cb-open:hover{border-color:var(--ink)}.views button:hover{background:var(--soft)}.views button[aria-pressed="true"]:hover{background:var(--ink)}
-  .cols button:hover{transform:scale(1.1)}.step button:hover{background:var(--soft)}.refs button:hover img{transform:scale(1.03)}.refs img{transition:transform .25s}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.sh-total{display:flex;justify-content:space-between;align-items:baseline;font-weight:500}
+.sh-total b{font:700 30px var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.sh-specs{display:flex;flex-direction:column;gap:12px;padding-top:6px}
+.sh-specs label{display:flex;flex-direction:column;gap:6px;font:500 15px var(--body)}
+.sh-specs input,.sh-specs textarea{font:400 17px var(--body);color:var(--ink);background:var(--soft);border:1px solid transparent;border-radius:12px;padding:11px 12px;resize:vertical}
+.sh-specs input:focus,.sh-specs textarea:focus{outline:0;border-color:var(--accent);background:var(--card)}
+.sh-note{margin:0;font-size:15px;color:var(--ink-soft)}
+.sh-send{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:420px){.sh-send{grid-template-columns:1fr}}
+.sh-clear{align-self:center;border:0;background:none;color:var(--ink-soft);font:400 14px var(--body);cursor:pointer;padding:6px}
+
+.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);background:var(--ink);color:var(--bg);font:500 15px var(--body);padding:12px 18px;border-radius:14px;z-index:40;transition:transform .3s,opacity .3s,visibility .3s;max-width:calc(100% - 32px);text-align:center;opacity:0;visibility:hidden}
+.toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
+
+/* guía paso a paso */
+.tour{position:fixed;inset:0;z-index:60}
+.tour-hole{position:fixed;border-radius:18px;box-shadow:0 0 0 9999px rgba(0,0,0,.62);transition:all .35s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.tour-hole.none{left:50%!important;top:40%!important;width:0!important;height:0!important}
+.tour-card{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(420px,calc(100% - 24px));background:var(--card);color:var(--ink);border-radius:22px;padding:22px 20px 16px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.tour-card.mid{bottom:auto;top:50%;transform:translate(-50%,-50%)}
+.tour-n{margin:0;font:600 13px var(--body);color:var(--hot)}
+.tour-card h3{margin:4px 0 6px;font:700 24px/1.15 var(--display);letter-spacing:-.025em}
+.tour-card p.tb{margin:0;color:var(--ink-soft);font-size:16px}
+.tour-dots{display:flex;gap:6px;margin:16px 0 0}
+.tour-dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.tour-dots i.on{background:var(--ink);width:18px;border-radius:4px}
+.tour-nav{display:flex;align-items:center;gap:8px;margin-top:14px}
+.tour-nav .skip{margin-right:auto;border:0;background:none;color:var(--ink-soft);font:400 15px var(--body);padding:10px 4px;cursor:pointer}
+.tour-nav .back{border:0;background:var(--soft);color:var(--ink);font:600 15px var(--body);border-radius:999px;padding:10px 16px;min-height:44px;cursor:pointer}
+.tour-nav .next{border:0;background:var(--accent);color:#fff;font:600 15px var(--body);border-radius:999px;padding:10px 20px;min-height:44px;cursor:pointer}
+
+@media (hover:hover){
+  .card:not(.open):hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(0,0,0,.05),0 16px 36px rgba(0,0,0,.09)}
+  .add:hover,.badd:hover,.cb-go:hover,.wa:hover,.ig:hover,.cu-cta:hover,.social a:hover,.btn-pri:hover,.tour-nav .next:hover{filter:brightness(1.08)}
+  .bar .cats button:not([aria-pressed="true"]):hover,.cartbtn:hover{background:var(--line)}
+  .sizes button:hover{border-color:var(--ink-faint)}.step button:hover{background:var(--chip)}
+  .cols button:hover{transform:scale(1.1)}.refs button:hover img{transform:scale(1.03)}
+  .btn-sec:hover{background:color-mix(in srgb,var(--accent) 8%,transparent)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important;animation:none!important}}
 </style>
 </head>
 <body>
 
 
 <header class="gut">
-  <div class="mark">nodo<br>creative<small>STUDIO</small></div>
-  <h1>Catálogo <em>Navidad</em><br>y hogar</h1>
-  <p class="slogan">Tú lo imaginas, <em>nosotros lo imprimimos.</em></p>
-  <p class="lede">Piezas impresas en 3D bajo pedido, capa por capa. Elige del catálogo o pídenos algo hecho a tu medida.</p>
-  <ol class="flow" aria-label="Cómo pedir, en 4 pasos">
-    <li><span><b>Elige</b> y agrega al carrito 🛒</span></li>
-    <li><span><b>Envía</b> tu pedido por WhatsApp o Instagram</span></li>
-    <li><span><b>Anticipo</b> del 50% para empezar</span></li>
-    <li><span><b>Te avisamos</b> cuando esté listo</span></li>
-  </ol>
-  <button type="button" class="flowmini" id="flowmini"><b>¿Cómo pedir?</b> 4 pasos, anticipo del 50 % ›</button>
+  <div class="mark">nodo <b>creative</b></div>
+  <p class="eyebrow">Catálogo de Navidad y hogar · Hecho en Mérida</p>
+  <h1>Tú lo imaginas. <em>Nosotros lo imprimimos.</em></h1>
+  <p class="lede">Adornos navideños, llaveros y cosas útiles para tu casa, fabricados para ti en impresora 3D.</p>
+  <div class="hero-cta">
+    <a class="btn-pri" href="#todo" id="go-cat">Ver el catálogo</a>
+    <button type="button" class="btn-sec" id="tour-open">¿Cómo pido? Guía de 1 minuto</button>
+  </div>
+  <div class="howto">
+    <p class="howto-t">Pedir es muy fácil:</p>
+    <ol class="flow" aria-label="Cómo pedir, en 4 pasos">
+      <li><span><b>Toca</b> la pieza que te guste</span></li>
+      <li><span><b>Agrégala</b> al carrito</span></li>
+      <li><span><b>Envía</b> tu pedido por WhatsApp</span></li>
+      <li><span><b>Paga la mitad</b> y la otra al recibir</span></li>
+    </ol>
+  </div>
 </header>
 
 <nav class="bar" aria-label="Categorías"><div class="wrap gut barin"><div class="cats">
@@ -327,16 +390,17 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
   <button type="button" id="f-hogar" data-f="hogar" aria-pressed="false">Hogar</button>
   <button type="button" id="f-llaveros" data-f="llaveros" aria-pressed="false">Llaveros</button>
   <button type="button" id="f-paquetes" data-f="paquetes" aria-pressed="false">Paquetes</button>
-  <button type="button" id="f-medida" data-f="medida" aria-pressed="false">A tu medida</button>
-  <button type="button" id="f-referencias" data-f="referencias" aria-pressed="false">Referencias</button>
-  <button type="button" id="f-pedir" data-f="pedir" aria-pressed="false">Cómo pedir</button>
+  <button type="button" id="f-medida" data-f="medida" aria-pressed="false">Personalizado</button>
+  <button type="button" id="f-referencias" data-f="referencias" aria-pressed="false">Fotos reales</button>
+  <button type="button" id="f-pedir" data-f="pedir" aria-pressed="false">Dudas y pagos</button>
   </div>
   <button type="button" class="cartbtn" id="cartbtn" aria-label="Ver mi carrito"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2.5 3.5h2.6l2.4 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2l1.6-7.3H6.1"/></svg><span class="badge" id="cart-badge" hidden>0</span></button>
 </div></nav>
 
 <main class="wrap gut">
-  <div class="search" id="search"><input type="search" id="q" placeholder="Buscar: pino, jarrón, llavero…" aria-label="Buscar en el catálogo" autocomplete="off" enterkeyhint="search">
-    <p class="nores" id="nores" hidden>No tenemos eso en el catálogo, pero lo podemos hacer a tu medida. <a id="nr-wa" target="_blank" rel="noopener">Cotízalo por WhatsApp</a>.</p></div>
+  <div class="search" id="search"><input type="search" id="q" placeholder="🔍 ¿Qué buscas? Ej. pino, jarrón, llavero" aria-label="Buscar en el catálogo" autocomplete="off" enterkeyhint="search">
+    <p class="tip" id="tip">👆 Toca cualquier pieza para ver sus tamaños, colores y precio.</p>
+    <p class="nores" id="nores" hidden>No tenemos eso en el catálogo, pero lo podemos hacer para ti. <a id="nr-wa" target="_blank" rel="noopener">Pregúntanos por WhatsApp</a>.</p></div>
   <div class="grid" id="grid"></div>
 
   <section class="custom" id="medida" aria-labelledby="cu-title">
@@ -346,8 +410,7 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
       <p>Esto es solo una muestra. Diseñamos e imprimimos piezas personalizadas para lo que necesites: con tu nombre, tu logo, tus colores y en el tamaño que quieras.</p>
       <ul class="cu-ideas" aria-label="Ideas de piezas personalizadas">
         <li>Llaveros con nombre</li><li>Recuerdos de boda</li><li>XV años y bautizos</li><li>Centros de mesa</li>
-        <li>Letreros y nombres</li><li>Regalos para empresas</li><li>Toppers de pastel</li><li>Figuras y trofeos</li>
-        <li>Piezas para eventos</li><li>Organizadores a medida</li><li>Repuestos y piezas útiles</li><li>Lo que se te ocurra</li>
+        <li>Regalos para empresas</li><li>Toppers de pastel</li><li>Figuras y trofeos</li><li>Lo que se te ocurra</li>
       </ul>
       <a class="cu-cta" id="cu-wa" target="_blank" rel="noopener">Cotizar mi idea por WhatsApp</a>
       <p class="cu-note">Cuéntanos qué necesitas, para cuándo y cuántas piezas. Si tienes una foto o un dibujo, mándalo también.</p>
@@ -355,7 +418,7 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
   </section>
 
   <section id="referencias" aria-labelledby="rf-title">
-    <div class="sec-head"><h2 id="rf-title">Referencias</h2><p>Fotos reales de piezas que ya imprimimos para nuestros clientes. Toca una para verla en grande.</p></div>
+    <div class="sec-head"><h2 id="rf-title">Fotos reales</h2><p>Piezas que ya fabricamos y entregamos a nuestros clientes. Toca una foto para verla en grande.</p></div>
     <div class="refs" id="rgrid"></div>
   </section>
 
@@ -368,20 +431,27 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
     <div>
       <h3 id="how-title">¿Cómo <em>pedir</em>?</h3>
       <div class="big">50%</div>
-      <p>de anticipo para arrancar tu impresión. El otro 50% lo pagas al recibir tu pedido.</p>
+      <p>Pagas la mitad para que empecemos a fabricar tu pieza, y la otra mitad cuando la recibes.</p>
+      <button type="button" class="btn-sec btn-tour" id="tour-open-2">Ver la guía paso a paso</button>
     </div>
     <ol class="steps">
-      <li>Elige pieza, tamaño y cantidad, y toca «Agregar al carrito». Puedes meter todas las piezas que quieras.</li>
-      <li>Abre el carrito 🛒, escribe nombres y detalles, y envíanos tu pedido por WhatsApp o Instagram con todo escrito.</li>
-      <li>Te confirmamos y transfieres el 50% de anticipo.</li>
-      <li>Tu pieza entra a la impresora y te avisamos cuando esté lista.</li>
+      <li>Toca la pieza que te guste, elige tamaño, color y cuántas quieres, y toca «Agregar al carrito». Puedes agregar todas las que quieras.</li>
+      <li>Toca «Enviar pedido» (abajo de la pantalla). Se abre WhatsApp con tu pedido ya escrito; solo lo envías.</li>
+      <li>Te contestamos para confirmar la fecha y te pasamos los datos para transferir la mitad.</li>
+      <li>Fabricamos tu pieza y te avisamos por WhatsApp cuando esté lista para entregártela.</li>
     </ol>
     <ul class="facts" aria-label="Pago y entrega">
       <li><span aria-hidden="true">📍</span><span><b>Estamos en Mérida, Yucatán</b>La entrega la coordinamos contigo por WhatsApp al confirmar tu pedido.</span></li>
       <li><span aria-hidden="true">💳</span><span><b>Pago por transferencia</b>50 % de anticipo y 50 % al recibir. Te mandamos los datos de la cuenta por WhatsApp.</span></li>
-      <li><span aria-hidden="true">⏱️</span><span><b>Hecho bajo pedido</b>Cada pieza se imprime para ti; al confirmar te decimos la fecha de entrega.</span></li>
-      <li><span aria-hidden="true">🎨</span><span><b>Colores</b>Los que ves en cada pieza son los que tenemos. ¿Quieres otro? Pregúntanos y lo conseguimos.</span></li>
     </ul>
+    <div class="faq">
+      <h4>Preguntas frecuentes</h4>
+      <details><summary>¿Qué es la impresión 3D?</summary><p>Es una máquina que fabrica objetos de plástico poco a poco, una capa delgadita encima de otra, siguiendo un diseño hecho en computadora. Así podemos hacer piezas de casi cualquier forma, tamaño y color.</p></details>
+      <details><summary>¿De qué material son las piezas?</summary><p>De un plástico resistente llamado PETG. Son ligeras, no se despintan porque el color viene en el material y se limpian con un trapo húmedo.</p></details>
+      <details><summary>¿Las imágenes son fotos de la pieza?</summary><p>La imagen principal es el diseño de la pieza hecho en computadora, para que veas su forma y el color que eliges. Cuando una pieza tiene el botón «Foto real», ahí ves una pieza que ya imprimimos. El tono en tu pantalla puede verse un poco distinto.</p></details>
+      <details><summary>¿Cuánto tardan en entregarme?</summary><p>Cada pieza se hace especialmente para ti. Al confirmar tu pedido te decimos el día de entrega. Si lo necesitas para una fecha especial, avísanos con tiempo.</p></details>
+      <details><summary>¿Puedo pedir otro tamaño, color o algo que no está aquí?</summary><p>¡Sí! Escríbenos por WhatsApp con lo que necesitas (si tienes una foto o dibujo, mándalo) y te decimos precio y fecha.</p></details>
+    </div>
   </section>
 
   <nav class="social foot-social" aria-label="Síguenos">
@@ -390,7 +460,7 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
     <a class="f" id="f-fb" target="_blank" rel="noopener"><span>Facebook</span></a>
     <a class="t" id="f-tt" target="_blank" rel="noopener"><span>TikTok</span></a>
   </nav>
-  <p class="fine">Imágenes generadas del modelo 3D real de cada pieza. Los colores que puedes elegir son los filamentos que tenemos; el tono en pantalla es aproximado. Si quieres otro color, pregúntanos. Medidas en centímetros: ancho × fondo × alto con la pieza en su posición de uso (en copos, ancho × alto × grosor; en clips, ancho × largo × alto). Precios en pesos mexicanos.</p>
+  <p class="fine">Precios en pesos mexicanos. Las imágenes son el diseño de cada pieza; el tono en pantalla es aproximado. ¿Dudas? Escríbenos por WhatsApp, con gusto te ayudamos.</p>
 </main>
 
 <nav class="dock social" aria-label="Contacto">
@@ -401,27 +471,30 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))!importa
 </nav>
 <div class="cartbar" id="cartbar" hidden>
   <button type="button" class="cb-open" id="cb-open" aria-label="Ver mi carrito"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2.5 3.5h2.6l2.4 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2l1.6-7.3H6.1"/></svg><span class="cb-n" id="cb-n">0</span><span class="cb-t"><b id="cb-t">$0</b><small id="cb-s">Ver carrito</small></span></button>
-  <button type="button" class="cb-go" id="cb-go">Terminar pedido</button>
+  <button type="button" class="cb-go" id="cb-go">Enviar pedido ›</button>
 </div>
 <div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sh-title">
   <div class="sh-box">
     <div class="sh-head"><h3 id="sh-title">Tu carrito</h3><button type="button" class="x" id="sh-x" aria-label="Cerrar">×</button></div>
     <div class="sh-scroll">
-    <p class="sh-empty" id="sh-empty">Tu carrito está vacío. Toca «Agregar al carrito» en las piezas que te gusten.</p>
+    <p class="sh-empty" id="sh-empty">Tu carrito está vacío. Toca una pieza del catálogo y luego el botón «Agregar al carrito».</p>
+    <p class="sh-step" id="sh-s1">1. Revisa lo que elegiste</p>
     <ul class="sh-list" id="sh-list"></ul>
     <div class="sh-foot" id="sh-foot">
       <div class="sh-total"><span>Total</span><b id="sh-total">$0</b></div>
+      <p class="sh-step">2. Cuéntanos los detalles <small>(si no sabes, déjalo en blanco y lo platicamos)</small></p>
       <div class="sh-specs" id="sh-specs">
-        <label>Notas de color (opcional)<input id="sp-col" autocomplete="off" placeholder="Ej. placa rosa con letras blancas"></label>
-        <label>Nombres, fotos u otros detalles<textarea id="sp-det" rows="2" placeholder="Ej. placa con el nombre «Luna» y tel. 999 123 4567"></textarea></label>
+        <label>¿Algo especial de color? (ej. combinar dos)<input id="sp-col" autocomplete="off" placeholder="Ej. placa rosa con letras blancas"></label>
+        <label>Nombres o textos que lleve<textarea id="sp-det" rows="2" placeholder="Ej. placa con el nombre «Luna» y tel. 999 123 4567"></textarea></label>
         <label>¿Para cuándo lo necesitas?<input id="sp-fecha" autocomplete="off" placeholder="Ej. 15 de diciembre"></label>
       </div>
-      <p class="sh-note">Envíanos tu pedido para agendarlo. Te confirmamos colores, fecha y el anticipo del 50%.</p>
+      <p class="sh-step">3. Envíanos tu pedido</p>
+      <p class="sh-note">Se abre WhatsApp con tu pedido ya escrito; solo toca enviar. Nosotros te respondemos para confirmar la fecha y cómo pagar la mitad para empezar.</p>
       <div class="sh-send">
-        <a class="wa" id="sh-send" target="_blank" rel="noopener">WhatsApp</a>
-        <a class="ig" id="sh-ig" target="_blank" rel="noopener">Instagram</a>
+        <a class="wa" id="sh-send" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+        <a class="ig" id="sh-ig" target="_blank" rel="noopener">Enviar por Instagram</a>
       </div>
-      <p class="sh-note" style="font-size:13px">En Instagram copiamos tu pedido: solo pégalo en el chat y envíalo.</p>
+      <p class="sh-note" style="font-size:13px">¿Prefieres Instagram? Tu pedido se copia solo: en el chat, mantén el dedo en el cuadro de texto, toca «Pegar» y envíalo.</p>
       <button type="button" class="sh-clear" id="sh-clear">Vaciar carrito</button>
     </div>
     </div>
@@ -439,57 +512,57 @@ const CONTACTO={whatsapp:'529992565297',instagram:'https://www.instagram.com/nod
 const waLink=t=>'https://wa.me/'+CONTACTO.whatsapp+'?text='+encodeURIComponent(t);
 // h: medida que se usa para comparar tamaños dentro del mismo producto (cm)
 const P=[
- {id:'pino',col:'Blanco',cat:'navidad',tag:'Navidad',name:'Pino navideño',desc:'Pino escalonado de pliegues profundos. Se ve increíble en repisas y mesas de centro.',
+ {id:'pino',col:'Blanco',cat:'navidad',tag:'Navidad',name:'Pino navideño',desc:'Un pino de pliegues suaves que llena de Navidad cualquier repisa o mesa de centro.',
   sizes:[{l:'10 cm',img:'img/pino.webp',d:'7.95 × 7.95 × 10.0',h:10,id:'pino10'},{l:'13 cm',img:'img/pino.webp',d:'10.3 × 10.3 × 13.0',h:13,id:'pino13'},{l:'16 cm',img:'img/pino.webp',d:'12.7 × 12.7 × 16.0',h:16,id:'pino16'}]},
- {id:'copo',col:'Blanco',fotos:['img/ref/04-copo-de-nieve.webp'],cat:'navidad',tag:'Navidad',name:'Copo de nieve',desc:'Copo para colgar en el árbol, con aro integrado.',
+ {id:'copo',col:'Blanco',fotos:['img/ref/04-copo-de-nieve.webp'],cat:'navidad',tag:'Navidad',name:'Copo de nieve',desc:'Copo de nieve para colgar en tu árbol, con su aro listo para el gancho.',
   sizes:[{l:'Mediano',img:'img/copo.webp',d:'8.3 × 10.0 × 0.7',dl:'Ancho × alto × grosor (cm)',h:10,id:'copo_md'},{l:'Grande',img:'img/copo.webp',d:'12.4 × 15.0 × 1.1',dl:'Ancho × alto × grosor (cm)',h:15,id:'copo_gr'}]},
- {id:'esferas',col:'Rojo',cat:'navidad',tag:'Navidad',name:'Esferas navideñas',desc:'Ocho diseños para tu árbol: en espiral, con gajos rectos o con relieve cruzado. Todas con aro para colgar.',
+ {id:'esferas',col:'Rojo',cat:'navidad',tag:'Navidad',name:'Esferas navideñas',desc:'Ocho diseños para vestir tu árbol: en espiral, con gajos o con relieve. Todas listas para colgar.',
   sizes:[{l:'Espiral 1',img:'img/esfera-twist-1.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_t1'},{l:'Espiral 2',img:'img/esfera-twist-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t2'},{l:'Espiral 3',img:'img/esfera-twist.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t3'},
    {l:'Gajos 1',img:'img/esfera-straight-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r1'},{l:'Gajos 2',img:'img/esfera-straight-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r2'},
    {l:'Relieve 1',img:'img/esfera-crossed-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c1'},{l:'Relieve 2',img:'img/esfera-crossed-2.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_c2'},{l:'Relieve 3',img:'img/esfera-crossed-3.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c3'}]},
- {id:'esf_nombre',tint:false,cat:'navidad',tag:'Personalizable',name:'Esfera navideña con nombre',desc:'Esfera para el árbol con el nombre que quieras en letra cursiva y un adorno navideño (moño, copo, gorro, estrella…). De 1 color, con el nombre en relieve, o de 2 colores para que el nombre resalte (ej. rojo con dorado). Ideal para regalar a toda la familia. Al pedir, dinos los nombres y los colores. La imagen es una vista previa del diseño.',
-  sizes:[{l:'1 color',img:'img/esfera-nombre-1c.webp',d:'aprox. 8 × 9.7 × 0.5',dl:'Ancho × alto × grosor (cm)',h:9.7,id:'esf_nom1'},{l:'2 colores',img:'img/esfera-nombre-2c.webp',d:'aprox. 8 × 9.7 × 0.5',dl:'Ancho × alto × grosor (cm)',h:9.7,id:'esf_nom2'}]},
- {id:'acanalado',col:'Beige',cat:'navidad',tag:'Navidad',name:'Árbol acanalado',desc:'Cono de niveles con acabado acanalado, minimalista y elegante.',
+ {id:'esf_nombre',tint:false,dark:true,cat:'navidad',tag:'Personalizable',name:'Esfera navideña con nombre',desc:'El regalo que todos van a querer: una esfera con el nombre de cada quien en letra cursiva y un detalle navideño (moño, copo, gorro o estrella). En 2 colores el nombre resalta; en 1 color va en relieve. Al pedir, dinos los nombres.',
+  sizes:[{l:'2 colores',img:'img/esfera-nombre-2c.webp',d:'aprox. 8 × 9.7 × 0.5',dl:'Ancho × alto × grosor (cm)',h:9.7,id:'esf_nom2'},{l:'1 color',img:'img/esfera-nombre-1c.webp',d:'aprox. 8 × 9.7 × 0.5',dl:'Ancho × alto × grosor (cm)',h:9.7,id:'esf_nom1'}]},
+ {id:'acanalado',col:'Beige',cat:'navidad',tag:'Navidad',name:'Árbol acanalado',desc:'Árbol minimalista de líneas finas. Elegante y perfecto para una decoración moderna.',
   sizes:[{l:'Chico',img:'img/acanalado-chico.webp',d:'4.8 × 4.8 × 8.5',h:8.5,id:'acan_ch'},{l:'Grande',img:'img/acanalado-grande.webp',d:'7.0 × 7.0 × 12.5',h:12.5,id:'acan_gr'}]},
- {id:'nacimiento',col:'Beige',fotos:['img/ref/23-nacimiento.webp'],cat:'navidad',tag:'Navidad',name:'Nacimiento de 9 piezas',desc:'María, José, el Niño en el pesebre, los tres Reyes Magos, el pastor con su borrego, el ángel y el burrito. Medidas de alto: José y los dos Reyes Magos de pie, 8 cm; el Rey arrodillado, 6.7 cm; María, el pastor y el ángel, 6.5 cm; el burrito, 4.5 cm (5.5 cm de largo); el Niño en el pesebre, 3 cm (4 cm de largo).',
+ {id:'nacimiento',col:'Beige',fotos:['img/ref/23-nacimiento.webp'],cat:'navidad',tag:'Navidad',name:'Nacimiento de 9 piezas',desc:'El Nacimiento completo para tu hogar: María, José, el Niño en el pesebre, los tres Reyes Magos, el pastor con su borrego, el ángel y el burrito.',
   sizes:[{l:'Juego completo',img:'img/nacimiento.webp',d:'9 piezas de 3 a 8 cm de alto',dl:'Medidas',u:'juego',id:'nacimiento'}]},
- {id:'japandi',col:'Rojo',cat:'navidad',tag:'Nuevo',name:'Esfera Japandi',desc:'Esfera de estilo japonés con gajos finos. Se arma en 3 piezas (cuerpo, tapa y colgador); te la entregamos armada.',
+ {id:'japandi',col:'Rojo',cat:'navidad',tag:'Nuevo',name:'Esfera Japandi',desc:'Esfera de estilo japonés con gajos finos, sencilla y muy elegante. Te la entregamos armada.',
   sizes:[{l:'Chica',img:'img/japandi.webp',d:'7.3 × 7.3 × 8.7',dl:'Ancho × fondo × alto con colgador (cm)',h:8.7,id:'jap_ch'},{l:'Mediana',img:'img/japandi.webp',d:'9.3 × 9.3 × 11.2',dl:'Ancho × fondo × alto con colgador (cm)',h:11.2,id:'jap_md'},{l:'Grande',img:'img/japandi.webp',d:'11.4 × 11.4 × 13.7',dl:'Ancho × fondo × alto con colgador (cm)',h:13.7,id:'jap_gr'}]},
- {id:'estrella',tint:false,cat:'navidad',tag:'Personalizable',name:'Estrella portarretrato',desc:'Adorno en forma de estrella con la foto de quien tú quieras al centro y argolla para colgar en el árbol. Un regalo perfecto con la foto de tus hijos, tu pareja o tu mascota. Al pedir, mándanos la foto por WhatsApp.',
+ {id:'estrella',tint:false,cat:'navidad',tag:'Personalizable',name:'Estrella portarretrato',desc:'Una estrella para el árbol con la foto de quien más quieres al centro: tus hijos, tu pareja o tu mascota. Un regalo que emociona. Al pedir, mándanos la foto por WhatsApp.',
   sizes:[{l:'Chica',img:'img/estrella.webp',d:'11.7 × 12.5 × 0.3',dl:'Ancho × alto × grosor (cm)',h:12.5,id:'est_ch'},{l:'Mediana',img:'img/estrella.webp',d:'15.0 × 16.0 × 0.4',dl:'Ancho × alto × grosor (cm)',h:16,id:'est_md'},{l:'Grande',img:'img/estrella.webp',d:'18.8 × 20.0 × 0.5',dl:'Ancho × alto × grosor (cm)',h:20,id:'est_gr'}]},
- {id:'reno',col:'Blanco',fotos:['img/ref/01-reno-navideno.webp'],cat:'navidad',tag:'Navidad',name:'Reno navideño',desc:'Reno estilizado con cuerpo acanalado y cornamenta. Ideal para repisas y centros de mesa.',
+ {id:'reno',col:'Blanco',fotos:['img/ref/01-reno-navideno.webp'],cat:'navidad',tag:'Navidad',name:'Reno navideño',desc:'Reno de cuerpo acanalado que se roba las miradas en repisas y centros de mesa.',
   sizes:[{l:'Único',img:'img/reno.webp',d:'4.7 × 4.6 × 13.5',id:'reno'}]},
- {id:'origami',col:'Blanco',fotos:['img/ref/02-arbol-navideno-calado.webp'],cat:'navidad',tag:'Navidad',name:'Árbol de origami',desc:'Pino de pliegues geométricos y caladitos que dejan pasar la luz.',
+ {id:'origami',col:'Blanco',fotos:['img/ref/02-arbol-navideno-calado.webp'],cat:'navidad',tag:'Navidad',name:'Árbol de origami',desc:'Pino de pliegues geométricos con caladitos que dejan pasar la luz.',
   sizes:[{l:'Único',img:'img/origami.webp',d:'9.2 × 9.2 × 12.0',id:'origami'}]},
- {id:'cascanueces',col:'Rojo',cat:'navidad',tag:'Navidad',name:'Cascanueces',desc:'Soldadito cascanueces de 4 piezas: cuerpo, piernas y dos brazos. Te lo entregamos armado.',
+ {id:'cascanueces',col:'Rojo',cat:'navidad',tag:'Navidad',name:'Cascanueces',desc:'El clásico soldadito cascanueces, para un toque tradicional en tu decoración. Te lo entregamos armado.',
   sizes:[{l:'Liso',img:'img/cascanueces-liso.webp',d:'Cuerpo: 4.3 × 4.4 × 12.2',id:'casc_liso'},{l:'Acanalado',img:'img/cascanueces-acanalado.webp',d:'Cuerpo: 4.3 × 4.5 × 12.2',id:'casc_acan'}]},
- {id:'jarron',col:'Beige',cat:'hogar',tag:'Hogar',name:'Jarrón bulbo',desc:'Jarrón decorativo de cuerpo redondo y textura de gajos finos. Ideal para flores secas.',uso:'img/uso-jarron.webp',
+ {id:'jarron',col:'Beige',cat:'hogar',tag:'Hogar',name:'Jarrón bulbo',desc:'Jarrón de cuerpo redondo con textura de gajos finos. Se ve hermoso con flores secas.',uso:'img/uso-jarron.webp',
   sizes:[{l:'Chico',img:'img/jarron-chico.webp',d:'12.2 × 12.2 × 12.0',h:12,id:'jar_ch'},{l:'Mediano',img:'img/jarron-mediano.webp',d:'15.2 × 15.2 × 15.0',h:15,id:'jar_md'},{l:'Grande',img:'img/jarron-grande.webp',d:'18.3 × 18.3 × 18.0',h:18,id:'jar_gr'}]},
- {id:'organizador',col:'Negro',fotos:['img/ref/12-clips.webp'],cat:'hogar',tag:'Hogar',name:'Organizador de cables',desc:'Clip ovalado para enrollar y sujetar cables de cargadores y audífonos.',
-  sizes:[{l:'Chico',img:'img/org-chico.webp',d:'3.7 × 1.5 × 1.4',h:3.7,hl:'largo',id:'org_ch'},{l:'Mediano',img:'img/org-mediano.webp',d:'3.7 × 1.9 × 1.4',h:3.7,hl:'largo',id:'org_md'},{l:'XL',img:'img/org-xl.webp',d:'4.3 × 2.3 × 1.4',h:4.3,hl:'largo',id:'org_xl'}]},
- {id:'clips',col:'Azul',cat:'hogar',tag:'Hogar',name:'Clips para bolsas',desc:'Clips para cerrar bolsas de café, botanas y cereal. Por juego de 6 o sueltos.',
+ {id:'organizador',col:'Negro',fotos:['img/ref/12-clips.webp'],cat:'hogar',tag:'Hogar',name:'Organizador de cables',desc:'Enrolla los cables del cargador y los audífonos. Adiós a los nudos en la bolsa.',
+  sizes:[{l:'Chico',img:'img/org-chico.webp',d:'3.7 × 1.5 × 1.4',dl:'Largo × ancho × alto (cm)',h:3.7,hl:'largo',id:'org_ch'},{l:'Mediano',img:'img/org-mediano.webp',d:'3.7 × 1.9 × 1.4',dl:'Largo × ancho × alto (cm)',h:3.7,hl:'largo',id:'org_md'},{l:'XL',img:'img/org-xl.webp',d:'4.3 × 2.3 × 1.4',dl:'Largo × ancho × alto (cm)',h:4.3,hl:'largo',id:'org_xl'}]},
+ {id:'clips',col:'Azul',cat:'hogar',tag:'Hogar',name:'Clips para bolsas',desc:'Para cerrar bolsas de café, botanas y cereal. Por juego de 6 o sueltos.',
   sizes:[{l:'Juego de 6',img:'img/clips6.webp',d:'1.4 × 3.5 × 1.0 cada clip',dl:'Ancho × largo × alto (cm)',id:'clips',u:'juego'},{l:'Suelto',img:'img/clips.webp',d:'1.4 × 3.5 × 1.0',dl:'Ancho × largo × alto (cm)',id:'clip1'}]},
- {id:'clipg',col:'Rojo',cat:'hogar',tag:'Nuevo',name:'Clip grande para bolsas',desc:'Clip de presión para cerrar bolsas de café, cereal o botanas y que no se humedezcan.',uso:'img/uso-clip.webp',
+ {id:'clipg',col:'Rojo',cat:'hogar',tag:'Nuevo',name:'Clip grande para bolsas',desc:'Clip de presión que cierra bien tus bolsas de café, cereal o botanas para que no se humedezcan.',uso:'img/uso-clip.webp',
   sizes:[{l:'Chico',img:'img/clipg-ch.webp',d:'7.8 × 2.6 × 1.8',dl:'Largo × ancho × alto (cm)',h:7.8,hl:'largo',id:'clipg_ch'},{l:'Mediano',img:'img/clipg-md.webp',d:'9.9 × 2.8 × 1.8',dl:'Largo × ancho × alto (cm)',h:9.9,hl:'largo',id:'clipg_md'},{l:'Grande',img:'img/clipg-gr.webp',d:'12.9 × 3.3 × 1.8',dl:'Largo × ancho × alto (cm)',h:12.9,hl:'largo',id:'clipg_gr'}]},
- {id:'gancho',col:'Negro',fotos:['img/ref/19-gancho-para-carro.webp'],cat:'hogar',tag:'Nuevo',name:'Gancho para carro',desc:'Se engancha en los postes de la cabecera del asiento para colgar bolsas del súper, la bolsa de basura, bolsas de mano o mochilas. Se pone sin herramientas. 1 por $50, 2 por $90 o 3 por $130.',
+ {id:'gancho',col:'Negro',fotos:['img/ref/19-gancho-para-carro.webp'],cat:'hogar',tag:'Nuevo',name:'Gancho para carro',desc:'Se engancha en la cabecera del asiento para colgar las bolsas del súper, tu bolsa o la mochila. Se pone en segundos, sin herramientas.',
   sizes:[{l:'Único',img:'img/gancho-auto.webp',d:'3.5 × 7.1 × 11.1',dl:'Ancho × alto × largo (cm)',id:'gancho'}]},
- {id:'te',col:'Gris',cat:'hogar',tag:'Nuevo',name:'Porta bolsitas de té',desc:'Organizador para tener tus bolsitas de té o café en orden y a la mano.',uso:'img/uso-te.webp',
+ {id:'te',col:'Gris',cat:'hogar',tag:'Nuevo',name:'Porta bolsitas de té',desc:'Tus bolsitas de té o café siempre en orden y a la mano.',uso:'img/uso-te.webp',
   sizes:[{l:'Único',img:'img/te.webp',d:'8.1 × 15.3 × 8.5',dl:'Medidas totales (cm)',id:'te'}]},
- {id:'esponja',col:'Azul',cat:'hogar',tag:'Nuevo',name:'Dispensador de esponjas',desc:'Se fija a la pared y guarda tus esponjas de repuesto; incluye tapa. Sacas una por abajo cuando la necesitas.',uso:'img/uso-esponja.webp',
+ {id:'esponja',col:'Azul',cat:'hogar',tag:'Nuevo',name:'Dispensador de esponjas',desc:'Se fija a la pared y guarda tus esponjas de repuesto, con tapa. Sacas una por abajo cuando la necesitas.',uso:'img/uso-esponja.webp',
   sizes:[{l:'Único',img:'img/esponja.webp',d:'8.0 × 10.3 × 21.0',id:'esponja'}]},
- {id:'rollo',col:'Negro',cat:'hogar',tag:'Nuevo',name:'Porta rollo de cocina',desc:'Organizador de pared con tres aros de 4.5 cm para tener a la mano el aluminio, el plástico autoadherible y el papel encerado.',uso:'img/uso-rollo.webp',
+ {id:'rollo',col:'Negro',cat:'hogar',tag:'Nuevo',name:'Porta rollo de cocina',desc:'Organizador de pared con tres aros para tener a la mano el aluminio, el plástico autoadherible y el papel encerado.',uso:'img/uso-rollo.webp',
   sizes:[{l:'Único',img:'img/rollo.webp',d:'16.2 × 5.7 × 1.8',dl:'Medidas totales (cm)',id:'rollo'}]},
  {id:'torre',col:'Negro',fotos:['img/ref/10-porta-rollo-de-cocina.webp','img/ref/11-organizador-de-pared.webp'],cat:'hogar',tag:'Hogar',name:'Torre para papel XL',desc:'Torre grande para papel con acabado acanalado.',
   sizes:[{l:'XL',img:'img/torre.webp',d:'16.0 × 19.3 × 16.0',dl:'Medidas totales (cm)',id:'torre'}]},
- {id:'soporte',col:'Negro',fotos:['img/ref/16-soporte-rollo-cocina.webp','img/ref/17-soporte-rollo-cocina-frente.webp','img/ref/18-soporte-rollo-en-impresora.webp'],cat:'hogar',tag:'Nuevo',name:'Soporte para rollo de cocina',desc:'Soporte de pie con acabado acanalado para el rollo de papel de cocina. El rollo va en el poste del centro, la cubierta lo protege y la hoja se jala por la abertura del frente.',
+ {id:'soporte',col:'Negro',fotos:['img/ref/16-soporte-rollo-cocina.webp','img/ref/17-soporte-rollo-cocina-frente.webp','img/ref/18-soporte-rollo-en-impresora.webp'],cat:'hogar',tag:'Nuevo',name:'Soporte para rollo de cocina',desc:'Soporte de pie para el rollo de cocina, con acabado acanalado y una cubierta que lo protege. La hoja sale por el frente.',
   sizes:[{l:'Único',img:'img/soporte-rollo.webp',d:'12.4 × 12.4 × 22.0',dl:'Ancho × fondo × alto (cm)',h:22,id:'soporte'}]},
- {id:'tel',col:'Beige',cat:'hogar',tag:'Nuevo',fotos:['img/ref/20-soporte-telefono.webp','img/ref/21-soporte-telefono-frente.webp','img/ref/22-soporte-telefono-en-impresora.webp'],name:'Soporte de teléfono',desc:'Soporte de escritorio con forma de listones ondulados. Detiene tu celular de pie, para ver videos, recetas o hacer videollamadas sin sostenerlo.',
+ {id:'tel',col:'Beige',cat:'hogar',tag:'Nuevo',fotos:['img/ref/20-soporte-telefono.webp','img/ref/21-soporte-telefono-frente.webp','img/ref/22-soporte-telefono-en-impresora.webp'],name:'Soporte de teléfono',desc:'Tu celular de pie sobre el escritorio, con forma de listones ondulados. Para ver videos, recetas o hacer videollamadas sin sostenerlo.',
   sizes:[{l:'Único',img:'img/soporte-tel.webp',d:'5.7 × 9.9 × 9.6',dl:'Ancho × fondo × alto (cm)',id:'tel'}]},
- {id:'hueso',tint:false,cat:'llaveros',tag:'Personalizable',name:'Placa de hueso personalizada',desc:'Placa en forma de hueso con argolla para el collar o tu llavero, con el nombre de tu mascota en relieve al frente y tu número de teléfono por atrás, en los colores que elijas. Al pedir, dinos el tamaño, el nombre y el teléfono.',fotos:['img/uso-hueso.webp','img/uso-hueso-2.webp'],
+ {id:'hueso',tint:false,cat:'llaveros',tag:'Personalizable',name:'Placa de hueso personalizada',desc:'Placa en forma de hueso para el collar de tu mascota, con su nombre al frente y tu teléfono atrás, por si algún día se pierde. Al pedir, dinos el nombre y el teléfono.',fotos:['img/uso-hueso.webp','img/uso-hueso-2.webp'],
   sizes:[{l:'Chica',img:'img/hueso.webp',d:'4.0 × 2.4 × 0.4',dl:'Largo × alto × grosor (cm)',h:4,hl:'largo',id:'hueso_ch'},{l:'Mediana',img:'img/hueso.webp',d:'6.0 × 3.5 × 0.4',dl:'Largo × alto × grosor (cm)',h:6,hl:'largo',id:'hueso_md'},{l:'Grande',img:'img/hueso.webp',d:'8.0 × 4.7 × 0.4',dl:'Largo × alto × grosor (cm)',h:8,hl:'largo',id:'hueso_gr'}]},
- {id:'llavero_copo',col:'Blanco',fotos:['img/ref/05-llavero-copo-de-nieve.webp'],cat:'llaveros',tag:'Llavero',name:'Llavero copo de nieve',desc:'Copo de nieve chico con aro integrado para tu llavero o mochila. También sirve como adorno para el árbol.',
+ {id:'llavero_copo',col:'Blanco',fotos:['img/ref/05-llavero-copo-de-nieve.webp'],cat:'llaveros',tag:'Llavero',name:'Llavero copo de nieve',desc:'Copito de nieve para tus llaves o la mochila. También se ve lindo colgado en el árbol.',
   sizes:[{l:'Único',img:'img/copo.webp',d:'4.2 × 5.0 × 0.4',dl:'Ancho × alto × grosor (cm)',id:'copo_ch'}]},
- {id:'snoopy',cat:'llaveros',tag:'Nuevo',tint:false,fotos:['img/ref/07-llavero-perrito.webp'],name:'Llavero clicker de personajes',desc:'Llavero antiestrés con un switch de teclado mecánico adentro: lo presionas y hace clic. Cara en dos colores con el dibujo del personaje, argolla con cadena incluida.',
+ {id:'snoopy',cat:'llaveros',tag:'Nuevo',tint:false,fotos:['img/ref/07-llavero-perrito.webp'],name:'Llavero clicker de personajes',desc:'Llavero antiestrés: lo presionas y hace clic, como una tecla. Con la carita del personaje en dos colores y cadena incluida.',
   sizes:[{l:'Único',img:'img/snoopy.webp',d:'5.1 × 4.5 × 1.7',dl:'Ancho × alto × grosor (cm)',id:'snoopy'}]},
 ];
 // Colores: son los filamentos reales del taller (los genera generar_precios.js). Cada render se pinta en el navegador
@@ -533,13 +606,24 @@ function priceFor(id,n){
   return {total,each:total/n,tier:best[0]};
 }
 const toast=document.getElementById('toast');let tt;
-function say(t){toast.textContent=t;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2200);}
+function say(t){toast.textContent=t;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),3800);}
 const CART_SVG='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2.5 3.5h2.6l2.4 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2l1.6-7.3H6.1"/></svg>';
 const unitName=(u,n)=>u==='juego'?(n===1?'juego':'juegos'):u==='paquete'?(n===1?'paquete':'paquetes'):(n===1?'pieza':'piezas');
 // Medidas en una línea: "Medidas: 7.95 × 7.95 × 10.0 cm" (el detalle de qué es cada número va en el title)
-// Tiempo de impresión aproximado (del laminador, redondeado a 5 min). Ayuda a que el cliente vea el trabajo detrás del precio.
-function hrsText(h){if(!h)return '';const m=Math.max(5,Math.round(h*12)*5),H=Math.floor(m/60),M=m%60;return 'Tiempo de impresión: aprox. '+(H?H+' h'+(M?' '+M+' min':''):M+' min');}
-function dimText(s){const d=/cm/.test(s.d)?s.d:s.d.replace(/(\d+(?:\.\d+)?)(?!.*\d)/,'$1 cm');return /:/.test(d)?d:'Medidas: '+d;}
+// Medidas en palabras: "7.95 × 7.95 × 10.0" + "Ancho × fondo × alto" → "Mide 10 cm de alto, 8 cm de ancho y 8 cm de fondo"
+const cmN=v=>(Math.round(parseFloat(v)*10)/10).toLocaleString('es-MX')+' cm';
+function dimText(s){
+  const pre=(s.d.match(/^Cuerpo:\s*/)||[''])[0],m=s.d.slice(pre.length).match(/^(aprox\.\s*)?(\d+(?:\.\d+)?)\s*×\s*(\d+(?:\.\d+)?)\s*×\s*(\d+(?:\.\d+)?)(.*)$/);
+  if(!m){const d=/cm/.test(s.d)?s.d:s.d.replace(/(\d+(?:\.\d+)?)(?!.*\d)/,'$1 cm');return /:/.test(d)?d:'Mide: '+d;}
+  let L=(s.dl||'').replace(/\(.*?\)/g,'').split(/×/).map(x=>x.trim().toLowerCase().split(' ')[0]);
+  if(L.length!==3||!L.every(x=>/^(ancho|alto|fondo|largo|grosor)$/.test(x)))L=['ancho','fondo','alto'];
+  const parts=[m[2],m[3],m[4]].map((v,i)=>({k:L[i],v:+v,t:cmN(v)+' de '+L[i]}));
+  // primero lo que más se imagina la gente: el largo si lo tiene, si no el alto; en piezas planas, la medida mayor
+  const big=parts.reduce((a,b)=>b.v>a.v?b:a),alto=parts.find(p=>p.k==='alto');
+  const key=parts.find(p=>p.k==='largo')||(alto&&alto.v>=big.v/2?alto:big);
+  const rest=parts.filter(p=>p!==key);
+  return (pre?'El cuerpo mide ':'Mide ')+(m[1]?'aprox. ':'')+key.t+', '+rest[0].t+' y '+rest[1].t+(m[5].trim()?' ('+m[5].trim()+')':'');
+}
 
 // --- Pedido (carrito): se guarda en este navegador y se manda en un solo WhatsApp ---
 const CART_KEY='nodo-pedido';let cart=[];
@@ -569,22 +653,21 @@ function card(pr){
   const scaled=pr.sizes.length>1&&pr.sizes.some(s=>s.h&&s.h!==maxH);
   const ruled=scaled&&!pr.sizes.some(s=>s.hl);
   // vistas: render de la pieza, escena «en uso» y fotos reales de piezas ya impresas
-  const V=[{l:'Pieza'}].concat(pr.uso?[{l:'En uso',src:pr.uso}]:[],(pr.fotos||[]).map((src,i,a)=>({l:a.length>1?'Foto '+(i+1):'Foto real',src,photo:true})));
+  const V=[{l:'Diseño'}].concat(pr.uso?[{l:'Así se usa',src:pr.uso}]:[],(pr.fotos||[]).map((src,i,a)=>({l:a.length>1?'Foto '+(i+1):'Foto real',src,photo:true})));
   const tintable=pr.tint!==false&&COLS.length>0;let color=tintable?(COLS.find(c=>c.n===pr.col)||COLS[0]):null; // la regla es vertical: solo para piezas que se miden de alto
   const minP=Math.min(...pr.sizes.map(z=>PR.list[z.id])),varies=pr.sizes.some(z=>PR.list[z.id]!==minP);
   el.dataset.t=norm([pr.name,pr.desc,pr.tag,pr.cat,...pr.sizes.map(z=>z.l)].join(' '));
-  el.innerHTML=`<button type="button" class="cx" aria-label="Volver al catálogo">←</button><div class="stage${ruled?'':' noruler'}"><span class="tag">${pr.tag}</span>${ruled?'<div class="ruler" aria-hidden="true"><span></span></div>':''}<div class="pic"><img alt="${pr.name}" loading="lazy" decoding="async"></div>${V.length>1?'<div class="views" role="group" aria-label="Vista">'+V.map((v,i)=>'<button type="button" data-v="'+i+'" aria-pressed="'+(i===0)+'">'+v.l+'</button>').join('')+'</div>':''}</div>
-   <div class="body"><h2>${pr.name}</h2><p class="from">${varies?'Desde ':''}${fmt(minP)}</p><p class="desc">${pr.desc}</p>
-   ${pr.sizes.length>1?`<div class="sizes" role="group" aria-label="Tamaño o modelo">${pr.sizes.map((s,i)=>`<button type="button" id="${pr.id}-s${i}" data-i="${i}" aria-pressed="${i===0}">${s.l}${s.h&&scaled&&!/cm/.test(s.l)?`<small>${s.h} cm</small>`:''}</button>`).join('')}</div>`:''}
-   ${tintable?`<div class="cols" role="group" aria-label="Color"><span class="cl">Color: <b></b></span>${COLS.map((c,i)=>`<button type="button" data-c="${i}" title="${c.n}" aria-label="Color ${c.n.toLowerCase()}" aria-pressed="false" style="--c:${c.hex}"></button>`).join('')}</div>`:''}
+  el.innerHTML=`<button type="button" class="cx" aria-label="Volver al catálogo">← Volver</button><div class="stage${ruled?'':' noruler'}"><span class="tag">${pr.tag}</span>${ruled?'<div class="ruler" aria-hidden="true"><span></span></div>':''}<div class="pic"><img alt="${pr.name}" loading="lazy" decoding="async"></div>${V.length>1?'<div class="views" role="group" aria-label="Vista">'+V.map((v,i)=>'<button type="button" data-v="'+i+'" aria-pressed="'+(i===0)+'">'+v.l+'</button>').join('')+'</div>':''}</div>
+   <div class="body"><h2>${pr.name}</h2><p class="from">${varies?'Desde ':''}${fmt(minP)}</p>${tintable?`<p class="dots" aria-label="${COLS.length} colores">${COLS.slice(0,6).map(c=>`<i style="--c:${c.hex}"></i>`).join('')}<span>${COLS.length>6?'+'+(COLS.length-6):''}</span></p>`:''}<p class="more">Ver detalles ›</p><p class="desc">${pr.desc}</p>
+   ${pr.sizes.length>1?`<div><span class="lbl">1. Elige ${/^(Espiral|Gajos|Relieve|Liso|Juego|1 color|2 colores)/.test(pr.sizes[0].l)?'el modelo':'el tamaño'}:</span><div class="sizes" role="group" aria-label="Tamaño o modelo">${pr.sizes.map((s,i)=>`<button type="button" id="${pr.id}-s${i}" data-i="${i}" aria-pressed="${i===0}">${s.l}${s.h&&scaled&&!/cm/.test(s.l)?`<small>${s.h} cm</small>`:''}</button>`).join('')}</div></div>`:''}
+   ${tintable?`<div class="cols" role="group" aria-label="Color"><span class="cl"><span class="lbl" style="display:inline">${pr.sizes.length>1?'2. ':''}Elige el color:</span> <b></b></span>${COLS.map((c,i)=>`<button type="button" data-c="${i}" title="${c.n}" aria-label="Color ${c.n.toLowerCase()}" aria-pressed="false" style="--c:${c.hex}"></button>`).join('')}</div>`:''}
    <p class="dims"></p>
-   <p class="ptime"></p>
    <div class="buy"><div class="pr"></div>
-     <div class="step" role="group" aria-label="Cantidad"><button type="button" id="${pr.id}-menos" aria-label="Quitar una">−</button><output id="${pr.id}-q">1</output><button type="button" id="${pr.id}-mas" aria-label="Agregar una">+</button></div></div>
+     <div class="qty"><span class="lbl">¿Cuántas?</span><div class="step" role="group" aria-label="Cantidad"><button type="button" id="${pr.id}-menos" aria-label="Quitar una">−</button><output id="${pr.id}-q">1</output><button type="button" id="${pr.id}-mas" aria-label="Agregar una">+</button></div></div></div>
    <p class="deal"></p>
    <button type="button" class="add" id="${pr.id}-add"></button>
    </div>`;
-  const img=el.querySelector('img'),dims=el.querySelector('.dims'),ptime=el.querySelector('.ptime'),prc=el.querySelector('.pr'),ruler=el.querySelector('.ruler'),stage=el.querySelector('.stage');
+  const img=el.querySelector('img'),dims=el.querySelector('.dims'),prc=el.querySelector('.pr'),ruler=el.querySelector('.ruler'),stage=el.querySelector('.stage');
   const qo=el.querySelector('output'),deal=el.querySelector('.deal'),add=el.querySelector('.add');
   let cur=0,qty=1,view=0,okT;
   const unit=(s,n)=>unitName(s.u,n);
@@ -593,8 +676,8 @@ function card(pr){
     qo.textContent=qty;
     prc.innerHTML=`<span class="price">${fmt(PR.list[s.id])}<small>MXN</small><span class="each">por ${unit(s,1)}</span></span>`;
     const disc=PR.tiers[s.id].filter(([t,p])=>p/t<PR.list[s.id]-0.01);const next=disc.find(([t])=>t>qty);
-    deal.textContent=r.tier&&r.each<PR.list[s.id]-0.01?`Precio de ${r.tier}+ ${unit(s,2)}: ${fmt(Math.round(r.each))} c/u`:(next?`Desde ${next[0]} ${unit(s,2)}: ${fmt(Math.round(next[1]/next[0]))} c/u`:'');
-    if(!add.classList.contains('ok'))add.innerHTML=CART_SVG+(qty>1?`Agregar ${qty} al carrito · ${fmt(r.total)}`:'Agregar al carrito');
+    deal.textContent=r.tier&&r.each<PR.list[s.id]-0.01?`🎉 Por llevar ${r.tier} o más te sale en ${fmt(Math.round(r.each))} cada ${unit(s,1)}`:(next?`💡 Si llevas ${next[0]} o más, te sale en ${fmt(Math.round(next[1]/next[0]))} cada ${unit(s,1)}`:'');
+    if(!add.classList.contains('ok'))add.innerHTML=CART_SVG+(qty>1?`Agregar ${qty} al carrito · ${fmt(r.total)}`:`Agregar al carrito · ${fmt(r.total)}`);
   }
   let want='';
   function setImg(src){const hex=color&&view===0?color.hex:null,key=src+'|'+hex;if(key===want)return;want=key;
@@ -602,8 +685,8 @@ function card(pr){
   function show(i){
     cur=i;const s=pr.sizes[i];
     setImg(view>0?V[view].src:s.img);
-    img.alt=`${pr.name} ${s.l}`;dims.textContent=dimText(s);dims.title=s.dl||'Ancho × fondo × alto (cm)';ptime.textContent=hrsText(PR.hrs&&PR.hrs[s.id]);ptime.hidden=!ptime.textContent;
-    stage.classList.toggle('photo',view>0&&!!V[view].photo);stage.classList.toggle('dk',view===0&&!!color&&lumOf(color.hex)>0.75);
+    img.alt=`${pr.name} ${s.l}`;dims.textContent=dimText(s);dims.title=s.dl||'Ancho × fondo × alto (cm)';
+    stage.classList.toggle('photo',view>0&&!!V[view].photo);stage.classList.toggle('dk',view===0&&(!!pr.dark||!!color&&lumOf(color.hex)>0.75));
     if(color){el.querySelector('.cl b').textContent=color.n;el.querySelectorAll('.cols button').forEach(b=>b.setAttribute('aria-pressed',String(COLS[+b.dataset.c]===color)));}
     if(view>0){img.alt=`${pr.name}: ${V[view].l.toLowerCase()}`;img.style.transform='none';if(ruler)ruler.hidden=true;}
     else if(scaled){if(ruler)ruler.hidden=false;const k=Math.max(ruled?.5:.72,(s.h||maxH)/maxH);img.style.transform=`scale(${k})`;
@@ -619,7 +702,7 @@ function card(pr){
   el.querySelector(`#${pr.id}-mas`).addEventListener('click',()=>{qty=Math.min(qty+1,200);update();});
   add.addEventListener('click',()=>{
     const s=pr.sizes[cur];const name=(pr.sizes.length>1?`${pr.name} (${s.l})`:pr.name)+(color?`, color ${color.n.toLowerCase()}`:'');
-    addToCart(s.id,name,s.u||'',qty);say(`Agregado: ${qty} ${unit(s,qty)} de ${name}`);
+    addToCart(s.id,name,s.u||'',qty);say(`✓ Listo, ya está en tu carrito. Cuando termines, toca «Enviar pedido» abajo.`);
     qty=1;add.classList.add('ok');add.textContent='✓ Agregado al carrito';const cb=document.getElementById('cartbtn');cb.classList.remove('bump');void cb.offsetWidth;cb.classList.add('bump');clearTimeout(okT);
     okT=setTimeout(()=>{add.classList.remove('ok');update();},1600);update();
   });
@@ -640,7 +723,12 @@ document.getElementById('cu-wa').href=waLink('Hola Nodo Creative, quiero cotizar
 ['d-ig','f-ig'].forEach(i=>document.getElementById(i).href=CONTACTO.instagram);
 ['d-tt','f-tt'].forEach(i=>document.getElementById(i).href=CONTACTO.tiktok);
 ['d-fb','f-fb'].forEach(i=>{const a=document.getElementById(i);if(CONTACTO.facebook)a.href=CONTACTO.facebook;else a.hidden=true;});
-const grid=document.getElementById('grid');P.forEach(p=>grid.appendChild(card(p)));
+const grid=document.getElementById('grid');
+const SEASONS={navidad:{k:'Temporada navideña',t:'Navidad',d:'Adornos para el árbol, la mesa y para regalar.'},
+  hogar:{k:'Todo el año',t:'Para tu casa',d:'Cosas útiles para la cocina, el escritorio y el carro.'},
+  llaveros:{k:'Todo el año',t:'Llaveros y placas',d:'Para tus llaves, tu mochila o el collar de tu mascota.'}};
+let lastCat='';P.forEach(p=>{if(p.cat!==lastCat&&SEASONS[p.cat]){const z=SEASONS[p.cat],h=document.createElement('div');h.className='season';h.dataset.cat=p.cat;
+  h.innerHTML=`<small>${z.k}</small><h2>${z.t}</h2><p>${z.d}</p>`;grid.appendChild(h);lastCat=p.cat;}grid.appendChild(card(p));});
 
 // Barra del pedido y hoja con el detalle
 const cbar=document.getElementById('cartbar'),sheet=document.getElementById('sheet'),shList=document.getElementById('sh-list');
@@ -650,7 +738,7 @@ function renderCart(){
   document.getElementById('cb-n').textContent=n;document.getElementById('cb-t').textContent=fmt(cartTotal());
   document.getElementById('cb-s').textContent='Ver carrito';
   const bd=document.getElementById('cart-badge');bd.hidden=!has;bd.textContent=n;
-  document.getElementById('sh-empty').hidden=has;document.getElementById('sh-foot').hidden=!has;
+  document.getElementById('sh-empty').hidden=has;document.getElementById('sh-foot').hidden=!has;document.getElementById('sh-s1').hidden=!has;
   document.getElementById('sh-total').textContent=fmt(cartTotal());
   updateSend();
   shList.innerHTML='';
@@ -658,7 +746,7 @@ function renderCart(){
     li.innerHTML=`<div class="nm"></div><div class="lt">${fmt(r.total)}</div>
       <div class="step" role="group" aria-label="Cantidad"><button type="button" aria-label="Quitar una">−</button><output>${i.q}</output><button type="button" aria-label="Agregar una">+</button></div>
       <button type="button" class="rm">Quitar</button>`;
-    li.querySelector('.nm').innerHTML=`${esc(i.name)}<small>${Number.isInteger(r.each)?'':'≈ '}${fmt(Math.round(r.each))} c/u</small>`;
+    li.querySelector('.nm').innerHTML=`${esc(i.name)}<small>${Number.isInteger(r.each)?'':'≈ '}${fmt(Math.round(r.each))} cada ${i.u==='paquete'?'paquete':unitName(i.u,1)}</small>`;
     const [m,p]=li.querySelectorAll('.step button');
     m.onclick=()=>{i.q--;if(i.q<1)cart=cart.filter(x=>x!==i);saveCart();renderCart();};
     p.onclick=()=>{i.q=Math.min(i.q+1,200);saveCart();renderCart();};
@@ -689,7 +777,7 @@ PR.bundles.forEach(b=>{const el=document.createElement('article');el.className='
   if(!its.length){const p=P.find(p=>p.sizes.some(z=>z.img===b.img));its=p?[{p,z:p.sizes.find(z=>z.img===b.img)}]:[];}
   its=its.slice(0,3);const bMax=Math.max(...its.map(x=>x.z.h||0),1);
   const colOf=p=>p.tint!==false&&(COLS.find(c=>c.n===p.col)||COLS[0])||null,c0=its[0]&&colOf(its[0].p);
-  el.innerHTML=`<div class="bthumb${c0&&lumOf(c0.hex)>0.75?' dk':''}" role="img" aria-label="${b.name}"></div><div><h3>${b.name}</h3><p>${b.desc}</p>${PR.hrs?`<p class="btime">${hrsText(b.items.reduce((t,id)=>t+(PR.hrs[id]||0),0)).replace('Tiempo de impresión:','⏱️ Impresión total:')}</p>`:''}<div class="row"><span class="now">${fmt(b.price)}</span><span class="was">${fmt(b.single)}</span><span class="save">Ahorras ${fmt(b.save)}</span></div>${b.id?`<button type="button" class="badd" id="${b.id}-add" aria-label="Agregar al carrito: Paquete ${b.name}">${CART_SVG}Agregar</button>`:''}</div>`;
+  el.innerHTML=`<div class="bthumb${c0&&lumOf(c0.hex)>0.75?' dk':''}" role="img" aria-label="${b.name}"></div><div><h3>${b.name}</h3><p>${b.desc}</p><div class="row"><span class="now">${fmt(b.price)}</span><span class="was">${fmt(b.single)}</span><span class="save">Ahorras ${fmt(b.save)}</span></div>${b.id?`<button type="button" class="badd" id="${b.id}-add" aria-label="Agregar al carrito: Paquete ${b.name}">${CART_SVG}Agregar</button>`:''}</div>`;
   its.forEach((x,i)=>{const im=document.createElement('img'),n=its.length,k=n>1?Math.max(.55,(x.z.h||bMax*.6)/bMax):1,w=(n>1?58:86)*k;im.alt='';im.decoding='async';
     im.style.cssText=`width:${w}%;height:${w}%;left:${n>1?(4+i*(92-58)/(n-1)+(58-w)/2):7}%;z-index:${i+1}`;el.querySelector('.bthumb').appendChild(im);
     const c=colOf(x.p);tinted(x.z.img,c?c.hex:null,c&&c.n===x.p.col?c.n:null).then(u=>im.src=u);});
@@ -727,6 +815,7 @@ function pick(f,jump){
   btns.forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.f===f)));
   const isSec=SECS.includes(f);
   let shown=0;grid.querySelectorAll('.card').forEach(c=>{c.hidden=isSec||!(f==='todo'||c.dataset.cat===f)||(!!qv&&!qv.split(/\s+/).every(w=>c.dataset.t.includes(w)));if(!c.hidden)shown++;});
+  grid.querySelectorAll('.season').forEach(h=>h.hidden=!!qv||!(f==='todo'||h.dataset.cat===f));
   grid.hidden=isSec;searchBox.hidden=isSec;nores.hidden=!(qv&&!shown);document.querySelector('.fine').hidden=isSec;
   // en una categoría de productos se quedan "A tu medida" y "Cómo pedir" al final
   SECS.forEach(s=>document.getElementById(s).hidden=!!qv||!(f==='todo'||s===f||(!isSec&&(s==='medida'||s==='pedir'))));
@@ -737,9 +826,50 @@ function pick(f,jump){
 }
 btns.forEach(b=>b.addEventListener('click',()=>{if(qv){qv='';qIn.value='';}pick(b.dataset.f,true);}));
 qIn.addEventListener('input',()=>{qv=norm(qIn.value).trim();pick('todo',false);});
-document.getElementById('flowmini').addEventListener('click',()=>pick('pedir',true));
+document.getElementById('go-cat').addEventListener('click',e=>{e.preventDefault();pick('todo',false);
+  const y=document.querySelector('.bar').getBoundingClientRect().top+window.scrollY;window.scrollTo({top:y,behavior:'smooth'});});
 const h0=decodeURIComponent(location.hash.slice(1));if(h0)pick(h0,true);
 renderCart();
+
+// --- Guía paso a paso: resalta cada parte de la página y explica qué hacer ---
+const TOUR=[
+ {t:'¡Hola! 👋',b:'Te enseñamos a hacer tu pedido. Son 4 pasos y toma menos de un minuto.'},
+ {sel:'.bar .cats',t:'Elige qué quieres ver',b:'Toca «Navidad», «Hogar» o «Llaveros» para ver solo eso. «Todo» te muestra el catálogo completo.'},
+ {sel:'#grid .card:not([hidden])',t:'Toca una pieza',b:'Se abre su ficha: ahí eliges el tamaño, el color y cuántas quieres, y ves cuánto mide y cuánto cuesta.'},
+ {sel:'#cartbtn',t:'Tu carrito 🛒',b:'Cuando tocas el botón azul «Agregar al carrito», la pieza se guarda aquí. Puedes agregar todas las que quieras.'},
+ {t:'Envía tu pedido 💬',b:'Al terminar, toca el botón verde «Enviar pedido» que aparece abajo. Se abre WhatsApp con tu pedido ya escrito: solo lo envías y te respondemos para confirmar.'}];
+let tourEl=null,tourI=0;const TOUR_KEY='nodo-guia-vista';
+function tourPlace(){if(!tourEl)return;const st=TOUR[tourI],hole=tourEl.querySelector('.tour-hole'),cardT=tourEl.querySelector('.tour-card');
+  const el=st.sel&&document.querySelector(st.sel);
+  if(!el){hole.classList.add('none');cardT.classList.add('mid');return;}
+  const r=el.getBoundingClientRect(),pad=8;hole.classList.remove('none');cardT.classList.remove('mid');
+  Object.assign(hole.style,{left:(r.left-pad)+'px',top:(r.top-pad)+'px',width:(r.width+pad*2)+'px',height:(r.height+pad*2)+'px'});
+  // la tarjeta de la guía va abajo, o arriba si la pieza resaltada quedó abajo
+  const below=r.top+r.height/2>innerHeight*0.55;cardT.style.bottom=below?'auto':'';cardT.style.top=below?'calc(16px + env(safe-area-inset-top,0px))':'';}
+function tourShow(i){tourI=i;const st=TOUR[i];
+  tourEl.querySelector('.tour-n').textContent=i?`Paso ${i} de ${TOUR.length-1}`:'Guía rápida';
+  tourEl.querySelector('h3').textContent=st.t;tourEl.querySelector('.tb').textContent=st.b;
+  tourEl.querySelector('.tour-dots').innerHTML=TOUR.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('');
+  tourEl.querySelector('.back').hidden=i===0;tourEl.querySelector('.next').textContent=i===0?'Empezar':i===TOUR.length-1?'¡Entendido!':'Siguiente';
+  tourEl.querySelector('.skip').hidden=i===TOUR.length-1;
+  const el=st.sel&&document.querySelector(st.sel);
+  if(el){const r=el.getBoundingClientRect();if(r.top<70||r.bottom>innerHeight*0.55){const sticky=el.closest('.bar');
+    if(sticky){const top=document.querySelector('header').getBoundingClientRect().bottom+window.scrollY;window.scrollTo({top,behavior:'instant'});}
+    else window.scrollTo({top:r.top+window.scrollY-90,behavior:'instant'});}}
+  requestAnimationFrame(tourPlace);tourEl.querySelector('.next').focus();}
+function tourOpen(){closeCard();if(!sheet.hidden)closeSheet();if(qv){qv='';qIn.value='';}pick('todo',false);
+  if(!tourEl){tourEl=document.createElement('div');tourEl.className='tour';tourEl.setAttribute('role','dialog');tourEl.setAttribute('aria-modal','true');tourEl.setAttribute('aria-labelledby','tour-h');
+    tourEl.innerHTML='<div class="tour-hole"></div><div class="tour-card"><p class="tour-n"></p><h3 id="tour-h"></h3><p class="tb"></p><div class="tour-dots"></div><div class="tour-nav"><button type="button" class="skip">Saltar guía</button><button type="button" class="back">Atrás</button><button type="button" class="next"></button></div></div>';
+    tourEl.querySelector('.skip').onclick=tourClose;tourEl.querySelector('.back').onclick=()=>tourShow(Math.max(0,tourI-1));
+    tourEl.querySelector('.next').onclick=()=>tourI<TOUR.length-1?tourShow(tourI+1):tourClose();
+    addEventListener('resize',tourPlace);addEventListener('scroll',tourPlace,{passive:true});}
+  document.body.appendChild(tourEl);document.body.style.overflow='hidden';tourShow(0);}
+function tourClose(){if(!tourEl||!tourEl.isConnected)return;tourEl.remove();document.body.style.overflow='';try{localStorage.setItem(TOUR_KEY,'1');}catch(e){}}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&tourEl&&tourEl.isConnected)tourClose();});
+document.querySelectorAll('#tour-open,#tour-open-2').forEach(b=>b.addEventListener('click',tourOpen));
+// la primera vez que alguien entra, la guía se abre sola (se puede saltar)
+let seen=false;try{seen=!!localStorage.getItem(TOUR_KEY);}catch(e){seen=true;}
+if(!seen&&!h0&&!cart.length)setTimeout(tourOpen,900);
 </script>
 
 </body>
