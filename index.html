@@ -447,6 +447,8 @@ const P=[
   sizes:[{l:'Espiral 1',img:'img/esfera-twist-1.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_t1'},{l:'Espiral 2',img:'img/esfera-twist-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t2'},{l:'Espiral 3',img:'img/esfera-twist.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_t3'},
    {l:'Gajos 1',img:'img/esfera-straight-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r1'},{l:'Gajos 2',img:'img/esfera-straight-2.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_r2'},
    {l:'Relieve 1',img:'img/esfera-crossed-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c1'},{l:'Relieve 2',img:'img/esfera-crossed-2.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_c2'},{l:'Relieve 3',img:'img/esfera-crossed-3.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c3'}]},
+ {id:'esf_nombre',tint:false,cat:'navidad',tag:'Personalizable',name:'Esfera navideña con nombre',desc:'Esfera para el árbol con el nombre que quieras en letra cursiva y un adorno navideño (moño, copo, gorro, estrella…). De 1 color, con el nombre en relieve, o de 2 colores para que el nombre resalte (ej. rojo con dorado). Ideal para regalar a toda la familia. Al pedir, dinos los nombres y los colores. La imagen es una vista previa del diseño.',
+  sizes:[{l:'1 color',img:'img/esfera-nombre-1c.webp',d:'aprox. 8 × 9.7 × 0.5',dl:'Ancho × alto × grosor (cm)',h:9.7,id:'esf_nom1'},{l:'2 colores',img:'img/esfera-nombre-2c.webp',d:'aprox. 8 × 9.7 × 0.5',dl:'Ancho × alto × grosor (cm)',h:9.7,id:'esf_nom2'}]},
  {id:'acanalado',col:'Beige',cat:'navidad',tag:'Navidad',name:'Árbol acanalado',desc:'Cono de niveles con acabado acanalado, minimalista y elegante.',
   sizes:[{l:'Chico',img:'img/acanalado-chico.webp',d:'4.8 × 4.8 × 8.5',h:8.5,id:'acan_ch'},{l:'Grande',img:'img/acanalado-grande.webp',d:'7.0 × 7.0 × 12.5',h:12.5,id:'acan_gr'}]},
  {id:'nacimiento',col:'Beige',cat:'navidad',tag:'Navidad',name:'Nacimiento de 9 piezas',desc:'María, José, el Niño en el pesebre, los tres Reyes Magos, el pastor con su borrego, el ángel y el burrito. Medidas de alto: José y los dos Reyes Magos de pie, 8 cm; el Rey arrodillado, 6.7 cm; María, el pastor y el ángel, 6.5 cm; el burrito, 4.5 cm (5.5 cm de largo); el Niño en el pesebre, 3 cm (4 cm de largo).',
@@ -556,6 +558,7 @@ function cartText(){
   if(sp.det)t+=`\nDetalles: ${sp.det}`;
   if(sp.fecha)t+=`\nLo necesito para: ${sp.fecha}`;
   if(cart.some(i=>i.id.startsWith('hueso'))&&!sp.det)t+=`\nNombre y teléfono para la placa: `;
+  if(cart.some(i=>i.id.startsWith('esf_nom'))&&!sp.det)t+=`\nNombres y colores para las esferas: `;
   if(cart.some(i=>i.id.startsWith('est_')))t+=`\nTe mando la foto para la estrella en este chat.`;
   return t;
 }
