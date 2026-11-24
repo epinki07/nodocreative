@@ -880,7 +880,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&tourEl&&tourEl.isCo
 document.querySelectorAll('#tour-open,#tour-open-2').forEach(b=>b.addEventListener('click',tourOpen));
 // la primera vez que alguien entra, la guía se abre sola (se puede saltar)
 let seen=false;try{seen=!!localStorage.getItem(TOUR_KEY);}catch(e){seen=true;}
-if(!seen&&!h0&&!cart.length)setTimeout(tourOpen,900);
+// si la persona ya tocó o se movió por la página antes de que salga, no se la ponemos encima
+if(!seen&&!h0&&!cart.length){const tourT=setTimeout(tourOpen,900),tourStop=()=>{clearTimeout(tourT);['pointerdown','scroll','keydown'].forEach(ev=>removeEventListener(ev,tourStop,true));};
+  ['pointerdown','scroll','keydown'].forEach(ev=>addEventListener(ev,tourStop,{capture:true,passive:true}));}
 </script>
 
 </body>
