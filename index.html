@@ -521,7 +521,7 @@ const CONTACTO={whatsapp:'529992565297',instagram:'https://www.instagram.com/nod
 const waLink=t=>'https://wa.me/'+CONTACTO.whatsapp+'?text='+encodeURIComponent(t);
 // h: medida que se usa para comparar tamaños dentro del mismo producto (cm)
 const P=[
- {id:'pino',col:'Blanco',cat:'navidad',tag:'Navidad',name:'Pino navideño',desc:'Un pino de pliegues suaves que llena de Navidad cualquier repisa o mesa de centro.',
+ {id:'pino',col:'Blanco',fotos:['img/pino-real-par.webp','img/pino-real-beige.webp','img/pino-real-rojo.webp'],cat:'navidad',tag:'Navidad',name:'Pino navideño',desc:'Un pino de pliegues suaves que llena de Navidad cualquier repisa o mesa de centro.',
   sizes:[{l:'10 cm',img:'img/pino.webp',d:'7.95 × 7.95 × 10.0',h:10,id:'pino10'},{l:'13 cm',img:'img/pino.webp',d:'10.3 × 10.3 × 13.0',h:13,id:'pino13'},{l:'16 cm',img:'img/pino.webp',d:'12.7 × 12.7 × 16.0',h:16,id:'pino16'}]},
  {id:'copo',col:'Blanco',fotos:['img/ref/04-copo-de-nieve.webp'],cat:'navidad',tag:'Navidad',name:'Copo de nieve',desc:'Copo de nieve para colgar en tu árbol, con su aro listo para el gancho.',
   sizes:[{l:'Mediano',img:'img/copo.webp',d:'8.3 × 10.0 × 0.7',dl:'Ancho × alto × grosor (cm)',h:10,id:'copo_md'},{l:'Grande',img:'img/copo.webp',d:'12.4 × 15.0 × 1.1',dl:'Ancho × alto × grosor (cm)',h:15,id:'copo_gr'}]},
@@ -549,6 +549,8 @@ const P=[
   sizes:[{l:'Liso',img:'img/cascanueces-liso.webp',d:'Cuerpo: 4.3 × 4.4 × 12.2',id:'casc_liso'},{l:'Acanalado',img:'img/cascanueces-acanalado.webp',d:'Cuerpo: 4.3 × 4.5 × 12.2',id:'casc_acan'}]},
  {id:'jarron',col:'Beige',cat:'hogar',tag:'Hogar',name:'Jarrón bulbo',desc:'Jarrón de cuerpo redondo con textura de gajos finos. Se ve hermoso con flores secas.',uso:'img/uso-jarron.webp',
   sizes:[{l:'Chico',img:'img/jarron-chico.webp',d:'12.2 × 12.2 × 12.0',h:12,id:'jar_ch'},{l:'Mediano',img:'img/jarron-mediano.webp',d:'15.2 × 15.2 × 15.0',h:15,id:'jar_md'},{l:'Grande',img:'img/jarron-grande.webp',d:'18.3 × 18.3 × 18.0',h:18,id:'jar_gr'}]},
+ {id:'home',tint:false,fotos:['img/home-jarron.webp','img/home-lado.webp'],cat:'hogar',tag:'Nuevo',name:'Set decorativo HOME',desc:'Seis piezas acanaladas que combinan entre sí: charola, jarrón, dos arcos, letras HOME, reno y portavela. Listo para lucir en tu mesa de centro, repisa o recibidor.',
+  sizes:[{l:'Juego de 6 piezas',img:'img/home-frente.webp',d:'charola de 22 cm y arco grande de 16 cm de alto',dl:'Medidas',u:'juego',id:'set_home'}]},
  {id:'organizador',col:'Negro',fotos:['img/ref/12-clips.webp'],cat:'hogar',tag:'Hogar',name:'Organizador de cables',desc:'Enrolla los cables del cargador y los audífonos. Adiós a los nudos en la bolsa.',
   sizes:[{l:'Chico',img:'img/org-chico.webp',d:'3.7 × 1.5 × 1.4',dl:'Largo × ancho × alto (cm)',h:3.7,hl:'largo',id:'org_ch'},{l:'Mediano',img:'img/org-mediano.webp',d:'3.7 × 1.9 × 1.4',dl:'Largo × ancho × alto (cm)',h:3.7,hl:'largo',id:'org_md'},{l:'XL',img:'img/org-xl.webp',d:'4.3 × 2.3 × 1.4',dl:'Largo × ancho × alto (cm)',h:4.3,hl:'largo',id:'org_xl'}]},
  {id:'clips',col:'Azul',cat:'hogar',tag:'Hogar',name:'Clips para bolsas',desc:'Para cerrar bolsas de café, botanas y cereal. Por juego de 6 o sueltos.',
@@ -571,6 +573,8 @@ const P=[
   sizes:[{l:'Único',img:'img/soporte-tel.webp',d:'5.7 × 9.9 × 9.6',dl:'Ancho × fondo × alto (cm)',id:'tel'}]},
  {id:'hueso',tint:false,cat:'llaveros',tag:'Personalizable',name:'Placa de hueso personalizada',desc:'Placa en forma de hueso para el collar de tu mascota, con su nombre al frente y tu teléfono atrás, por si algún día se pierde. Al pedir, dinos el nombre y el teléfono.',fotos:['img/uso-hueso.webp','img/uso-hueso-2.webp'],
   sizes:[{l:'Chica',img:'img/hueso.webp',d:'4.0 × 2.4 × 0.4',dl:'Largo × alto × grosor (cm)',h:4,hl:'largo',id:'hueso_ch'},{l:'Mediana',img:'img/hueso.webp',d:'6.0 × 3.5 × 0.4',dl:'Largo × alto × grosor (cm)',h:6,hl:'largo',id:'hueso_md'},{l:'Grande',img:'img/hueso.webp',d:'8.0 × 4.7 × 0.4',dl:'Largo × alto × grosor (cm)',h:8,hl:'largo',id:'hueso_gr'}]},
+ {id:'dragones',tint:false,fotos:['img/dragon-mano-1.webp','img/dragon-granito.webp'],cat:'llaveros',tag:'Nuevo',name:'Llaveros de pareja · dragones',desc:'Dos llaveros que se unen y forman un círculo: dragón negro y dragón blanco. Uno para ti y otro para tu persona favorita. Con argolla y cadena.',
+  sizes:[{l:'Par',img:'img/dragon-mano-2.webp',d:'3.5 cm cada llavero',dl:'Medidas',u:'juego',id:'drag_par'}]},
  {id:'llavero_copo',col:'Blanco',fotos:['img/ref/05-llavero-copo-de-nieve.webp'],cat:'llaveros',tag:'Llavero',name:'Llavero copo de nieve',desc:'Copito de nieve para tus llaves o la mochila. También se ve lindo colgado en el árbol.',
   sizes:[{l:'Único',img:'img/copo.webp',d:'4.2 × 5.0 × 0.4',dl:'Ancho × alto × grosor (cm)',id:'copo_ch'}]},
  {id:'snoopy',cat:'llaveros',tag:'Nuevo',tint:false,fotos:['img/ref/07-llavero-perrito.webp'],name:'Llavero clicker de personajes',desc:'Llavero antiestrés: lo presionas y hace clic, como una tecla. Con la carita del personaje en dos colores y cadena incluida.',
