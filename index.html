@@ -531,6 +531,8 @@ const P=[
    {l:'Relieve 1',img:'img/esfera-crossed-1.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c1'},{l:'Relieve 2',img:'img/esfera-crossed-2.webp',d:'5.85 × 5.85 × 6.9',h:6.9,id:'esf_c2'},{l:'Relieve 3',img:'img/esfera-crossed-3.webp',d:'6.0 × 6.0 × 6.9',h:6.9,id:'esf_c3'}]},
  {id:'esf_nombre',tint:false,dark:true,cat:'navidad',tag:'Personalizable',name:'Esfera navideña con nombre',desc:'El regalo que todos van a querer: una esfera con el nombre de cada quien en letra cursiva y un detalle navideño (moño, copo, gorro o estrella). En 2 colores el nombre resalta; en 1 color va en relieve. Al pedir, dinos los nombres.',
   sizes:[{l:'2 colores',img:'img/esfera-nombre-2c.webp',d:'aprox. 8 × 9.7 × 0.5',dl:'Ancho × alto × grosor (cm)',h:9.7,id:'esf_nom2'},{l:'1 color',img:'img/esfera-nombre-1c.webp',d:'aprox. 8 × 9.7 × 0.5',dl:'Ancho × alto × grosor (cm)',h:9.7,id:'esf_nom1'}]},
+ {id:'arbol_nombres',tint:false,fotos:['img/arbol-nombres.webp'],cat:'navidad',tag:'Personalizable',name:'Árbol navideño con los nombres de tu familia',desc:'Tu familia en un árbol de Navidad: cada renglón es un nombre, con el año abajo y la estrella dorada arriba. Grueso y firme, se para solo en la mesa o la repisa. Hasta 8 letras por nombre (si es más largo, pregúntanos). Colores disponibles: café, gris claro, gris oscuro, blanco, negro, rojo, azul, rosa y dorado. Al pedir, dinos los nombres y el año.',
+  sizes:[{l:'4 nombres + año',img:'img/arbol-nombres.webp',d:'aprox. 16 × 22 × 5',dl:'Ancho × alto × fondo (cm)',h:22,id:'arbnom4'},{l:'3 nombres + año',img:'img/arbol-nombres.webp',d:'aprox. 16 × 18.5 × 5',dl:'Ancho × alto × fondo (cm)',h:18.5,id:'arbnom3'},{l:'5 nombres + año',img:'img/arbol-nombres.webp',d:'aprox. 16 × 25.5 × 5',dl:'Ancho × alto × fondo (cm)',h:25.5,id:'arbnom5'}]},
  {id:'acanalado',col:'Beige',cat:'navidad',tag:'Navidad',name:'Árbol acanalado',desc:'Árbol minimalista de líneas finas. Elegante y perfecto para una decoración moderna.',
   sizes:[{l:'Chico',img:'img/acanalado-chico.webp',d:'4.8 × 4.8 × 8.5',h:8.5,id:'acan_ch'},{l:'Grande',img:'img/acanalado-grande.webp',d:'7.0 × 7.0 × 12.5',h:12.5,id:'acan_gr'}]},
  {id:'nacimiento',col:'Beige',fotos:['img/ref/23-nacimiento.webp'],cat:'navidad',tag:'Navidad',name:'Nacimiento de 9 piezas',desc:'El Nacimiento completo para tu hogar: María, José, el Niño en el pesebre, los tres Reyes Magos, el pastor con su borrego, el ángel y el burrito.',
@@ -641,10 +643,22 @@ function dimText(s){
 }
 
 // --- Pedido (carrito): se guarda en este navegador y se manda en un solo WhatsApp ---
-const CART_KEY='nodo-pedido';let cart=[];
-try{cart=(JSON.parse(localStorage.getItem(CART_KEY))||[]).filter(i=>i&&PR.list[i.id]!=null&&i.q>0);}catch(e){cart=[];}
-function saveCart(){try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch(e){}}
-const SPEC_KEY='nodo-especs';let specs={};try{specs=JSON.parse(localStorage.getItem(SPEC_KEY))||{};}catch(e){specs={};}
+const CART_KEY='nodo-pedido',SPEC_KEY='nodo-especs';
+const specFields=[['sp-col','col'],['sp-det','det'],['sp-fecha','fecha']].map(([id,k])=>[document.getElementById(id),k]);
+function readOrder(key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback;}catch(e){return fallback;}}
+function readCart(){const items=readOrder(CART_KEY,[]);return Array.isArray(items)?items.filter(i=>i&&PR.list[i.id]!=null&&i.q>0):[];}
+function readSpecs(){const saved=readOrder(SPEC_KEY,{});return Object.fromEntries(specFields.map(([,k])=>[k,typeof saved[k]==='string'?saved[k]:'']));}
+let cart=readCart(),specs=cart.length?readSpecs():{};
+function syncSpecFields(){specFields.forEach(([f,k])=>{f.value=specs[k]||'';});}
+function clearOrder(){
+  cart=[];specs={};syncSpecFields();
+  [SPEC_KEY,CART_KEY].forEach(k=>{try{localStorage.removeItem(k);}catch(e){}});
+}
+if(!cart.length)clearOrder();
+function saveCart(){
+  if(!cart.length){clearOrder();return;}
+  try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch(e){}
+}
 const getSpecs=()=>({col:(specs.col||'').trim(),det:(specs.det||'').trim(),fecha:(specs.fecha||'').trim()});
 const lineTotal=i=>priceFor(i.id,i.q).total;
 const cartTotal=()=>cart.reduce((a,i)=>a+lineTotal(i),0);
@@ -658,6 +672,7 @@ function cartText(){
   if(sp.fecha)t+=`\nLo necesito para: ${sp.fecha}`;
   if(cart.some(i=>i.id.startsWith('hueso'))&&!sp.det)t+=`\nNombre y teléfono para la placa: `;
   if(cart.some(i=>i.id.startsWith('esf_nom'))&&!sp.det)t+=`\nNombres y colores para las esferas: `;
+  if(cart.some(i=>i.id.startsWith('arbnom'))&&!sp.det)t+=`\nNombres, año y colores para el árbol: `;
   if(cart.some(i=>i.id.startsWith('est_')))t+=`\nTe mando la foto para la estrella en este chat.`;
   return t;
 }
@@ -770,8 +785,13 @@ function renderCart(){
 }
 function updateSend(){document.getElementById('sh-send').href=waLink(cartText());document.getElementById('sh-ig').href=IG_DM;}
 const IG_DM='https://ig.me/m/nodocreatiive';
-[['sp-col','col'],['sp-det','det'],['sp-fecha','fecha']].forEach(([id,k])=>{const f=document.getElementById(id);f.value=specs[k]||'';
-  f.addEventListener('input',()=>{specs[k]=f.value;try{localStorage.setItem(SPEC_KEY,JSON.stringify(specs));}catch(e){}updateSend();});});
+syncSpecFields();
+specFields.forEach(([f,k])=>{f.addEventListener('input',()=>{specs[k]=f.value;try{localStorage.setItem(SPEC_KEY,JSON.stringify(specs));}catch(e){}updateSend();});});
+addEventListener('storage',e=>{
+  if(e.storageArea!==localStorage||(e.key!==CART_KEY&&e.key!==SPEC_KEY&&e.key!==null))return;
+  cart=readCart();specs=cart.length?readSpecs():{};
+  syncSpecFields();renderCart();
+});
 function legacyCopy(t){const a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();let ok=false;try{ok=document.execCommand('copy');}catch(e){}a.remove();return ok;}
 document.getElementById('sh-ig').addEventListener('click',()=>{const t=cartText();
   // se copia en el mismo toque (antes de que se abra Instagram) para que el navegador lo permita
@@ -785,7 +805,7 @@ document.getElementById('cartbtn').onclick=openSheet;
 document.getElementById('sh-x').onclick=closeSheet;
 sheet.addEventListener('click',e=>{if(e.target===sheet)closeSheet();});
 document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(!sheet.hidden)closeSheet();else if(document.querySelector('.card.open')){if(history.state&&history.state.card)history.back();else closeCard();}});
-document.getElementById('sh-clear').onclick=()=>{cart=[];saveCart();renderCart();say('Carrito vacío');};
+document.getElementById('sh-clear').onclick=()=>{clearOrder();renderCart();say('Carrito vacío');};
 const bg=document.getElementById('bgrid');
 PR.bundles.forEach(b=>{const el=document.createElement('article');el.className='bcard';
   let its=(b.items||[]).map(id=>{for(const p of P){const z=p.sizes.find(z=>z.id===id);if(z)return {p,z};}}).filter(Boolean);
