@@ -572,7 +572,7 @@ const CONTACTO={whatsapp:'529992565297',instagram:'https://www.instagram.com/nod
 const waLink=t=>'https://wa.me/'+CONTACTO.whatsapp+'?text='+encodeURIComponent(t);
 // h: medida que se usa para comparar tamaños dentro del mismo producto (cm)
 const P=[
- {id:'pino',col:'Blanco',fotos:['img/pino-real-par.webp','img/pino-real-beige.webp','img/pino-real-rojo.webp'],cat:'navidad',tag:'Navidad',name:'Pino navideño',desc:'Un pino de pliegues suaves que llena de Navidad cualquier repisa o mesa de centro.',
+ {id:'pino',col:'Blanco',fotos:['img/pinos-doodle.webp'],cat:'navidad',tag:'Navidad',name:'Pino navideño',desc:'Un pino de pliegues suaves que llena de Navidad cualquier repisa o mesa de centro.',
   sizes:[{l:'10 cm',img:'img/pino.webp',d:'7.95 × 7.95 × 10.0',h:10,id:'pino10'},{l:'13 cm',img:'img/pino.webp',d:'10.3 × 10.3 × 13.0',h:13,id:'pino13'},{l:'16 cm',img:'img/pino.webp',d:'12.7 × 12.7 × 16.0',h:16,id:'pino16'}]},
  {id:'copo',col:'Blanco',fotos:['img/ref/04-copo-de-nieve.webp'],cat:'navidad',tag:'Navidad',name:'Copo de nieve',desc:'Copo de nieve para colgar en tu árbol, con su aro listo para el gancho.',
   sizes:[{l:'Mediano',img:'img/copo.webp',d:'8.3 × 10.0 × 0.7',dl:'Ancho × alto × grosor (cm)',h:10,id:'copo_md'},{l:'Grande',img:'img/copo.webp',d:'12.4 × 15.0 × 1.1',dl:'Ancho × alto × grosor (cm)',h:15,id:'copo_gr'}]},
@@ -594,9 +594,9 @@ const P=[
   sizes:[{l:'Chica',img:'img/estrella.webp',d:'11.7 × 12.5 × 0.3',dl:'Ancho × alto × grosor (cm)',h:12.5,id:'est_ch'},{l:'Mediana',img:'img/estrella.webp',d:'15.0 × 16.0 × 0.4',dl:'Ancho × alto × grosor (cm)',h:16,id:'est_md'},{l:'Grande',img:'img/estrella.webp',d:'18.8 × 20.0 × 0.5',dl:'Ancho × alto × grosor (cm)',h:20,id:'est_gr'}]},
  {id:'reno',col:'Blanco',fotos:['img/ref/01-reno-navideno.webp'],cat:'navidad',tag:'Navidad',name:'Reno navideño',desc:'Reno de cuerpo acanalado que se roba las miradas en repisas y centros de mesa.',
   sizes:[{l:'Único',img:'img/reno.webp',d:'4.7 × 4.6 × 13.5',id:'reno'}]},
- {id:'venado',tint:false,fotos:['img/venado-pareja.webp','img/venado-grupo.webp','img/venado-lado.webp'],cat:'navidad',tag:'Nuevo',name:'Venado Japandi',desc:'Venado sentado de estilo nórdico, con el pelaje en ondas suaves. Precioso solo o en pareja, en repisas y centros de mesa.',
+ {id:'venado',tint:false,fotos:['img/venado-pareja-doodle.webp','img/venados-doodle.webp'],cat:'navidad',tag:'Nuevo',name:'Venado Japandi',desc:'Venado sentado de estilo nórdico, con el pelaje en ondas suaves. Precioso solo o en pareja, en repisas y centros de mesa.',
   sizes:[{l:'10 cm',img:'img/venado-10.webp',d:'4.4 × 3.5 × 10.0',id:'ven10'},{l:'15 cm',img:'img/venado-15.webp',d:'6.6 × 5.2 × 15.0',id:'ven15'},{l:'20 cm',img:'img/venado-15.webp',d:'8.8 × 7.0 × 20.0',id:'ven20'}]},
- {id:'origami',col:'Blanco',fotos:['img/ref/02-arbol-navideno-calado.webp','img/ref/06-figuras-navidenas.webp'],cat:'navidad',tag:'Navidad',name:'Árbol de origami',desc:'Pino de pliegues geométricos con caladitos que dejan pasar la luz.',
+ {id:'origami',col:'Blanco',fotos:['img/ref/02-arbol-navideno-calado.webp'],cat:'navidad',tag:'Navidad',name:'Árbol de origami',desc:'Pino de pliegues geométricos con caladitos que dejan pasar la luz.',
   sizes:[{l:'Único',img:'img/origami.webp',d:'9.2 × 9.2 × 12.0',id:'origami'}]},
  {id:'cascanueces',col:'Rojo',cat:'navidad',tag:'Navidad',name:'Cascanueces',desc:'El clásico soldadito cascanueces, para un toque tradicional en tu decoración. Te lo entregamos armado.',
   sizes:[{l:'Liso',img:'img/cascanueces-liso.webp',d:'Cuerpo: 4.3 × 4.4 × 12.2',id:'casc_liso'},{l:'Acanalado',img:'img/cascanueces-acanalado.webp',d:'Cuerpo: 4.3 × 4.5 × 12.2',id:'casc_acan'}]},
@@ -604,7 +604,7 @@ const P=[
   sizes:[{l:'Chico',img:'img/jarron-chico.webp',d:'12.2 × 12.2 × 12.0',h:12,id:'jar_ch'},{l:'Mediano',img:'img/jarron-mediano.webp',d:'15.2 × 15.2 × 15.0',h:15,id:'jar_md'},{l:'Grande',img:'img/jarron-grande.webp',d:'18.3 × 18.3 × 18.0',h:18,id:'jar_gr'}]},
  {id:'home',tint:false,fotos:['img/home-jarron.webp','img/home-lado.webp'],cat:'hogar',tag:'Nuevo',name:'Set decorativo HOME',desc:'Seis piezas acanaladas que combinan entre sí: charola, jarrón, dos arcos, letras HOME, reno y portavela. Listo para lucir en tu mesa de centro, repisa o recibidor.',
   sizes:[{l:'Juego de 6 piezas',img:'img/home-frente.webp',d:'charola de 22 cm y arco grande de 16 cm de alto',dl:'Medidas',u:'juego',id:'set_home'}]},
- {id:'organizador',col:'Negro',fotos:['img/ref/12-clips.webp'],cat:'hogar',tag:'Hogar',name:'Organizador de cables',desc:'Enrolla los cables del cargador y los audífonos. Adiós a los nudos en la bolsa.',
+ {id:'organizador',col:'Negro',fotos:[],cat:'hogar',tag:'Hogar',name:'Organizador de cables',desc:'Enrolla los cables del cargador y los audífonos. Adiós a los nudos en la bolsa.',
   sizes:[{l:'Chico',img:'img/org-chico.webp',d:'3.7 × 1.5 × 1.4',dl:'Largo × ancho × alto (cm)',h:3.7,hl:'largo',id:'org_ch'},{l:'Mediano',img:'img/org-mediano.webp',d:'3.7 × 1.9 × 1.4',dl:'Largo × ancho × alto (cm)',h:3.7,hl:'largo',id:'org_md'},{l:'XL',img:'img/org-xl.webp',d:'4.3 × 2.3 × 1.4',dl:'Largo × ancho × alto (cm)',h:4.3,hl:'largo',id:'org_xl'}]},
  {id:'clips',col:'Azul',cat:'hogar',tag:'Hogar',name:'Clips para bolsas',desc:'Para cerrar bolsas de café, botanas y cereal. Por juego de 6 o sueltos.',
   sizes:[{l:'Juego de 6',img:'img/clips6.webp',d:'1.4 × 3.5 × 1.0 cada clip',dl:'Ancho × largo × alto (cm)',id:'clips',u:'juego'},{l:'Suelto',img:'img/clips.webp',d:'1.4 × 3.5 × 1.0',dl:'Ancho × largo × alto (cm)',id:'clip1'}]},
